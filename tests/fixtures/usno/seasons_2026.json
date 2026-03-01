@@ -1,0 +1,22 @@
+{
+  "apiversion": "4.0.1",
+  "year": 2026,
+  "data": [
+    {
+      "id": "2026-march-equinox",
+      "year": 2026,
+      "month": 3,
+      "day": 20,
+      "time": "09:46",
+      "phenom": "March equinox"
+    },
+    {
+      "id": "2026-june-solstice",
+      "year": 2026,
+      "month": 6,
+      "day": 21,
+      "time": "02:25",
+      "phenom": "June solstice"
+    }
+  ]
+}
