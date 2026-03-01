@@ -50,12 +50,12 @@ For Phase 1:
 Canonical interface:
 
 ```bash
-python -m astronomical_calendars validate astronomy --year 2026
-python -m astronomical_calendars fetch astronomy --year 2026
-python -m astronomical_calendars normalize astronomy --year 2026
-python -m astronomical_calendars reconcile --calendar astronomy-all --year 2026
-python -m astronomical_calendars build --calendar astronomy-all
-python -m astronomical_calendars run --calendar astronomy-all --year 2026
+python -m astrocal validate astronomy --year 2026
+python -m astrocal fetch astronomy --year 2026
+python -m astrocal normalize astronomy --year 2026
+python -m astrocal reconcile --calendar astronomy-all --year 2026
+python -m astrocal build --calendar astronomy-all
+python -m astrocal run --calendar astronomy-all --year 2026
 ```
 
 `Makefile` remains a thin wrapper only.
@@ -67,7 +67,7 @@ python -m astronomical_calendars run --calendar astronomy-all --year 2026
 Implement under:
 
 ```text
-src/astronomical_calendars/
+src/astrocal/
   __init__.py
   __main__.py
   cli.py
@@ -112,7 +112,7 @@ src/astronomical_calendars/
 ```
 
 Decision:
-- add `__main__.py` so `python -m astronomical_calendars` works cleanly.
+- add `__main__.py` so `python -m astrocal` works cleanly.
 
 ### Layer Responsibilities
 
@@ -360,7 +360,7 @@ Decision:
 
 Use small, stable commits that tell the implementation story:
 
-1. `feat: scaffold astronomical_calendars package and CLI entrypoint`
+1. `feat: scaffold astrocal package and CLI entrypoint`
 2. `feat: add typed models and filesystem stores for pipeline artifacts`
 3. `feat: load calendar manifests from config`
 4. `feat: implement moon phase adapter and normalization`
@@ -398,7 +398,7 @@ Rule:
 
 Phase 1 is complete when:
 
-- `python -m astronomical_calendars run --calendar astronomy-all --year 2026` completes successfully for astronomy sources only
+- `python -m astrocal run --calendar astronomy-all --year 2026` completes successfully for astronomy sources only
 - validation failures stop the run before reconciliation and build
 - moon phases, seasons, and eclipses write candidate JSON
 - accepted catalog files update by source and year
