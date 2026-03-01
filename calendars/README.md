@@ -7,24 +7,40 @@ This directory is the subscriber-facing home for the generated calendar feeds in
 ### Astronomical Events
 
 - File: `astronomical-events.ics`
+- Subscription URL:
+```text
+https://raw.githubusercontent.com/andrewdmontgomery/AstronomicalCalendars/main/calendars/astronomical-events.ics
+```
 - Includes: Moon phases, equinoxes and solstices, and eclipses
 - Good for: People who want one combined feed of major astronomical events
 
 ### Moon Phases
 
 - File: `moon-phases.ics`
+- Subscription URL:
+```text
+https://raw.githubusercontent.com/andrewdmontgomery/AstronomicalCalendars/main/calendars/moon-phases.ics
+```
 - Includes: New Moon, First Quarter, Full Moon, and Last Quarter
 - Good for: Observers, photographers, and anyone tracking the lunar cycle
 
 ### Equinoxes and Solstices
 
 - File: `equinoxes-and-solstices.ics`
+- Subscription URL:
+```text
+https://raw.githubusercontent.com/andrewdmontgomery/AstronomicalCalendars/main/calendars/equinoxes-and-solstices.ics
+```
 - Includes: March Equinox, June Solstice, September Equinox, and December Solstice
 - Good for: Seasonal markers and astronomy reference calendars
 
 ### Eclipses
 
 - File: `eclipses.ics`
+- Subscription URL:
+```text
+https://raw.githubusercontent.com/andrewdmontgomery/AstronomicalCalendars/main/calendars/eclipses.ics
+```
 - Includes: Solar and lunar eclipses with exact astronomical timing
 - Notes: The default feed includes one event per eclipse covering the full duration of the phenomenon.
 
