@@ -13,10 +13,12 @@ not require builder changes.
 
 1. Determine the requested year or year range.
 2. Read [`specs/source-policy.md`](../../specs/source-policy.md) for source selection.
-3. Fetch raw data and save it under `data/raw/planetary/...`.
-4. Normalize the raw data into occurrence records defined in
+3. Validate each required source before using it.
+4. Stop immediately and notify the user if any required validation fails.
+5. Fetch raw data and save it under `data/raw/planetary/...`.
+6. Normalize the raw data into candidate occurrence records defined in
    [`specs/normalized-event-schema.md`](../../specs/normalized-event-schema.md).
-5. Write normalized output under `data/normalized/planetary/...`.
+7. Write normalized output under `data/normalized/planetary/...`.
 
 ## Source Rules
 
@@ -26,6 +28,15 @@ not require builder changes.
 - Prefer pages for exact occurrences over generic planet overview pages.
 - Fail clearly when exact timing is available but no stable per-event detail page can be
   attached.
+
+## Validation Rules
+
+- Validate source reachability before fetching.
+- Validate that required response fields or page markers still exist.
+- Validate that a stable `detail_url` can still be derived.
+- Validate that the current adapter can parse the source shape.
+- Record validation outcomes in each candidate's `source_validation` field.
+- If validation fails, mark the source as unusable for the run and stop.
 
 ## Event Rules
 
@@ -60,5 +71,4 @@ Expected outputs:
 - raw payload files under `data/raw/planetary/...`
 - normalized occurrence files under `data/normalized/planetary/...`
 
-The builder skill should be able to create per-planet or combined calendars without any
-planet-specific branching logic.
+The reconciliation skill should decide whether these candidates become accepted records.

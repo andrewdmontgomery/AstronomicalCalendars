@@ -5,13 +5,14 @@ description: Build or update iCalendar files from normalized timed occurrence re
 
 # Build iCal Calendar
 
-Generate `.ics` files only from normalized occurrence records and manifests. Do not parse
-raw upstream source pages here.
+Generate `.ics` files only from accepted catalog records and manifests. Do not parse raw
+upstream source pages here.
 
 ## Workflow
 
-1. Read normalized occurrence data that conforms to
-   [`specs/normalized-event-schema.md`](../../specs/normalized-event-schema.md).
+1. Read accepted catalog data derived from
+   [`specs/normalized-event-schema.md`](../../specs/normalized-event-schema.md) and
+   [`specs/event-catalog-schema.md`](../../specs/event-catalog-schema.md).
 2. Read one or more manifests that conform to
    [`specs/calendar-manifest-schema.md`](../../specs/calendar-manifest-schema.md).
 3. Filter occurrences by `source_type`, `body`, `event_type`, `tags`, and `variant_policy`.
@@ -22,6 +23,7 @@ raw upstream source pages here.
 - Treat the manifest as declarative configuration.
 - Allow separate calendars and combined calendars to be built from the same event pool.
 - Do not hard-code astronomy-specific calendar definitions into builder logic.
+- Respect reconciliation and source-failure stop conditions before building.
 
 ## Eclipse Variant Rules
 
@@ -40,6 +42,7 @@ raw upstream source pages here.
 - Increment `SEQUENCE` only when the normalized event content changes.
 - Use timed events for all astronomy and planetary records covered by this repository.
 - Include the normalized `detail_url` in the event.
+- Stop when source validation failed or reconciliation left unresolved conflicts.
 
 ## Output Expectations
 

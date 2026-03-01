@@ -13,10 +13,21 @@ intermediate format.
 
 1. Determine the requested year or year range.
 2. Read [`specs/source-policy.md`](../../specs/source-policy.md) for the approved source mix.
-3. Fetch raw data and save it under `data/raw/astronomy/...`.
-4. Normalize the raw data into occurrence records defined in
+3. Validate each required source before using it.
+4. Stop immediately and notify the user if any required validation fails.
+5. Fetch raw data and save it under `data/raw/astronomy/...`.
+6. Normalize the raw data into candidate occurrence records defined in
    [`specs/normalized-event-schema.md`](../../specs/normalized-event-schema.md).
-5. Write normalized output under `data/normalized/astronomy/...`.
+7. Write normalized output under `data/normalized/astronomy/...`.
+
+## Validation Rules
+
+- Validate source reachability before fetching.
+- Validate that required response fields or page markers still exist.
+- Validate that a stable `detail_url` can still be derived.
+- Validate that the current adapter can parse the source shape.
+- Record validation outcomes in each candidate's `source_validation` field.
+- If validation fails, mark the source as unusable for the run and stop.
 
 ## Source Rules
 
@@ -66,5 +77,4 @@ Expected outputs:
 - raw payload files under `data/raw/astronomy/...`
 - normalized occurrence files under `data/normalized/astronomy/...`
 
-The builder skill should be able to create astronomy-only or combined calendars without
-re-reading raw source pages.
+The reconciliation skill should decide whether these candidates become accepted records.

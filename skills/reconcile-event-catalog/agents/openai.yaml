@@ -1,0 +1,7 @@
+interface:
+  display_name: "Reconcile Event Catalog"
+  short_description: "Reconcile candidates with accepted events"
+  default_prompt: "Use $reconcile-event-catalog to compare normalized event candidates with the accepted catalog and stage or report corrections."
+
+policy:
+  allow_implicit_invocation: true

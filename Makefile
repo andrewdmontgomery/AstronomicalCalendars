@@ -23,4 +23,5 @@ install: $(VENV)/bin/activate requirements-dev.txt
 validate-skills: $(VENV)/bin/activate
 	$(VENV_PYTHON) $(SKILL_VALIDATOR) skills/source-astronomy-events
 	$(VENV_PYTHON) $(SKILL_VALIDATOR) skills/source-planetary-events
+	$(VENV_PYTHON) $(SKILL_VALIDATOR) skills/reconcile-event-catalog
 	$(VENV_PYTHON) $(SKILL_VALIDATOR) skills/build-ical-calendar
