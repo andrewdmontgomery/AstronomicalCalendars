@@ -1,7 +1,8 @@
 # Normalized Event Schema
 
-All source skills emit timed occurrence records. The ICS builder reads only this schema and
-does not depend on source-specific payload structure.
+All source skills emit timed candidate occurrence records. Reconciliation compares those
+candidates with the accepted catalog. The ICS builder reads accepted records derived from
+this schema and does not depend on source-specific payload structure.
 
 ## Required Fields
 
@@ -24,6 +25,19 @@ does not depend on source-specific payload structure.
   "categories": ["Astronomy", "Eclipse"],
   "tags": ["eclipse", "solar", "total"],
   "detail_url": "https://example.com/event",
+  "source_adapter": "timeanddate-eclipse-v1",
+  "source_validation": {
+    "status": "passed",
+    "validated_at": "2026-03-01T12:00:00Z",
+    "reason": null,
+    "checks": ["reachable", "required timing fields present", "detail url resolved"],
+    "detail_url_ok": true
+  },
+  "content_hash": "sha256:...",
+  "first_seen_at": "2026-03-01T12:01:00Z",
+  "last_seen_at": "2026-03-01T12:01:00Z",
+  "candidate_status": "new",
+  "accepted_revision": null,
   "timing_source": {
     "name": "timeanddate",
     "url": "https://example.com/event"
@@ -73,6 +87,24 @@ does not depend on source-specific payload structure.
 - `detail_url`
   - Required. Link to a user-facing page for that exact occurrence.
 
+- `source_adapter`
+  - Required. Identifier for the parser or adapter used to produce the candidate.
+
+- `source_validation`
+  - Required. Result of preflight validation for the source used in this run.
+
+- `content_hash`
+  - Required. Hash of the normalized candidate content used for change detection.
+
+- `first_seen_at`, `last_seen_at`
+  - Required timestamps tracking when the candidate was first and last observed.
+
+- `candidate_status`
+  - Required. One of `new`, `unchanged`, `changed`, `conflict`, `unusable`.
+
+- `accepted_revision`
+  - Revision of the currently accepted record matched during reconciliation, or `null`.
+
 - `timing_source`
   - Required. Describe the upstream source used for event timing.
 
@@ -115,5 +147,6 @@ does not depend on source-specific payload structure.
 - `occurrence_id` must remain stable across rebuilds for the same logical occurrence.
 - Every publishable occurrence must have a `detail_url`.
 - Every occurrence must be traceable to a raw payload.
+- Every candidate must carry source validation results.
 - The builder should be able to create separate or combined calendars using only the
-  normalized records plus a manifest.
+  accepted records plus a manifest.

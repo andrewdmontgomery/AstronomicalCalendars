@@ -3,6 +3,9 @@
 Every normalized occurrence must include both authoritative timing provenance and a
 user-facing detail URL. No event should be published without a usable `detail_url`.
 
+Every source must be validated before it is used for a live run. If validation fails, the
+action stops and the user is notified.
+
 ## Source Selection Rules
 
 For each event type, record:
@@ -14,6 +17,23 @@ For each event type, record:
 
 If a single upstream page provides both reliable timing and a good detail page, use the
 same URL for `timing_source.url` and `detail_url`.
+
+## Validation Rules
+
+Before any live fetch or normalization run, validate the chosen source adapter:
+
+- the endpoint or page is reachable
+- the expected response shape or page markers are present
+- required timing fields for that event family are present
+- the detail URL pattern still resolves
+- the parser can extract a known canary event when a fixture or canary is available
+
+If any required validation fails:
+
+- mark the source as unusable for that run
+- notify the user with a concrete failure reason
+- stop the action before normalization
+- in automation contexts, open an issue instead of continuing
 
 ## Preferred Sources
 
