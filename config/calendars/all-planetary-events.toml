@@ -1,5 +1,5 @@
 name = "all-planetary-events"
-output = "output/calendars/all-planetary-events.ics"
+output = "calendars/all-planetary-events.ics"
 calendar_name = "Planetary Events"
 calendar_description = "Major events for Jupiter, Saturn, Mars, Venus, and Mercury"
 source_types = ["planetary"]
