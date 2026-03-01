@@ -1,0 +1,54 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//AstronomicalCalendars//EN
+X-WR-CALDESC:Exact astronomical timings for equinoxes and solstices
+X-WR-CALNAME:Equinoxes and Solstices
+BEGIN:VEVENT
+SUMMARY:March Equinox
+DTSTART:20260320T144600Z
+DTSTAMP:20260301T054327Z
+UID:astronomy/season-marker/2026-03-20/march-equinox/default
+SEQUENCE:0
+CATEGORIES:Astronomy,Season
+DESCRIPTION:The Sun crosses the celestial equator heading north. This entr
+ y marks the exact astronomical moment of the March Equinox.
+URL:https://in-the-sky.org/news.php?id=20260320_07_100&season=march-equino
+ x
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:June Solstice
+DTSTART:20260621T082400Z
+DTSTAMP:20260301T054327Z
+UID:astronomy/season-marker/2026-06-21/june-solstice/default
+SEQUENCE:0
+CATEGORIES:Astronomy,Season
+DESCRIPTION:The Sun reaches its northernmost declination. This entry marks
+  the exact astronomical moment of the June Solstice.
+URL:https://in-the-sky.org/news.php?id=20260621_07_100&season=june-solstic
+ e
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:September Equinox
+DTSTART:20260923T000500Z
+DTSTAMP:20260301T054327Z
+UID:astronomy/season-marker/2026-09-23/september-equinox/default
+SEQUENCE:0
+CATEGORIES:Astronomy,Season
+DESCRIPTION:The Sun crosses the celestial equator heading south. This entr
+ y marks the exact astronomical moment of the September Equinox.
+URL:https://in-the-sky.org/news.php?id=20260923_07_100&season=september-eq
+ uinox
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:December Solstice
+DTSTART:20261221T205000Z
+DTSTAMP:20260301T054327Z
+UID:astronomy/season-marker/2026-12-21/december-solstice/default
+SEQUENCE:0
+CATEGORIES:Astronomy,Season
+DESCRIPTION:The Sun reaches its southernmost declination. This entry marks
+  the exact astronomical moment of the December Solstice.
+URL:https://in-the-sky.org/news.php?id=20261221_07_100&season=december-sol
+ stice
+END:VEVENT
+END:VCALENDAR

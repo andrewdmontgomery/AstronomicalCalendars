@@ -1,0 +1,22 @@
+{
+  "apiversion": "4.0.1",
+  "year": 2026,
+  "phasedata": [
+    {
+      "id": "2026-01-new-moon",
+      "year": 2026,
+      "month": 1,
+      "day": 18,
+      "time": "17:52",
+      "phase": "New Moon"
+    },
+    {
+      "id": "2026-01-full-moon",
+      "year": 2026,
+      "month": 1,
+      "day": 3,
+      "time": "10:03",
+      "phase": "Full Moon"
+    }
+  ]
+}

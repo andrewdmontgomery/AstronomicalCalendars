@@ -1,0 +1,18 @@
+{
+  "astronomy/season-marker/2026-03-20/march-equinox/default": {
+    "content_hash": "sha256:e56e83a5d4fdd9819f1b8accf4d6beb40453ee2d0f8d69b8c559fabc37fa00a5",
+    "sequence": 0
+  },
+  "astronomy/season-marker/2026-06-21/june-solstice/default": {
+    "content_hash": "sha256:9702f4379495385c1dc70e05676092d44842f3844fd2723174465a20c58d1770",
+    "sequence": 0
+  },
+  "astronomy/season-marker/2026-09-23/september-equinox/default": {
+    "content_hash": "sha256:4a2f3c77eaaaedbf9029f18335e6d672f2c08261a8df0fd8844c96593401c49b",
+    "sequence": 0
+  },
+  "astronomy/season-marker/2026-12-21/december-solstice/default": {
+    "content_hash": "sha256:6eec6d9c1d590be55e981790066d71031c925e5ac42933e6b3c077c34b105077",
+    "sequence": 0
+  }
+}

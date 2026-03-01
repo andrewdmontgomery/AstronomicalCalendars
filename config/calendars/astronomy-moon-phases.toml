@@ -1,0 +1,7 @@
+name = "astronomy-moon-phases"
+output = "calendars/moon-phases.ics"
+calendar_name = "Moon Phases"
+calendar_description = "Exact astronomical timings for the major moon phases"
+source_types = ["astronomy"]
+event_types = ["moon-phase"]
+variant_policy = "default"
