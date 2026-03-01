@@ -211,6 +211,10 @@ def _parse_eclipse_html(html: str, url: str) -> dict:
     degree = "total" if "total" in heading.lower() else "partial"
     if "annular" in heading.lower():
         degree = "annular"
+    if "penumbral" in heading.lower():
+        degree = "penumbral"
+    if "hybrid" in heading.lower():
+        degree = "hybrid"
 
     date_slug = _date_slug_from_url(url)
     group_id = f"astronomy/eclipse/{date_slug}/{degree}-{body}"
@@ -240,9 +244,10 @@ def _parse_eclipse_html(html: str, url: str) -> dict:
     totality = _totality_for_heading(heading, stages)
     tags = ["eclipse", body, degree]
     return {
-        "title": heading,
+        "title": _base_title(degree, body),
         "group_id": group_id,
         "body": body,
+        "degree": degree,
         "tags": tags,
         "detail_url": url,
         "full_duration": full_duration,
@@ -322,6 +327,7 @@ def _candidate_from_parsed(
     source_adapter: str,
 ) -> CandidateRecord:
     occurrence_id = f"{parsed['group_id']}/{variant}"
+    title = _variant_title(parsed["title"], parsed["degree"], variant)
     candidate = CandidateRecord(
         group_id=parsed["group_id"],
         occurrence_id=occurrence_id,
@@ -330,8 +336,8 @@ def _candidate_from_parsed(
         event_type="eclipse",
         variant=variant,
         is_default=is_default,
-        title=parsed["title"],
-        summary=parsed["title"],
+        title=title,
+        summary=title,
         description=f"{parsed['title']} with exact timing and detail page.",
         start=start,
         end=end,
@@ -360,6 +366,26 @@ def _candidate_content_hash(candidate: CandidateRecord) -> str:
     payload = candidate.to_dict()
     payload["content_hash"] = ""
     return sha256_text(json.dumps(payload, sort_keys=True))
+
+
+def _base_title(degree: str, body: str) -> str:
+    degree_title = {
+        "total": "Total",
+        "partial": "Partial",
+        "annular": "Annular",
+        "penumbral": "Penumbral",
+        "hybrid": "Hybrid",
+    }.get(degree, degree.title())
+    body_title = "Lunar" if body == "moon" else "Solar"
+    return f"{degree_title} {body_title} Eclipse"
+
+
+def _variant_title(base_title: str, degree: str, variant: str) -> str:
+    if variant != "totality":
+        return base_title
+    if degree == "annular":
+        return f"{base_title}: Annularity"
+    return f"{base_title}: Totality"
 
 
 def _month_number(value: str) -> int:

@@ -73,6 +73,8 @@ def test_fetch_and_normalize_timeanddate_eclipses_fixture(tmp_path: Path) -> Non
     assert len(candidates) == 5
     assert {candidate.variant for candidate in candidates} == {"full-duration", "totality"}
     assert all(candidate.event_type == "eclipse" for candidate in candidates)
+    assert "March 2" not in {candidate.title for candidate in candidates}
+    assert "Blood Moon" not in {candidate.title for candidate in candidates}
 
 
 def test_partial_eclipse_omits_totality_variant(tmp_path: Path) -> None:
@@ -88,3 +90,32 @@ def test_partial_eclipse_omits_totality_variant(tmp_path: Path) -> None:
 
     assert len(partial_group_candidates) == 1
     assert partial_group_candidates[0].variant == "full-duration"
+    assert partial_group_candidates[0].title == "Partial Lunar Eclipse"
+
+
+def test_eclipse_titles_use_canonical_type_names(tmp_path: Path) -> None:
+    adapter = build_adapter(tmp_path)
+
+    candidates = adapter.normalize(2026, adapter.fetch(2026))
+    titles_by_occurrence = {candidate.occurrence_id: candidate.title for candidate in candidates}
+
+    assert (
+        titles_by_occurrence["astronomy/eclipse/2026-03-03/total-moon/full-duration"]
+        == "Total Lunar Eclipse"
+    )
+    assert (
+        titles_by_occurrence["astronomy/eclipse/2026-03-03/total-moon/totality"]
+        == "Total Lunar Eclipse: Totality"
+    )
+    assert (
+        titles_by_occurrence["astronomy/eclipse/2026-08-12/total-sun/full-duration"]
+        == "Total Solar Eclipse"
+    )
+    assert (
+        titles_by_occurrence["astronomy/eclipse/2026-08-12/total-sun/totality"]
+        == "Total Solar Eclipse: Totality"
+    )
+    assert (
+        titles_by_occurrence["astronomy/eclipse/2026-08-28/partial-moon/full-duration"]
+        == "Partial Lunar Eclipse"
+    )
