@@ -45,7 +45,7 @@ def reconcile_calendar(
         year=year,
         generated_at=run_timestamp,
     )
-    written_paths: list[Path] = []
+    catalog_paths: list[Path] = []
 
     for source_name, candidates in filtered_candidates_by_source.items():
         if _has_validation_failure(candidates):
@@ -61,18 +61,24 @@ def reconcile_calendar(
             accepted_at=run_timestamp,
         )
         saved_path = catalog_store.save("astronomy", year, source_name, reconciled)
-        written_paths.append(saved_path)
+        catalog_paths.append(saved_path)
 
     report_name = f"reconcile.{manifest.name}"
-    json_path = report_store.write_json_report(run_timestamp, report_name, report.to_dict())
-    md_path = report_store.write_markdown_report(run_timestamp, report_name, _render_report(report))
-    written_paths.extend([json_path, md_path])
+    json_path = report_store.run_dir(run_timestamp) / f"{report_name}.json"
+    md_path = report_store.run_dir(run_timestamp) / f"{report_name}.md"
+    report_paths = [json_path, md_path]
 
     if stage_changes:
-        staged = git_stager.stage_paths(written_paths)
-        report.staged_paths.extend(staged)
-        report_store.write_json_report(run_timestamp, report_name, report.to_dict())
-        report_store.write_markdown_report(run_timestamp, report_name, _render_report(report))
+        staged_catalog_paths = git_stager.stage_paths(catalog_paths)
+        report.staged_paths.extend(staged_catalog_paths)
+        report.staged_paths.extend(git_stager.preview_paths(report_paths))
+
+    json_path = report_store.write_json_report(run_timestamp, report_name, report.to_dict())
+    md_path = report_store.write_markdown_report(run_timestamp, report_name, _render_report(report))
+    written_paths = catalog_paths + [json_path, md_path]
+
+    if stage_changes:
+        git_stager.stage_paths([json_path, md_path])
 
     return report, written_paths
 

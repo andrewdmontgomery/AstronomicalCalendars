@@ -13,7 +13,7 @@ class GitStager:
         self._repo_root = repo_root or PROJECT_ROOT
 
     def stage_paths(self, paths: list[Path]) -> list[str]:
-        normalized = [self._normalize(path) for path in paths]
+        normalized = self.preview_paths(paths)
         if not normalized:
             return []
 
@@ -23,6 +23,9 @@ class GitStager:
             check=True,
         )
         return normalized
+
+    def preview_paths(self, paths: list[Path]) -> list[str]:
+        return [self._normalize(path) for path in paths]
 
     def _normalize(self, path: Path) -> str:
         candidate = Path(path)

@@ -210,6 +210,8 @@ def test_reconcile_stages_changed_files_in_manual_mode(tmp_path: Path) -> None:
     assert report.staged_paths
     assert any("moon-phases.json" in path for path in report.staged_paths)
     assert "A  data/catalog/accepted/astronomy/2026/moon-phases.json" in status
+    assert "AM data/catalog/reports/2026-03-02T12-00-00Z/reconcile.astronomy-all.json" not in status
+    assert "AM data/catalog/reports/2026-03-02T12-00-00Z/reconcile.astronomy-all.md" not in status
     assert any(path.exists() for path in written_paths)
 
 
