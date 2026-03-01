@@ -1,0 +1,7 @@
+interface:
+  display_name: "Build iCal Calendar"
+  short_description: "Build .ics files from normalized events"
+  default_prompt: "Use $build-ical-calendar to generate iCalendar files from normalized event data and manifests."
+
+policy:
+  allow_implicit_invocation: true

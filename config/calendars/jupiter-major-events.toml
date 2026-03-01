@@ -1,0 +1,7 @@
+name = "jupiter-major-events"
+output = "output/calendars/jupiter-major-events.ics"
+calendar_name = "Jupiter Major Events"
+calendar_description = "Major Jupiter observing events"
+source_types = ["planetary"]
+bodies = ["jupiter"]
+variant_policy = "default"

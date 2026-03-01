@@ -1,0 +1,7 @@
+name = "astronomy-eclipses"
+output = "output/calendars/astronomy-eclipses.ics"
+calendar_name = "Eclipses"
+calendar_description = "Solar and lunar eclipses"
+source_types = ["astronomy"]
+event_types = ["eclipse"]
+variant_policy = "default"

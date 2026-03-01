@@ -1,0 +1,7 @@
+interface:
+  display_name: "Source Astronomy Events"
+  short_description: "Normalize moon phases, seasons, eclipses"
+  default_prompt: "Use $source-astronomy-events to fetch and normalize astronomy events for calendar generation."
+
+policy:
+  allow_implicit_invocation: true

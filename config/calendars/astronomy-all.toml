@@ -1,0 +1,6 @@
+name = "astronomy-all"
+output = "output/calendars/astronomy-all.ics"
+calendar_name = "Astronomical Events"
+calendar_description = "Moon phases, seasons, eclipses, and planetary events"
+source_types = ["astronomy", "planetary"]
+variant_policy = "default"

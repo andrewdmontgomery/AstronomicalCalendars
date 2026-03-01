@@ -1,0 +1,7 @@
+interface:
+  display_name: "Source Planetary Events"
+  short_description: "Normalize major planetary event data"
+  default_prompt: "Use $source-planetary-events to fetch and normalize planetary events for calendar generation."
+
+policy:
+  allow_implicit_invocation: true
