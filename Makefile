@@ -2,6 +2,8 @@ PYTHON := python3
 VENV := .venv
 VENV_PYTHON := $(VENV)/bin/python
 VENV_PIP := $(VENV)/bin/pip
+SITE_PACKAGES := $(shell $(VENV_PYTHON) -c 'import sysconfig; print(sysconfig.get_paths()["purelib"])' 2>/dev/null)
+PTH_FILE := $(SITE_PACKAGES)/astronomical_calendars_local.pth
 SKILL_VALIDATOR := /Users/andrew/.codex/skills/.system/skill-creator/scripts/quick_validate.py
 
 .PHONY: help venv install test validate-skills run
@@ -21,6 +23,7 @@ venv: $(VENV)/bin/activate
 
 install: $(VENV)/bin/activate requirements-dev.txt
 	$(VENV_PIP) install -r requirements-dev.txt
+	printf "%s\n" "$(CURDIR)/src" > "$(PTH_FILE)"
 
 test: $(VENV)/bin/activate
 	PYTHONPATH=src $(VENV_PYTHON) -m pytest
