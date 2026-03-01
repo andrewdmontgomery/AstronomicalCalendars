@@ -4,7 +4,7 @@ import json
 from pathlib import Path
 
 from astrocal.adapters.astronomy.usno_moon_phases import MoonPhasesAdapter
-from astrocal.repositories import CandidateStore, RawStore
+from astrocal.repositories import CandidateStore, DiagnosticStore, RawStore
 from astrocal.services.normalize_service import normalize_source_family
 
 
@@ -46,6 +46,7 @@ def test_validate_usno_moon_phases_fixture_passes(tmp_path: Path) -> None:
     report = adapter.validate(2026)
 
     assert report.status == "passed"
+    assert report.canary_ok is True
     assert report.detail_url_ok is True
     assert "required timing fields present" in report.checks
 
@@ -82,3 +83,52 @@ def test_content_hash_is_deterministic_for_same_fixture(tmp_path: Path) -> None:
     assert [candidate.content_hash for candidate in first] == [
         candidate.content_hash for candidate in second
     ]
+
+
+def test_normalize_diagnostics_include_moon_phase_extraction_summary(tmp_path: Path) -> None:
+    adapter = build_adapter(tmp_path)
+
+    raw_result = adapter.fetch(2026)
+    normalize_source_family(
+        "astronomy",
+        2026,
+        adapters={"moon-phases": adapter},
+        raw_results=[raw_result],
+        candidate_store=CandidateStore(base_dir=tmp_path / "normalized"),
+        diagnostic_store=DiagnosticStore(base_dir=tmp_path / "diagnostics"),
+    )
+
+    summary_path = (
+        tmp_path / "diagnostics" / "astronomy" / "2026" / "moon-phases" / "normalize-summary.json"
+    )
+    summary = json.loads(summary_path.read_text(encoding="utf-8"))
+
+    assert summary["extraction_summary"] == {
+        "phase_names": ["Full Moon", "New Moon"],
+        "first_start": "2026-01-03T10:03:00Z",
+        "last_start": "2026-01-18T17:52:00Z",
+    }
+
+
+def test_validate_usno_moon_phases_fails_canary_when_required_field_is_missing(tmp_path: Path) -> None:
+    payload = {
+        "phasedata": [
+            {
+                "phase": "New Moon",
+                "year": 2026,
+                "month": 1,
+                "day": 1,
+            }
+        ]
+    }
+    adapter = MoonPhasesAdapter(
+        http_client=FixtureHttpClient(payload),
+        raw_store=RawStore(base_dir=tmp_path / "raw"),
+        now_provider=lambda: "2026-03-01T12:00:00Z",
+    )
+
+    report = adapter.validate(2026)
+
+    assert report.status == "failed"
+    assert report.canary_ok is False
+    assert report.reason == "missing required fields: time"

@@ -6,7 +6,7 @@ from astrocal.models import (
     SourceReference,
     ValidationResult,
 )
-from astrocal.repositories import CandidateStore, CatalogStore, SequenceStore
+from astrocal.repositories import CandidateStore, CatalogStore, DiagnosticStore, SequenceStore
 
 
 def build_candidate() -> CandidateRecord:
@@ -34,6 +34,7 @@ def build_candidate() -> CandidateRecord:
             validated_at="2026-03-01T00:00:00Z",
             reason=None,
             checks=["reachable"],
+            canary_ok=True,
             detail_url_ok=True,
         ),
         content_hash="sha256:abc123",
@@ -63,6 +64,7 @@ def test_candidate_store_round_trip(tmp_path) -> None:
     assert loaded[0].occurrence_id == candidate.occurrence_id
     assert loaded[0].source_validation is not None
     assert loaded[0].source_validation.status == "passed"
+    assert loaded[0].source_validation.canary_ok is True
 
 
 def test_catalog_store_round_trip(tmp_path) -> None:
@@ -97,3 +99,18 @@ def test_sequence_store_round_trip(tmp_path) -> None:
 
     assert saved_path.exists()
     assert loaded == {"event-1": 2, "event-2": 1}
+
+
+def test_diagnostic_store_round_trip(tmp_path) -> None:
+    store = DiagnosticStore(base_dir=tmp_path)
+
+    saved_path = store.write_json(
+        "astronomy",
+        2026,
+        "moon-phases",
+        "normalize-summary.json",
+        {"candidate_count": 2, "source_name": "moon-phases"},
+    )
+
+    assert saved_path.exists()
+    assert saved_path.read_text(encoding="utf-8").startswith("{")

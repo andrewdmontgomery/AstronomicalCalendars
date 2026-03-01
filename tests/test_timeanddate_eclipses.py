@@ -1,9 +1,10 @@
 from __future__ import annotations
 
+import json
 from pathlib import Path
 
 from astrocal.adapters.astronomy.timeanddate_eclipses import EclipsesAdapter
-from astrocal.repositories import CandidateStore, RawStore
+from astrocal.repositories import CandidateStore, DiagnosticStore, RawStore
 from astrocal.services.normalize_service import normalize_source_family
 
 
@@ -51,6 +52,7 @@ def test_validate_timeanddate_eclipses_fixture_passes(tmp_path: Path) -> None:
     report = adapter.validate(2026)
 
     assert report.status == "passed"
+    assert report.canary_ok is True
     assert report.detail_url_ok is True
 
 
@@ -123,4 +125,91 @@ def test_eclipse_titles_use_canonical_type_names(tmp_path: Path) -> None:
     assert (
         titles_by_occurrence["astronomy/eclipse/2026-08-28/partial-moon/full-duration"]
         == "Partial Lunar Eclipse"
+    )
+
+
+def test_normalize_diagnostics_include_eclipse_extraction_summary(tmp_path: Path) -> None:
+    adapter = build_adapter(tmp_path)
+
+    raw_result = adapter.fetch(2026)
+    normalize_source_family(
+        "astronomy",
+        2026,
+        adapters={"eclipses": adapter},
+        raw_results=[raw_result],
+        candidate_store=CandidateStore(base_dir=tmp_path / "normalized"),
+        diagnostic_store=DiagnosticStore(base_dir=tmp_path / "diagnostics"),
+    )
+
+    summary_path = (
+        tmp_path / "diagnostics" / "astronomy" / "2026" / "eclipses" / "normalize-summary.json"
+    )
+    summary = json.loads(summary_path.read_text(encoding="utf-8"))
+
+    assert summary["extraction_summary"] == {
+        "titles_seen": [
+            "Partial Lunar Eclipse",
+            "Total Lunar Eclipse",
+            "Total Lunar Eclipse: Totality",
+            "Total Solar Eclipse",
+            "Total Solar Eclipse: Totality",
+        ],
+        "variant_counts": {
+            "full-duration": 3,
+            "totality": 2,
+        },
+        "detail_urls_sample": [
+            "https://www.timeanddate.com/eclipse/lunar/2026-march-3",
+            "https://www.timeanddate.com/eclipse/solar/2026-august-12",
+            "https://www.timeanddate.com/eclipse/lunar/2026-august-28",
+        ],
+    }
+
+
+def test_validate_timeanddate_eclipses_fails_canary_when_timeline_is_missing(tmp_path: Path) -> None:
+    adapter = EclipsesAdapter(
+        http_client=FixtureHttpClient(
+            {
+                "https://www.timeanddate.com/eclipse/lunar/2026-march-3": "<html><title>Example</title></html>",
+                "https://www.timeanddate.com/eclipse/solar/2026-august-12": "<html><title>Example</title></html>",
+                "https://www.timeanddate.com/eclipse/lunar/2026-august-28": "<html><title>Example</title></html>",
+            }
+        ),
+        raw_store=RawStore(base_dir=tmp_path / "raw"),
+        now_provider=lambda: "2026-03-01T12:00:00Z",
+    )
+
+    report = adapter.validate(2026)
+
+    assert report.status == "failed"
+    assert report.canary_ok is False
+    assert report.reason == (
+        "unable to derive eclipse identity: "
+        "https://www.timeanddate.com/eclipse/lunar/2026-march-3"
+    )
+
+
+def test_validate_timeanddate_eclipses_checks_all_configured_pages(tmp_path: Path) -> None:
+    pages = {
+        "https://www.timeanddate.com/eclipse/lunar/2026-march-3": (
+            FIXTURE_DIR / "eclipse-detail-lunar-2026-03-03.html"
+        ).read_text(encoding="utf-8"),
+        "https://www.timeanddate.com/eclipse/solar/2026-august-12": "<html><title>Broken</title></html>",
+        "https://www.timeanddate.com/eclipse/lunar/2026-august-28": (
+            FIXTURE_DIR / "eclipse-detail-lunar-2026-08-28.html"
+        ).read_text(encoding="utf-8"),
+    }
+    adapter = EclipsesAdapter(
+        http_client=FixtureHttpClient(pages),
+        raw_store=RawStore(base_dir=tmp_path / "raw"),
+        now_provider=lambda: "2026-03-01T12:00:00Z",
+    )
+
+    report = adapter.validate(2026)
+
+    assert report.status == "failed"
+    assert report.canary_ok is False
+    assert report.reason == (
+        "unable to derive eclipse identity: "
+        "https://www.timeanddate.com/eclipse/solar/2026-august-12"
     )

@@ -4,7 +4,7 @@ import json
 from pathlib import Path
 
 from astrocal.adapters.astronomy.usno_seasons import SeasonsAdapter
-from astrocal.repositories import CandidateStore, RawStore
+from astrocal.repositories import CandidateStore, DiagnosticStore, RawStore
 from astrocal.services.normalize_service import normalize_source_family
 
 
@@ -46,6 +46,7 @@ def test_validate_usno_seasons_fixture_passes(tmp_path: Path) -> None:
     report = adapter.validate(2026)
 
     assert report.status == "passed"
+    assert report.canary_ok is True
     assert report.detail_url_ok is True
     assert "required timing fields present" in report.checks
 
@@ -107,6 +108,7 @@ def test_validate_usno_seasons_accepts_generic_usno_labels(tmp_path: Path) -> No
     report = adapter.validate(2026)
 
     assert report.status == "passed"
+    assert report.canary_ok is True
 
 
 def test_normalize_usno_seasons_ignores_non_season_rows(tmp_path: Path) -> None:
@@ -119,3 +121,53 @@ def test_normalize_usno_seasons_ignores_non_season_rows(tmp_path: Path) -> None:
         "March Equinox",
         "June Solstice",
     }
+
+
+def test_normalize_diagnostics_include_season_extraction_summary(tmp_path: Path) -> None:
+    adapter = build_adapter(tmp_path)
+
+    raw_result = adapter.fetch(2026)
+    normalize_source_family(
+        "astronomy",
+        2026,
+        adapters={"seasons": adapter},
+        raw_results=[raw_result],
+        candidate_store=CandidateStore(base_dir=tmp_path / "normalized"),
+        diagnostic_store=DiagnosticStore(base_dir=tmp_path / "diagnostics"),
+    )
+
+    summary_path = (
+        tmp_path / "diagnostics" / "astronomy" / "2026" / "seasons" / "normalize-summary.json"
+    )
+    summary = json.loads(summary_path.read_text(encoding="utf-8"))
+
+    assert summary["extraction_summary"] == {
+        "titles_seen": ["June Solstice", "March Equinox"],
+        "ignored_non_season_row_count": 2,
+    }
+
+
+def test_validate_usno_seasons_fails_canary_when_no_season_rows_exist(tmp_path: Path) -> None:
+    payload = {
+        "year": 2026,
+        "data": [
+            {
+                "year": 2026,
+                "month": 1,
+                "day": 3,
+                "time": "17:15",
+                "phenom": "Perihelion",
+            }
+        ],
+    }
+    adapter = SeasonsAdapter(
+        http_client=FixtureHttpClient(payload),
+        raw_store=RawStore(base_dir=tmp_path / "raw"),
+        now_provider=lambda: "2026-03-01T12:00:00Z",
+    )
+
+    report = adapter.validate(2026)
+
+    assert report.status == "failed"
+    assert report.canary_ok is False
+    assert report.reason == "season-marker data missing"

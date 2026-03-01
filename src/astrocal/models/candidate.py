@@ -12,6 +12,7 @@ class ValidationResult:
     validated_at: str
     reason: str | None
     checks: list[str] = field(default_factory=list)
+    canary_ok: bool = True
     detail_url_ok: bool = True
 
 

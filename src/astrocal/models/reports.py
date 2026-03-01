@@ -14,6 +14,7 @@ class ValidationReport:
     validated_at: str
     checks: list[str] = field(default_factory=list)
     reason: str | None = None
+    canary_ok: bool = True
     detail_url_ok: bool = True
     source_url: str | None = None
 

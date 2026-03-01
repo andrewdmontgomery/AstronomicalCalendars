@@ -8,6 +8,7 @@ from typing import Any, Protocol
 
 import requests
 
+from .canary_checks import non_empty_records, required_fields
 from ...hashing import sha256_text
 from ...models import (
     CandidateRecord,
@@ -132,17 +133,14 @@ class SeasonsAdapter:
             response.raise_for_status()
             payload = response.json()
             data = _season_records(payload.get("data", []))
-            if not data:
-                return self._failed_report(year, "season-marker data missing")
+            canary_failure = non_empty_records(data, "season-marker data")
+            if canary_failure:
+                return self._failed_report(year, canary_failure)
 
             sample = data[0]
-            required_fields = {"phenom", "year", "month", "day", "time"}
-            missing = sorted(required_fields - set(sample))
-            if missing:
-                return self._failed_report(
-                    year,
-                    f"missing required fields: {', '.join(missing)}",
-                )
+            canary_failure = required_fields(sample, {"phenom", "year", "month", "day", "time"})
+            if canary_failure:
+                return self._failed_report(year, canary_failure)
 
             if not _detail_url_for_season(
                 sample["phenom"],
@@ -161,9 +159,12 @@ class SeasonsAdapter:
             validated_at=self._now_provider(),
             checks=[
                 "reachable",
+                "canary payload present",
+                "canary required fields present",
                 "required timing fields present",
                 "detail url resolved",
             ],
+            canary_ok=True,
             detail_url_ok=True,
             source_url=self.source_url,
         )
@@ -270,6 +271,7 @@ class SeasonsAdapter:
             validated_at=self._now_provider(),
             checks=["reachable"],
             reason=reason,
+            canary_ok=False,
             detail_url_ok=False,
             source_url=self.source_url,
         )
