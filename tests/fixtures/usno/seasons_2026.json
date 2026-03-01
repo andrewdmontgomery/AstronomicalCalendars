@@ -3,20 +3,32 @@
   "year": 2026,
   "data": [
     {
-      "id": "2026-march-equinox",
+      "year": 2026,
+      "month": 1,
+      "day": 3,
+      "time": "17:15",
+      "phenom": "Perihelion"
+    },
+    {
       "year": 2026,
       "month": 3,
       "day": 20,
       "time": "09:46",
-      "phenom": "March equinox"
+      "phenom": "Equinox"
     },
     {
-      "id": "2026-june-solstice",
       "year": 2026,
       "month": 6,
       "day": 21,
       "time": "02:25",
-      "phenom": "June solstice"
+      "phenom": "Solstice"
+    },
+    {
+      "year": 2026,
+      "month": 7,
+      "day": 6,
+      "time": "17:30",
+      "phenom": "Aphelion"
     }
   ]
 }

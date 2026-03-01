@@ -71,6 +71,7 @@ def test_fetch_and_normalize_usno_seasons_fixture(tmp_path: Path) -> None:
     assert candidates[0].end is None
     assert candidates[0].detail_url.startswith("https://in-the-sky.org/")
     assert candidates[0].occurrence_id.endswith("/default")
+    assert all(candidate.metadata["phenom"] in {"Equinox", "Solstice"} for candidate in candidates)
 
 
 def test_season_content_hash_is_deterministic_for_same_fixture(tmp_path: Path) -> None:
@@ -82,3 +83,39 @@ def test_season_content_hash_is_deterministic_for_same_fixture(tmp_path: Path) -
     assert [candidate.content_hash for candidate in first] == [
         candidate.content_hash for candidate in second
     ]
+
+
+def test_validate_usno_seasons_accepts_generic_usno_labels(tmp_path: Path) -> None:
+    payload = {
+        "year": 2026,
+        "data": [
+            {
+                "year": 2026,
+                "month": 3,
+                "day": 20,
+                "time": "09:46",
+                "phenom": "Equinox",
+            }
+        ],
+    }
+    adapter = SeasonsAdapter(
+        http_client=FixtureHttpClient(payload),
+        raw_store=RawStore(base_dir=tmp_path / "raw"),
+        now_provider=lambda: "2026-03-01T12:00:00Z",
+    )
+
+    report = adapter.validate(2026)
+
+    assert report.status == "passed"
+
+
+def test_normalize_usno_seasons_ignores_non_season_rows(tmp_path: Path) -> None:
+    adapter = build_adapter(tmp_path)
+
+    candidates = adapter.normalize(2026, adapter.fetch(2026))
+
+    assert len(candidates) == 2
+    assert {candidate.title for candidate in candidates} == {
+        "March Equinox",
+        "June Solstice",
+    }

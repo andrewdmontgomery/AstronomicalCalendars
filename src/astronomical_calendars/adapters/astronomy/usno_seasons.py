@@ -38,10 +38,52 @@ class HttpClient(Protocol):
 
 
 SEASON_NAMES = {
-    "March equinox": ("march-equinox", "March Equinox"),
-    "June solstice": ("june-solstice", "June Solstice"),
-    "September equinox": ("september-equinox", "September Equinox"),
-    "December solstice": ("december-solstice", "December Solstice"),
+    "equinox": ("", ""),
+    "solstice": ("", ""),
+    "march equinox": ("march-equinox", "March Equinox"),
+    "vernal equinox": ("march-equinox", "March Equinox"),
+    "spring equinox": ("march-equinox", "March Equinox"),
+    "june solstice": ("june-solstice", "June Solstice"),
+    "summer solstice": ("june-solstice", "June Solstice"),
+    "september equinox": ("september-equinox", "September Equinox"),
+    "autumnal equinox": ("september-equinox", "September Equinox"),
+    "fall equinox": ("september-equinox", "September Equinox"),
+    "december solstice": ("december-solstice", "December Solstice"),
+    "winter solstice": ("december-solstice", "December Solstice"),
+}
+
+SEASON_MONTHS = {
+    3: ("march-equinox", "March Equinox"),
+    6: ("june-solstice", "June Solstice"),
+    9: ("september-equinox", "September Equinox"),
+    12: ("december-solstice", "December Solstice"),
+}
+
+MONTH_NAMES = {
+    "jan": 1,
+    "january": 1,
+    "feb": 2,
+    "february": 2,
+    "mar": 3,
+    "march": 3,
+    "apr": 4,
+    "april": 4,
+    "may": 5,
+    "jun": 6,
+    "june": 6,
+    "jul": 7,
+    "july": 7,
+    "aug": 8,
+    "august": 8,
+    "sep": 9,
+    "sept": 9,
+    "september": 9,
+    "oct": 10,
+    "october": 10,
+    "nov": 11,
+    "november": 11,
+    "dec": 12,
+    "december": 12,
 }
 
 
@@ -70,9 +112,9 @@ class SeasonsAdapter:
             )
             response.raise_for_status()
             payload = response.json()
-            data = payload.get("data", [])
+            data = _season_records(payload.get("data", []))
             if not data:
-                return self._failed_report(year, "data missing")
+                return self._failed_report(year, "season-marker data missing")
 
             sample = data[0]
             required_fields = {"phenom", "year", "month", "day", "time"}
@@ -147,9 +189,12 @@ class SeasonsAdapter:
         )
         seen_at = self._now_provider()
         candidates: list[CandidateRecord] = []
-        for season in payload.get("data", []):
+        for season in _season_records(payload.get("data", [])):
             start = _iso_timestamp_for_record(season)
-            season_slug, title = SEASON_NAMES[season["phenom"]]
+            season_slug, title = _season_slug_and_title(
+                season["phenom"],
+                season["month"],
+            )
             detail_url = _detail_url_for_season(
                 season["phenom"],
                 season["year"],
@@ -219,7 +264,7 @@ def _iso_timestamp_for_record(record: dict[str, Any]) -> str:
     hours, minutes = str(record["time"]).split(":")
     timestamp = datetime(
         int(record["year"]),
-        int(record["month"]),
+        _month_number(record["month"]),
         int(record["day"]),
         int(hours),
         int(minutes),
@@ -229,12 +274,13 @@ def _iso_timestamp_for_record(record: dict[str, Any]) -> str:
 
 
 def _detail_url_for_season(phenom: str, year: int, month: int, day: int) -> str:
-    season_slug = SEASON_NAMES.get(phenom, ("", ""))[0]
-    if not season_slug:
+    season_slug = _season_slug_and_title(phenom, month)[0]
+    month_number = _month_number(month)
+    if not season_slug or month_number is None:
         return ""
     return (
         "https://in-the-sky.org/news.php?id="
-        f"{year:04d}{month:02d}{day:02d}_07_100"
+        f"{year:04d}{month_number:02d}{int(day):02d}_07_100"
         f"&season={season_slug}"
     )
 
@@ -243,6 +289,45 @@ def _candidate_content_hash(candidate: CandidateRecord) -> str:
     payload = candidate.to_dict()
     payload["content_hash"] = ""
     return sha256_text(json.dumps(payload, sort_keys=True))
+
+
+def _season_slug_and_title(phenom: str, month: int | str | None = None) -> tuple[str, str]:
+    normalized = " ".join(str(phenom).strip().lower().split())
+    if normalized in {"equinox", "solstice"}:
+        month_number = _month_number(month)
+        if month_number in SEASON_MONTHS:
+            return SEASON_MONTHS[month_number]
+    elif normalized in SEASON_NAMES:
+        return SEASON_NAMES[normalized]
+
+    month_number = _month_number(month)
+
+    if month_number in SEASON_MONTHS:
+        return SEASON_MONTHS[month_number]
+
+    return ("", "")
+
+
+def _month_number(value: int | str | None) -> int | None:
+    if value is None:
+        return None
+    if isinstance(value, int):
+        return value
+
+    text = str(value).strip().lower()
+    if not text:
+        return None
+    if text.isdigit():
+        return int(text)
+    return MONTH_NAMES.get(text)
+
+
+def _season_records(records: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    return [
+        record
+        for record in records
+        if str(record.get("phenom", "")).strip().lower() in {"equinox", "solstice"}
+    ]
 
 
 def _raw_ref_for_path(path) -> str:
