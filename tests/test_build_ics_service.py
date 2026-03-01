@@ -164,6 +164,49 @@ def test_build_calendar_respects_variant_policy_and_sequence_changes(tmp_path) -
     assert int(second_events[0]["SEQUENCE"]) == 1
 
 
+def test_build_calendar_resolves_relative_output_against_project_root(tmp_path, monkeypatch) -> None:
+    catalog_store = CatalogStore(base_dir=tmp_path / "accepted")
+    sequence_store = SequenceStore(base_dir=tmp_path / "sequences")
+    report_store = ReportStore(base_dir=tmp_path / "reports")
+    manifest = CalendarManifest(
+        name="astronomy-all",
+        output="calendars/astronomical-events.ics",
+        calendar_name="Astronomical Events",
+        calendar_description="Moon phases, equinoxes and solstices, and eclipses",
+        variant_policy="default",
+        source_validation_policy="strict",
+        reconciliation_mode="verify",
+        correction_mode="apply-working-tree",
+        stop_on_source_failure=True,
+        stop_on_conflict=True,
+        source_types=["astronomy"],
+    )
+    catalog_store.save(
+        "astronomy",
+        2026,
+        "moon-phases",
+        [_accepted_record("moon-default", event_type="moon-phase", end=None, is_default=True)],
+    )
+
+    outside_cwd = tmp_path / "outside"
+    outside_cwd.mkdir()
+    monkeypatch.chdir(outside_cwd)
+    monkeypatch.setattr("astronomical_calendars.services.build_ics_service.PROJECT_ROOT", tmp_path)
+
+    report, written_paths = build_calendar(
+        manifest=manifest,
+        catalog_store=catalog_store,
+        sequence_store=sequence_store,
+        report_store=report_store,
+        run_timestamp="2026-03-01T12-00-00Z",
+    )
+
+    expected_output = tmp_path / "calendars" / "astronomical-events.ics"
+    assert report.output_path == "calendars/astronomical-events.ics"
+    assert written_paths[0] == expected_output
+    assert expected_output.exists()
+
+
 def _accepted_record(
     occurrence_id: str,
     *,

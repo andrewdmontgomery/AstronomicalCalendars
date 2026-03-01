@@ -9,6 +9,7 @@ from icalendar import Calendar, Event
 
 from ..adapters import ASTRONOMY_ADAPTERS
 from ..models import AcceptedRecord, BuildReport, CalendarManifest
+from ..paths import PROJECT_ROOT
 from ..renderers.markdown_report import render_build_report
 from ..repositories import CatalogStore, ReportStore, SequenceStore
 
@@ -70,7 +71,7 @@ def build_calendar(
             event.add("categories", categories)
         calendar.add_component(event)
 
-    output_path = Path(manifest.output)
+    output_path = _resolve_output_path(manifest.output)
     output_path.parent.mkdir(parents=True, exist_ok=True)
     output_path.write_bytes(calendar.to_ical())
 
@@ -78,7 +79,7 @@ def build_calendar(
     report = BuildReport(
         calendar_name=manifest.name,
         generated_at=run_timestamp,
-        output_path=str(output_path),
+        output_path=manifest.output,
         event_count=len(filtered_records),
         sequence_path=str(sequence_path),
     )
@@ -144,6 +145,13 @@ def _parse_utc_datetime(value: str) -> datetime:
 
 def _parse_report_timestamp(value: str) -> datetime:
     return datetime.strptime(value, "%Y-%m-%dT%H-%M-%SZ").replace(tzinfo=timezone.utc)
+
+
+def _resolve_output_path(value: str) -> Path:
+    output_path = Path(value)
+    if output_path.is_absolute():
+        return output_path
+    return PROJECT_ROOT / output_path
 
 
 def _run_timestamp() -> str:
