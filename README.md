@@ -34,6 +34,7 @@ The pipeline validates upstream sources, fetches raw source data, normalizes can
 - [`calendars/`](calendars/): published subscriber-facing `.ics` files and calendar index
 - [`data/catalog/accepted/`](data/catalog/accepted/): accepted catalog records that feed calendar builds
 - [`data/catalog/reports/`](data/catalog/reports/): validation, reconciliation, and build reports
+- [`data/diagnostics/`](data/diagnostics/): source-boundary validation, fetch, and normalize diagnostics
 - [`config/calendars/`](config/calendars/): calendar manifest definitions
 - [`src/astrocal/`](src/astrocal/): Python runtime and adapters
 

@@ -378,8 +378,10 @@ Rule:
 - Live source checks are runtime validation commands, not normal automated tests.
 - The implementation must preserve enough diagnostics for future debug-skill work:
   - validation report
+  - validation summary
   - raw snapshot
-  - parse summary
+  - fetch summary
+  - normalize summary
   - normalized candidate output
   - reconciliation report
   - failure reason

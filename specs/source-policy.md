@@ -38,6 +38,28 @@ If any required validation fails:
 Validation artifacts should persist whether the canary checks passed via a dedicated
 boolean such as `canary_ok`, in addition to the human-readable validation `checks` list.
 
+## Diagnostic Artifacts
+
+Source-boundary runs should leave durable JSON artifacts that make debugging possible
+without rerunning the live source:
+
+- validation report under `data/catalog/reports/...`
+- validation summary under `data/diagnostics/.../validate-summary.json`
+- raw source snapshot under `data/raw/...`
+- fetch summary or failure under `data/diagnostics/.../fetch-summary.json` or
+  `data/diagnostics/.../fetch-failure.json`
+- normalize summary or failure under `data/diagnostics/.../normalize-summary.json` or
+  `data/diagnostics/.../normalize-failure.json`
+
+These artifacts should be sufficient to show:
+
+- which adapter ran
+- which upstream URL was used
+- whether the canary check passed
+- where the raw payload was stored
+- what the parser claims it extracted
+- where the failure occurred when the pipeline stopped
+
 ## Preferred Sources
 
 ### Moon phases
