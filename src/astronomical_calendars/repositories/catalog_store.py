@@ -33,3 +33,18 @@ class CatalogStore:
         path = self.path_for(source_type, year, source_name)
         write_json(path, [record.to_dict() for record in records])
         return path
+
+    def available_years(self, source_type: str, source_name: str) -> list[int]:
+        source_root = self._base_dir / source_type
+        if not source_root.exists():
+            return []
+
+        years: list[int] = []
+        for year_dir in source_root.iterdir():
+            if not year_dir.is_dir():
+                continue
+            if not year_dir.name.isdigit():
+                continue
+            if (year_dir / f"{source_name}.json").exists():
+                years.append(int(year_dir.name))
+        return sorted(years)

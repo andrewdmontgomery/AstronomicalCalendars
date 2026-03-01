@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from ..models import ValidationReport
+from ..models import BuildReport, ValidationReport
 
 
 def render_validation_report(report: ValidationReport) -> str:
@@ -23,4 +23,17 @@ def render_validation_report(report: ValidationReport) -> str:
     for check in report.checks:
         lines.append(f"- {check}")
 
+    return "\n".join(lines) + "\n"
+
+
+def render_build_report(report: BuildReport) -> str:
+    lines = [
+        f"# Build Report: {report.calendar_name}",
+        "",
+        f"- Generated at: {report.generated_at}",
+        f"- Output path: {report.output_path}",
+        f"- Event count: {report.event_count}",
+    ]
+    if report.sequence_path:
+        lines.append(f"- Sequence path: {report.sequence_path}")
     return "\n".join(lines) + "\n"

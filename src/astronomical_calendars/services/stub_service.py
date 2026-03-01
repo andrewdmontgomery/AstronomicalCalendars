@@ -11,6 +11,7 @@ from ..adapters import ASTRONOMY_ADAPTERS
 from ..git import GitStager
 from ..manifests import load_manifest
 from ..repositories import ReportStore
+from ..services.build_ics_service import build_calendar
 from ..services.fetch_service import fetch_source_family
 from ..services.normalize_service import normalize_source_family
 from ..services.reconcile_service import reconcile_calendar
@@ -94,11 +95,15 @@ def reconcile_command(args: argparse.Namespace) -> int:
 
 def build_command(args: argparse.Namespace) -> int:
     manifest = load_manifest(args.calendar)
-    report_dir = _report_dir_value(args.report_dir)
     variant_policy = args.variant_policy or manifest.variant_policy
-    print(
-        f"build {manifest.name} variant_policy={variant_policy} report_dir={report_dir}"
-    )
+    with _report_store_context(args.report_dir) as report_store:
+        report, _ = build_calendar(
+            manifest=manifest,
+            report_store=report_store,
+            variant_policy=variant_policy,
+        )
+    report_dir = _report_dir_value(args.report_dir)
+    print(f"build {manifest.name} variant_policy={variant_policy} report_dir={report_dir} events={report.event_count}")
     return 0
 
 
