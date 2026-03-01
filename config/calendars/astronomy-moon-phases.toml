@@ -1,8 +1,9 @@
-name = "astronomy-all"
-output = "output/calendars/astronomy-all.ics"
-calendar_name = "Astronomical Events"
-calendar_description = "Moon phases, seasons, and eclipses"
+name = "astronomy-moon-phases"
+output = "output/calendars/astronomy-moon-phases.ics"
+calendar_name = "Moon Phases"
+calendar_description = "Major moon phase events"
 source_types = ["astronomy"]
+event_types = ["moon-phase"]
 variant_policy = "default"
 source_validation_policy = "strict"
 reconciliation_mode = "verify"
