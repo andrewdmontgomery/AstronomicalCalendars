@@ -9,6 +9,7 @@ from typing import Any, Protocol
 
 import requests
 
+from .canary_checks import non_empty_records, required_fields
 from ...hashing import sha256_text
 from ...models import (
     CandidateRecord,
@@ -74,14 +75,14 @@ class MoonPhasesAdapter:
             response.raise_for_status()
             payload = response.json()
             phases = payload.get("phasedata", [])
-            if not phases:
-                return self._failed_report(year, "phasedata missing")
+            canary_failure = non_empty_records(phases, "phasedata")
+            if canary_failure:
+                return self._failed_report(year, canary_failure)
 
             sample = phases[0]
-            required_fields = {"phase", "year", "month", "day", "time"}
-            missing = sorted(required_fields - set(sample))
-            if missing:
-                return self._failed_report(year, f"missing required fields: {', '.join(missing)}")
+            canary_failure = required_fields(sample, {"phase", "year", "month", "day", "time"})
+            if canary_failure:
+                return self._failed_report(year, canary_failure)
 
             if not _detail_url_for_phase(sample["phase"], sample["year"], sample["month"], sample["day"]):
                 return self._failed_report(year, "detail URL derivation failed")
@@ -95,6 +96,8 @@ class MoonPhasesAdapter:
             validated_at=self._now_provider(),
             checks=[
                 "reachable",
+                "canary payload present",
+                "canary required fields present",
                 "required timing fields present",
                 "detail url resolved",
             ],

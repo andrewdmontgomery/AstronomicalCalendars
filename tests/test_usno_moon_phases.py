@@ -82,3 +82,26 @@ def test_content_hash_is_deterministic_for_same_fixture(tmp_path: Path) -> None:
     assert [candidate.content_hash for candidate in first] == [
         candidate.content_hash for candidate in second
     ]
+
+
+def test_validate_usno_moon_phases_fails_canary_when_required_field_is_missing(tmp_path: Path) -> None:
+    payload = {
+        "phasedata": [
+            {
+                "phase": "New Moon",
+                "year": 2026,
+                "month": 1,
+                "day": 1,
+            }
+        ]
+    }
+    adapter = MoonPhasesAdapter(
+        http_client=FixtureHttpClient(payload),
+        raw_store=RawStore(base_dir=tmp_path / "raw"),
+        now_provider=lambda: "2026-03-01T12:00:00Z",
+    )
+
+    report = adapter.validate(2026)
+
+    assert report.status == "failed"
+    assert report.reason == "missing required fields: time"

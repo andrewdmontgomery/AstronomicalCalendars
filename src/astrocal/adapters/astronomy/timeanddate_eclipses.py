@@ -80,6 +80,8 @@ class EclipsesAdapter:
             validated_at=self._now_provider(),
             checks=[
                 "reachable",
+                "canary detail page reachable",
+                "canary timeline present",
                 "required timing fields present",
                 "detail url resolved",
             ],

@@ -124,3 +124,18 @@ def test_eclipse_titles_use_canonical_type_names(tmp_path: Path) -> None:
         titles_by_occurrence["astronomy/eclipse/2026-08-28/partial-moon/full-duration"]
         == "Partial Lunar Eclipse"
     )
+
+
+def test_validate_timeanddate_eclipses_fails_canary_when_timeline_is_missing(tmp_path: Path) -> None:
+    adapter = EclipsesAdapter(
+        http_client=FixtureHttpClient(
+            {"https://www.timeanddate.com/eclipse/lunar/2026-march-3": "<html><title>Example</title></html>"}
+        ),
+        raw_store=RawStore(base_dir=tmp_path / "raw"),
+        now_provider=lambda: "2026-03-01T12:00:00Z",
+    )
+
+    report = adapter.validate(2026)
+
+    assert report.status == "failed"
+    assert report.reason == "unable to derive eclipse identity"

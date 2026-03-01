@@ -119,3 +119,28 @@ def test_normalize_usno_seasons_ignores_non_season_rows(tmp_path: Path) -> None:
         "March Equinox",
         "June Solstice",
     }
+
+
+def test_validate_usno_seasons_fails_canary_when_no_season_rows_exist(tmp_path: Path) -> None:
+    payload = {
+        "year": 2026,
+        "data": [
+            {
+                "year": 2026,
+                "month": 1,
+                "day": 3,
+                "time": "17:15",
+                "phenom": "Perihelion",
+            }
+        ],
+    }
+    adapter = SeasonsAdapter(
+        http_client=FixtureHttpClient(payload),
+        raw_store=RawStore(base_dir=tmp_path / "raw"),
+        now_provider=lambda: "2026-03-01T12:00:00Z",
+    )
+
+    report = adapter.validate(2026)
+
+    assert report.status == "failed"
+    assert report.reason == "season-marker data missing"
