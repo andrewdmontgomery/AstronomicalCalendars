@@ -182,6 +182,39 @@ def test_reconcile_writes_catalog_and_reports_without_staging(tmp_path: Path) ->
     assert all(path.exists() for path in written_paths)
 
 
+def test_reconcile_stops_before_catalog_writes_on_validation_failure(tmp_path: Path) -> None:
+    candidate_store = CandidateStore(base_dir=tmp_path / "normalized")
+    catalog_store = CatalogStore(base_dir=tmp_path / "accepted")
+    report_store = ReportStore(base_dir=tmp_path / "reports")
+
+    valid_candidate = build_candidate()
+    failed_candidate = build_candidate()
+    failed_candidate.occurrence_id = "astronomy/eclipse/2026-03-03/total-lunar-eclipse/default"
+    failed_candidate.group_id = "astronomy/eclipse/2026-03-03/total-lunar-eclipse"
+    failed_candidate.source_adapter = "timeanddate-eclipses-v1"
+    failed_candidate.source_validation.status = "failed"
+    failed_candidate.source_validation.reason = "required timing fields missing"
+
+    candidate_store.save("astronomy", 2026, "moon-phases", [valid_candidate])
+    candidate_store.save("astronomy", 2026, "eclipses", [failed_candidate])
+
+    report, written_paths = reconcile_calendar(
+        manifest=build_manifest(),
+        year=2026,
+        candidate_store=candidate_store,
+        catalog_store=catalog_store,
+        report_store=report_store,
+        run_timestamp="2026-03-02T12-00-00Z",
+    )
+
+    assert report.validation_failures == ["eclipses"]
+    assert catalog_store.load("astronomy", 2026, "moon-phases") == []
+    assert catalog_store.load("astronomy", 2026, "eclipses") == []
+    assert len(written_paths) == 2
+    assert all(path.name.startswith("reconcile.astronomy-all") for path in written_paths)
+    assert all(path.exists() for path in written_paths)
+
+
 def _accepted_from_candidate(candidate, *, revision, status, accepted_at, change_reason):
     from astronomical_calendars.models import AcceptedRecord
 

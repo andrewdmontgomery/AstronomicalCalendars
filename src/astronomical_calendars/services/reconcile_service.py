@@ -40,13 +40,22 @@ def reconcile_calendar(
         year=year,
         generated_at=run_timestamp,
     )
+    validation_failures = [
+        source_name
+        for source_name, candidates in filtered_candidates_by_source.items()
+        if _has_validation_failure(candidates)
+    ]
+    report.validation_failures.extend(validation_failures)
+
+    if validation_failures:
+        report_name = f"reconcile.{manifest.name}"
+        json_path = report_store.write_json_report(run_timestamp, report_name, report.to_dict())
+        md_path = report_store.write_markdown_report(run_timestamp, report_name, _render_report(report))
+        return report, [json_path, md_path]
+
     catalog_paths: list[Path] = []
 
     for source_name, candidates in filtered_candidates_by_source.items():
-        if _has_validation_failure(candidates):
-            report.validation_failures.append(source_name)
-            continue
-
         accepted_records = catalog_store.load("astronomy", year, source_name)
         reconciled = _reconcile_source_records(
             source_name=source_name,

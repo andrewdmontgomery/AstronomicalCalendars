@@ -161,3 +161,24 @@ def test_run_command_uses_repo_report_store_by_default(capsys, mocker) -> None:
     assert exit_code == 0
     assert "reconcile astronomy-all year=2026" in captured.out
     assert "data/catalog/reports" in str(reconcile_mock.call_args.kwargs["report_store"]._base_dir)
+
+
+def test_reconcile_command_returns_non_zero_on_validation_failure(capsys, mocker) -> None:
+    mocker.patch(
+        "astronomical_calendars.services.stub_service.reconcile_calendar",
+        return_value=(
+            ReconciliationReport(
+                calendar_name="astronomy-all",
+                year=2026,
+                generated_at="2026-03-01T00:00:00Z",
+                validation_failures=["eclipses"],
+            ),
+            [],
+        ),
+    )
+
+    exit_code = main(["reconcile", "--calendar", "astronomy-all", "--year", "2026"])
+    captured = capsys.readouterr()
+
+    assert exit_code == 1
+    assert "reconcile astronomy-all year=2026" in captured.out

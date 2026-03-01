@@ -87,7 +87,7 @@ def reconcile_command(args: argparse.Namespace) -> int:
         f"new={len(report.new_occurrences)} "
         f"changed={len(report.changed_occurrences)} removed={len(report.suspected_removals)}"
     )
-    return 0
+    return 1 if report.validation_failures else 0
 
 
 def build_command(args: argparse.Namespace) -> int:
