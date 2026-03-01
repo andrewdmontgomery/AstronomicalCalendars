@@ -8,6 +8,7 @@ from pathlib import Path
 from ..adapters import ASTRONOMY_ADAPTERS
 from ..manifests import load_manifest
 from ..services.fetch_service import fetch_source_family
+from ..services.normalize_service import normalize_source_family
 from ..services.validation_service import validate_source_family
 
 
@@ -18,8 +19,7 @@ def validate_command(args: argparse.Namespace) -> int:
         args.year,
         adapters=ASTRONOMY_ADAPTERS,
     )
-    for report in reports:
-        print(f"validate {report.source_name} status={report.status} year={args.year}")
+    _print_validation_reports(reports, args.year)
     return exit_code
 
 
@@ -30,6 +30,7 @@ def fetch_command(args: argparse.Namespace) -> int:
         args.year,
         adapters=ASTRONOMY_ADAPTERS,
     )
+    _print_validation_reports(reports, args.year)
     if exit_code:
         return exit_code
 
@@ -41,6 +42,24 @@ def fetch_command(args: argparse.Namespace) -> int:
 
 def normalize_command(args: argparse.Namespace) -> int:
     print(f"normalize {args.source_family} year={args.year}")
+    exit_code, reports = validate_source_family(
+        args.source_family,
+        args.year,
+        adapters=ASTRONOMY_ADAPTERS,
+    )
+    _print_validation_reports(reports, args.year)
+    if exit_code:
+        return exit_code
+
+    raw_results = fetch_source_family(args.year, adapters=ASTRONOMY_ADAPTERS, validation_reports=reports)
+    normalized_results = normalize_source_family(
+        args.source_family,
+        args.year,
+        adapters=ASTRONOMY_ADAPTERS,
+        raw_results=raw_results,
+    )
+    for source_name, candidates in normalized_results:
+        print(f"normalize {source_name} candidates={len(candidates)} year={args.year}")
     return 0
 
 
@@ -66,3 +85,11 @@ def build_command(args: argparse.Namespace) -> int:
 
 def _report_dir_value(report_dir: Path | None) -> str:
     return str(report_dir) if report_dir is not None else "default"
+
+
+def _print_validation_reports(reports: list, year: int) -> None:
+    for report in reports:
+        reason_suffix = f" reason={report.reason}" if report.reason else ""
+        print(
+            f"validate {report.source_name} status={report.status} year={year}{reason_suffix}"
+        )
