@@ -19,11 +19,6 @@ def test_build_calendar_writes_ics_and_sequence_state(tmp_path) -> None:
         calendar_name="Astronomical Events",
         calendar_description="Moon phases, equinoxes and solstices, and eclipses",
         variant_policy="default",
-        source_validation_policy="strict",
-        reconciliation_mode="verify",
-        correction_mode="apply-working-tree",
-        stop_on_source_failure=True,
-        stop_on_conflict=True,
         source_types=["astronomy"],
     )
 
@@ -97,11 +92,6 @@ def test_build_calendar_respects_variant_policy_and_sequence_changes(tmp_path) -
         calendar_name="Eclipses",
         calendar_description="Solar and lunar eclipses with exact astronomical timing",
         variant_policy="default",
-        source_validation_policy="strict",
-        reconciliation_mode="verify",
-        correction_mode="apply-working-tree",
-        stop_on_source_failure=True,
-        stop_on_conflict=True,
         source_types=["astronomy"],
         event_types=["eclipse"],
     )
@@ -174,11 +164,6 @@ def test_build_calendar_resolves_relative_output_against_project_root(tmp_path, 
         calendar_name="Astronomical Events",
         calendar_description="Moon phases, equinoxes and solstices, and eclipses",
         variant_policy="default",
-        source_validation_policy="strict",
-        reconciliation_mode="verify",
-        correction_mode="apply-working-tree",
-        stop_on_source_failure=True,
-        stop_on_conflict=True,
         source_types=["astronomy"],
     )
     catalog_store.save(
