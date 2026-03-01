@@ -5,16 +5,37 @@ from __future__ import annotations
 import argparse
 from pathlib import Path
 
+from ..adapters import ASTRONOMY_ADAPTERS
 from ..manifests import load_manifest
+from ..services.fetch_service import fetch_source_family
+from ..services.validation_service import validate_source_family
 
 
 def validate_command(args: argparse.Namespace) -> int:
     print(f"validate {args.source_family} year={args.year}")
-    return 0
+    exit_code, reports = validate_source_family(
+        args.source_family,
+        args.year,
+        adapters=ASTRONOMY_ADAPTERS,
+    )
+    for report in reports:
+        print(f"validate {report.source_name} status={report.status} year={args.year}")
+    return exit_code
 
 
 def fetch_command(args: argparse.Namespace) -> int:
     print(f"fetch {args.source_family} year={args.year}")
+    exit_code, reports = validate_source_family(
+        args.source_family,
+        args.year,
+        adapters=ASTRONOMY_ADAPTERS,
+    )
+    if exit_code:
+        return exit_code
+
+    raw_results = fetch_source_family(args.year, adapters=ASTRONOMY_ADAPTERS, validation_reports=reports)
+    for result in raw_results:
+        print(f"fetch {result.source_name} raw_ref={result.raw_ref} year={args.year}")
     return 0
 
 
