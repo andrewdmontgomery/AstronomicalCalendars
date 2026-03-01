@@ -62,20 +62,27 @@ class BrokenNormalizeAdapter(PassingAdapter):
 
 def test_validate_source_family_writes_json_reports(tmp_path) -> None:
     report_store = ReportStore(base_dir=tmp_path)
+    diagnostic_store = DiagnosticStore(base_dir=tmp_path / "diagnostics")
 
     exit_code, reports = validate_source_family(
         "astronomy",
         2026,
         adapters={"moon-phases": PassingAdapter()},
         report_store=report_store,
+        diagnostic_store=diagnostic_store,
         run_timestamp="2026-03-01T12-00-00Z",
     )
 
     json_report = tmp_path / "2026-03-01T12-00-00Z" / "validate.moon-phases.2026.json"
+    diagnostic_summary = (
+        tmp_path / "diagnostics" / "astronomy" / "2026" / "moon-phases" / "validate-summary.json"
+    )
     assert exit_code == 0
     assert len(reports) == 1
     assert json_report.exists()
+    assert diagnostic_summary.exists()
     assert reports[0].canary_ok is True
+    assert '"canary_ok": true' in diagnostic_summary.read_text(encoding="utf-8")
 
 
 def test_validate_source_family_returns_non_zero_for_failed_validation(tmp_path) -> None:
@@ -84,12 +91,18 @@ def test_validate_source_family_returns_non_zero_for_failed_validation(tmp_path)
         2026,
         adapters={"eclipses": FailingAdapter()},
         report_store=ReportStore(base_dir=tmp_path),
+        diagnostic_store=DiagnosticStore(base_dir=tmp_path / "diagnostics"),
         run_timestamp="2026-03-01T12-00-00Z",
     )
 
+    diagnostic_summary = (
+        tmp_path / "diagnostics" / "astronomy" / "2026" / "eclipses" / "validate-summary.json"
+    )
     assert exit_code == 1
     assert reports[0].status == "failed"
     assert reports[0].canary_ok is False
+    assert diagnostic_summary.exists()
+    assert '"reason": "required timing fields missing"' in diagnostic_summary.read_text(encoding="utf-8")
 
 
 def test_fetch_source_family_stops_after_validation_failure() -> None:
