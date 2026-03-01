@@ -15,9 +15,9 @@ Available calendars:
 | Equinoxes and Solstices | March Equinox, June Solstice, September Equinox, and December Solstice |
 | Eclipses | Solar and lunar eclipses with exact astronomical timing |
 
-## Status
+## Current Source Coverage
 
-Phase 1 is live for astronomy sources:
+AstronomicalCalendars currently publishes calendars backed by:
 
 - USNO moon phases
 - USNO seasons
