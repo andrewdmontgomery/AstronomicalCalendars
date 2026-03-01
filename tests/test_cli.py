@@ -73,7 +73,7 @@ def test_run_command_executes_pipeline(capsys, mocker) -> None:
 
 
 def test_build_command_uses_manifest_default_variant_policy(capsys, mocker) -> None:
-    mocker.patch(
+    build_mock = mocker.patch(
         "astronomical_calendars.services.stub_service.build_calendar",
         return_value=(
             BuildReport(
@@ -92,6 +92,7 @@ def test_build_command_uses_manifest_default_variant_policy(capsys, mocker) -> N
 
     assert exit_code == 0
     assert "build astronomy-eclipses variant_policy=default" in captured.out
+    assert "data/catalog/reports" in str(build_mock.call_args.kwargs["report_store"]._base_dir)
 
 
 def test_validate_command_writes_reports_only_when_report_dir_is_requested(
@@ -120,3 +121,41 @@ def test_validate_command_writes_reports_only_when_report_dir_is_requested(
     assert "validate moon-phases status=passed year=2026" in captured.out
     assert list(tmp_path.glob("*/validate.moon-phases.2026.json"))
     assert list(tmp_path.glob("*/validate.moon-phases.2026.md"))
+
+
+def test_run_command_uses_repo_report_store_by_default(capsys, mocker) -> None:
+    mocker.patch(
+        "astronomical_calendars.services.run_service.ASTRONOMY_ADAPTERS",
+        {"moon-phases": CliAdapter()},
+    )
+    reconcile_mock = mocker.patch(
+        "astronomical_calendars.services.run_service.reconcile_calendar",
+        return_value=(
+            ReconciliationReport(
+                calendar_name="astronomy-all",
+                year=2026,
+                generated_at="2026-03-01T00:00:00Z",
+            ),
+            [],
+        ),
+    )
+    mocker.patch(
+        "astronomical_calendars.services.run_service.build_calendar",
+        return_value=(
+            BuildReport(
+                calendar_name="astronomy-all",
+                generated_at="2026-03-01T00:00:00Z",
+                output_path="output/calendars/astronomy-all.ics",
+                event_count=3,
+                sequence_path="data/state/sequences/astronomy-all.json",
+            ),
+            [],
+        ),
+    )
+
+    exit_code = main(["run", "--calendar", "astronomy-all", "--year", "2026", "--no-stage"])
+    captured = capsys.readouterr()
+
+    assert exit_code == 0
+    assert "reconcile astronomy-all year=2026" in captured.out
+    assert "data/catalog/reports" in str(reconcile_mock.call_args.kwargs["report_store"]._base_dir)

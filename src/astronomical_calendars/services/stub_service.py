@@ -96,14 +96,14 @@ def reconcile_command(args: argparse.Namespace) -> int:
 def build_command(args: argparse.Namespace) -> int:
     manifest = load_manifest(args.calendar)
     variant_policy = args.variant_policy or manifest.variant_policy
-    with _report_store_context(args.report_dir) as report_store:
-        report, _ = build_calendar(
-            manifest=manifest,
-            report_store=report_store,
-            git_stager=GitStager(),
-            stage_changes=True,
-            variant_policy=variant_policy,
-        )
+    report_store = ReportStore(base_dir=args.report_dir) if args.report_dir else ReportStore()
+    report, _ = build_calendar(
+        manifest=manifest,
+        report_store=report_store,
+        git_stager=GitStager(),
+        stage_changes=True,
+        variant_policy=variant_policy,
+    )
     report_dir = _report_dir_value(args.report_dir)
     print(
         f"build {manifest.name} variant_policy={variant_policy} report_dir={report_dir} "
