@@ -121,7 +121,7 @@ Decision:
 - Service layer: orchestration and business rules only.
 - Repository layer: filesystem persistence only.
 - Git helper: staging only, no commit logic.
-- Renderer layer: Markdown report formatting only.
+- Renderer layer: optional human-facing output helpers only.
 
 No adapter inheritance tree. No plugin registry. Use explicit adapter maps.
 

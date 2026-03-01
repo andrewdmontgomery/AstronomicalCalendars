@@ -178,7 +178,6 @@ def test_reconcile_writes_catalog_and_reports_without_staging(tmp_path: Path) ->
     assert report.new_occurrences == [candidate.occurrence_id]
     assert any(path.name == "moon-phases.json" for path in written_paths)
     assert any(path.name == "reconcile.astronomy-all.json" for path in written_paths)
-    assert any(path.name == "reconcile.astronomy-all.md" for path in written_paths)
     assert all(path.exists() for path in written_paths)
 
 
@@ -210,7 +209,7 @@ def test_reconcile_stops_before_catalog_writes_on_validation_failure(tmp_path: P
     assert report.validation_failures == ["eclipses"]
     assert catalog_store.load("astronomy", 2026, "moon-phases") == []
     assert catalog_store.load("astronomy", 2026, "eclipses") == []
-    assert len(written_paths) == 2
+    assert len(written_paths) == 1
     assert all(path.name.startswith("reconcile.astronomy-all") for path in written_paths)
     assert all(path.exists() for path in written_paths)
 

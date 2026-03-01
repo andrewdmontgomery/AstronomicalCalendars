@@ -19,9 +19,3 @@ class ReportStore:
         path = self.run_dir(run_timestamp) / f"{name}.json"
         write_json(path, payload)
         return path
-
-    def write_markdown_report(self, run_timestamp: str, name: str, content: str) -> Path:
-        path = self.run_dir(run_timestamp) / f"{name}.md"
-        path.parent.mkdir(parents=True, exist_ok=True)
-        path.write_text(content, encoding="utf-8")
-        return path

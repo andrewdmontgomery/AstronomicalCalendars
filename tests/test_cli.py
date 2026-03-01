@@ -122,7 +122,6 @@ def test_validate_command_writes_reports_only_when_report_dir_is_requested(
     assert exit_code == 0
     assert "validate moon-phases status=passed year=2026" in captured.out
     assert list(tmp_path.glob("*/validate.moon-phases.2026.json"))
-    assert list(tmp_path.glob("*/validate.moon-phases.2026.md"))
 
 
 def test_run_command_uses_repo_report_store_by_default(capsys, mocker) -> None:

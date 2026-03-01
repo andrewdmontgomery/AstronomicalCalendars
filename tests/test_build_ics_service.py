@@ -84,7 +84,7 @@ def test_build_calendar_writes_ics_and_sequence_state(tmp_path) -> None:
     assert moon_event.get("DTEND") is None
     assert eclipse_event.get("DTEND") is not None
     assert int(moon_event["SEQUENCE"]) == 0
-    assert len(written_paths) == 4
+    assert len(written_paths) == 3
 
 
 def test_build_calendar_respects_variant_policy_and_sequence_changes(tmp_path) -> None:

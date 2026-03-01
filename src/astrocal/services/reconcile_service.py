@@ -50,8 +50,7 @@ def reconcile_calendar(
     if validation_failures:
         report_name = f"reconcile.{manifest.name}"
         json_path = report_store.write_json_report(run_timestamp, report_name, report.to_dict())
-        md_path = report_store.write_markdown_report(run_timestamp, report_name, _render_report(report))
-        return report, [json_path, md_path]
+        return report, [json_path]
 
     catalog_paths: list[Path] = []
 
@@ -68,11 +67,8 @@ def reconcile_calendar(
         catalog_paths.append(saved_path)
 
     report_name = f"reconcile.{manifest.name}"
-    json_path = report_store.run_dir(run_timestamp) / f"{report_name}.json"
-    md_path = report_store.run_dir(run_timestamp) / f"{report_name}.md"
     json_path = report_store.write_json_report(run_timestamp, report_name, report.to_dict())
-    md_path = report_store.write_markdown_report(run_timestamp, report_name, _render_report(report))
-    written_paths = catalog_paths + [json_path, md_path]
+    written_paths = catalog_paths + [json_path]
 
     return report, written_paths
 
@@ -200,34 +196,6 @@ def _change_reason(current: AcceptedRecord, candidate: CandidateRecord) -> str:
     if not changed_fields:
         return "Content hash changed"
     return f"Updated {', '.join(changed_fields)}"
-
-
-def _render_report(report: ReconciliationReport) -> str:
-    lines = [
-        f"# Reconciliation Report: {report.calendar_name}",
-        "",
-        f"- Year: {report.year}",
-        f"- Generated at: {report.generated_at}",
-        f"- New occurrences: {len(report.new_occurrences)}",
-        f"- Unchanged occurrences: {len(report.unchanged_occurrences)}",
-        f"- Changed occurrences: {len(report.changed_occurrences)}",
-        f"- Suspected removals: {len(report.suspected_removals)}",
-        f"- Validation failures: {len(report.validation_failures)}",
-    ]
-    for title, values in (
-        ("New Occurrences", report.new_occurrences),
-        ("Changed Occurrences", report.changed_occurrences),
-        ("Suspected Removals", report.suspected_removals),
-        ("Validation Failures", report.validation_failures),
-    ):
-        lines.extend(["", f"## {title}"])
-        if values:
-            lines.extend(f"- {value}" for value in values)
-        else:
-            lines.append("- None")
-
-    return "\n".join(lines) + "\n"
-
 
 def _run_timestamp() -> str:
     return datetime.now(timezone.utc).strftime("%Y-%m-%dT%H-%M-%SZ")

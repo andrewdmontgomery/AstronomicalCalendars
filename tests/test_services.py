@@ -52,7 +52,7 @@ class FailingAdapter(PassingAdapter):
         )
 
 
-def test_validate_source_family_writes_json_and_markdown_reports(tmp_path) -> None:
+def test_validate_source_family_writes_json_reports(tmp_path) -> None:
     report_store = ReportStore(base_dir=tmp_path)
 
     exit_code, reports = validate_source_family(
@@ -64,13 +64,9 @@ def test_validate_source_family_writes_json_and_markdown_reports(tmp_path) -> No
     )
 
     json_report = tmp_path / "2026-03-01T12-00-00Z" / "validate.moon-phases.2026.json"
-    markdown_report = tmp_path / "2026-03-01T12-00-00Z" / "validate.moon-phases.2026.md"
-
     assert exit_code == 0
     assert len(reports) == 1
     assert json_report.exists()
-    assert markdown_report.exists()
-    assert "Status: passed" in markdown_report.read_text(encoding="utf-8")
 
 
 def test_validate_source_family_returns_non_zero_for_failed_validation(tmp_path) -> None:

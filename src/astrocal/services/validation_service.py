@@ -6,7 +6,6 @@ from collections.abc import Mapping
 from datetime import datetime, timezone
 
 from ..models import ValidationReport
-from ..renderers import render_validation_report
 from ..repositories import ReportStore
 
 
@@ -30,11 +29,6 @@ def validate_source_family(
     for report in reports:
         report_name = f"validate.{report.source_name}.{year}"
         report_store.write_json_report(run_timestamp, report_name, report.to_dict())
-        report_store.write_markdown_report(
-            run_timestamp,
-            report_name,
-            render_validation_report(report),
-        )
 
     exit_code = 0 if all(report.status == "passed" for report in reports) else 1
     return exit_code, reports

@@ -10,7 +10,6 @@ from icalendar import Calendar, Event
 from ..adapters import ASTRONOMY_ADAPTERS
 from ..models import AcceptedRecord, BuildReport, CalendarManifest
 from ..paths import PROJECT_ROOT
-from ..renderers.markdown_report import render_build_report
 from ..repositories import CatalogStore, ReportStore, SequenceStore
 
 
@@ -85,8 +84,7 @@ def build_calendar(
     )
     report_name = f"build.{manifest.name}"
     json_path = report_store.write_json_report(run_timestamp, report_name, report.to_dict())
-    md_path = report_store.write_markdown_report(run_timestamp, report_name, render_build_report(report))
-    written_paths = [output_path, sequence_path, json_path, md_path]
+    written_paths = [output_path, sequence_path, json_path]
 
     return report, written_paths
 
