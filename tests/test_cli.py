@@ -53,3 +53,32 @@ def test_build_command_uses_manifest_default_variant_policy(capsys) -> None:
 
     assert exit_code == 0
     assert "build astronomy-eclipses variant_policy=default" in captured.out
+
+
+def test_validate_command_writes_reports_only_when_report_dir_is_requested(
+    capsys,
+    mocker,
+    tmp_path,
+) -> None:
+    mocker.patch(
+        "astronomical_calendars.services.stub_service.ASTRONOMY_ADAPTERS",
+        {"moon-phases": CliAdapter()},
+    )
+
+    exit_code = main(
+        [
+            "validate",
+            "--year",
+            "2026",
+            "--report-dir",
+            str(tmp_path),
+            "astronomy",
+        ]
+    )
+
+    captured = capsys.readouterr()
+
+    assert exit_code == 0
+    assert "validate moon-phases status=passed year=2026" in captured.out
+    assert list(tmp_path.glob("*/validate.moon-phases.2026.json"))
+    assert list(tmp_path.glob("*/validate.moon-phases.2026.md"))

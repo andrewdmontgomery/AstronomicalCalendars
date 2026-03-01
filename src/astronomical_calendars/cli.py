@@ -27,6 +27,7 @@ def build_parser() -> argparse.ArgumentParser:
         command_parser = subparsers.add_parser(name)
         command_parser.add_argument("source_family", choices=["astronomy"])
         command_parser.add_argument("--year", type=int, required=True)
+        command_parser.add_argument("--report-dir", type=Path)
         command_parser.set_defaults(handler=handler)
 
     reconcile_parser = subparsers.add_parser("reconcile")

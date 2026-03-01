@@ -17,17 +17,31 @@ from .stub_service import (
 def run_command(args: argparse.Namespace) -> int:
     source_family = "astronomy"
     validate_exit = validate_command(
-        SimpleNamespace(source_family=source_family, year=args.year)
+        SimpleNamespace(
+            source_family=source_family,
+            year=args.year,
+            report_dir=args.report_dir,
+        )
     )
     if validate_exit:
         return validate_exit
 
-    fetch_exit = fetch_command(SimpleNamespace(source_family=source_family, year=args.year))
+    fetch_exit = fetch_command(
+        SimpleNamespace(
+            source_family=source_family,
+            year=args.year,
+            report_dir=args.report_dir,
+        )
+    )
     if fetch_exit:
         return fetch_exit
 
     normalize_exit = normalize_command(
-        SimpleNamespace(source_family=source_family, year=args.year)
+        SimpleNamespace(
+            source_family=source_family,
+            year=args.year,
+            report_dir=args.report_dir,
+        )
     )
     if normalize_exit:
         return normalize_exit

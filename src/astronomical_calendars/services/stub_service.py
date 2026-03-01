@@ -3,10 +3,13 @@
 from __future__ import annotations
 
 import argparse
+import tempfile
+from contextlib import contextmanager, nullcontext
 from pathlib import Path
 
 from ..adapters import ASTRONOMY_ADAPTERS
 from ..manifests import load_manifest
+from ..repositories import ReportStore
 from ..services.fetch_service import fetch_source_family
 from ..services.normalize_service import normalize_source_family
 from ..services.validation_service import validate_source_family
@@ -14,22 +17,26 @@ from ..services.validation_service import validate_source_family
 
 def validate_command(args: argparse.Namespace) -> int:
     print(f"validate {args.source_family} year={args.year}")
-    exit_code, reports = validate_source_family(
-        args.source_family,
-        args.year,
-        adapters=ASTRONOMY_ADAPTERS,
-    )
+    with _report_store_context(args.report_dir) as report_store:
+        exit_code, reports = validate_source_family(
+            args.source_family,
+            args.year,
+            adapters=ASTRONOMY_ADAPTERS,
+            report_store=report_store,
+        )
     _print_validation_reports(reports, args.year)
     return exit_code
 
 
 def fetch_command(args: argparse.Namespace) -> int:
     print(f"fetch {args.source_family} year={args.year}")
-    exit_code, reports = validate_source_family(
-        args.source_family,
-        args.year,
-        adapters=ASTRONOMY_ADAPTERS,
-    )
+    with _report_store_context(args.report_dir) as report_store:
+        exit_code, reports = validate_source_family(
+            args.source_family,
+            args.year,
+            adapters=ASTRONOMY_ADAPTERS,
+            report_store=report_store,
+        )
     _print_validation_reports(reports, args.year)
     if exit_code:
         return exit_code
@@ -42,11 +49,13 @@ def fetch_command(args: argparse.Namespace) -> int:
 
 def normalize_command(args: argparse.Namespace) -> int:
     print(f"normalize {args.source_family} year={args.year}")
-    exit_code, reports = validate_source_family(
-        args.source_family,
-        args.year,
-        adapters=ASTRONOMY_ADAPTERS,
-    )
+    with _report_store_context(args.report_dir) as report_store:
+        exit_code, reports = validate_source_family(
+            args.source_family,
+            args.year,
+            adapters=ASTRONOMY_ADAPTERS,
+            report_store=report_store,
+        )
     _print_validation_reports(reports, args.year)
     if exit_code:
         return exit_code
@@ -93,3 +102,14 @@ def _print_validation_reports(reports: list, year: int) -> None:
         print(
             f"validate {report.source_name} status={report.status} year={year}{reason_suffix}"
         )
+
+
+@contextmanager
+def _report_store_context(report_dir: Path | None):
+    if report_dir is not None:
+        with nullcontext(ReportStore(base_dir=report_dir)) as report_store:
+            yield report_store
+        return
+
+    with tempfile.TemporaryDirectory(prefix="astronomical-calendars-reports-") as temp_dir:
+        yield ReportStore(base_dir=Path(temp_dir))
