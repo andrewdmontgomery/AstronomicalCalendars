@@ -16,7 +16,7 @@ from .services.stub_service import (
 
 
 def build_parser() -> argparse.ArgumentParser:
-    parser = argparse.ArgumentParser(prog="astronomical_calendars")
+    parser = argparse.ArgumentParser(prog="astrocal")
     subparsers = parser.add_subparsers(dest="command", required=True)
 
     for name, handler in {

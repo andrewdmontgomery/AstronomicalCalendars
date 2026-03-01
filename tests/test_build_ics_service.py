@@ -4,9 +4,9 @@ from pathlib import Path
 
 from icalendar import Calendar
 
-from astronomical_calendars.models import AcceptedRecord, CalendarManifest
-from astronomical_calendars.repositories import CatalogStore, ReportStore, SequenceStore
-from astronomical_calendars.services.build_ics_service import build_calendar
+from astrocal.models import AcceptedRecord, CalendarManifest
+from astrocal.repositories import CatalogStore, ReportStore, SequenceStore
+from astrocal.services.build_ics_service import build_calendar
 
 
 def test_build_calendar_writes_ics_and_sequence_state(tmp_path) -> None:
@@ -191,7 +191,7 @@ def test_build_calendar_resolves_relative_output_against_project_root(tmp_path, 
     outside_cwd = tmp_path / "outside"
     outside_cwd.mkdir()
     monkeypatch.chdir(outside_cwd)
-    monkeypatch.setattr("astronomical_calendars.services.build_ics_service.PROJECT_ROOT", tmp_path)
+    monkeypatch.setattr("astrocal.services.build_ics_service.PROJECT_ROOT", tmp_path)
 
     report, written_paths = build_calendar(
         manifest=manifest,

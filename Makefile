@@ -3,7 +3,7 @@ VENV := .venv
 VENV_PYTHON := $(VENV)/bin/python
 VENV_PIP := $(VENV)/bin/pip
 SITE_PACKAGES := $(shell $(VENV_PYTHON) -c 'import sysconfig; print(sysconfig.get_paths()["purelib"])' 2>/dev/null)
-PTH_FILE := $(SITE_PACKAGES)/astronomical_calendars_local.pth
+PTH_FILE := $(SITE_PACKAGES)/astrocal_local.pth
 SKILL_VALIDATOR := /Users/andrew/.codex/skills/.system/skill-creator/scripts/quick_validate.py
 
 .PHONY: help venv install test validate-skills run
@@ -35,4 +35,4 @@ validate-skills: $(VENV)/bin/activate
 	$(VENV_PYTHON) $(SKILL_VALIDATOR) skills/build-ical-calendar
 
 run: $(VENV)/bin/activate
-	PYTHONPATH=src $(VENV_PYTHON) -m astronomical_calendars run --calendar $(CALENDAR) --year $(YEAR)
+	PYTHONPATH=src $(VENV_PYTHON) -m astrocal run --calendar $(CALENDAR) --year $(YEAR)

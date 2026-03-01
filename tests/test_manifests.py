@@ -1,4 +1,4 @@
-from astronomical_calendars.manifests import load_manifest
+from astrocal.manifests import load_manifest
 
 
 def test_load_astronomy_all_manifest_uses_astronomy_only() -> None:

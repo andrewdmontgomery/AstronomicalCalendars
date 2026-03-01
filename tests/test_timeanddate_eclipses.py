@@ -2,9 +2,9 @@ from __future__ import annotations
 
 from pathlib import Path
 
-from astronomical_calendars.adapters.astronomy.timeanddate_eclipses import EclipsesAdapter
-from astronomical_calendars.repositories import CandidateStore, RawStore
-from astronomical_calendars.services.normalize_service import normalize_source_family
+from astrocal.adapters.astronomy.timeanddate_eclipses import EclipsesAdapter
+from astrocal.repositories import CandidateStore, RawStore
+from astrocal.services.normalize_service import normalize_source_family
 
 
 FIXTURE_DIR = Path(__file__).resolve().parent / "fixtures" / "timeanddate"

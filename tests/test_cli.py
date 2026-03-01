@@ -1,7 +1,7 @@
 from __future__ import annotations
 
-from astronomical_calendars.cli import main
-from astronomical_calendars.models import BuildReport, RawFetchResult, ReconciliationReport, ValidationReport
+from astrocal.cli import main
+from astrocal.models import BuildReport, RawFetchResult, ReconciliationReport, ValidationReport
 
 
 class CliAdapter:
@@ -33,11 +33,11 @@ class CliAdapter:
 
 def test_run_command_executes_pipeline(capsys, mocker) -> None:
     mocker.patch(
-        "astronomical_calendars.services.run_service.ASTRONOMY_ADAPTERS",
+        "astrocal.services.run_service.ASTRONOMY_ADAPTERS",
         {"moon-phases": CliAdapter()},
     )
     mocker.patch(
-        "astronomical_calendars.services.run_service.reconcile_calendar",
+        "astrocal.services.run_service.reconcile_calendar",
         return_value=(
             ReconciliationReport(
                 calendar_name="astronomy-all",
@@ -48,7 +48,7 @@ def test_run_command_executes_pipeline(capsys, mocker) -> None:
         ),
     )
     mocker.patch(
-        "astronomical_calendars.services.run_service.build_calendar",
+        "astrocal.services.run_service.build_calendar",
         return_value=(
             BuildReport(
                 calendar_name="astronomy-all",
@@ -75,7 +75,7 @@ def test_run_command_executes_pipeline(capsys, mocker) -> None:
 
 def test_build_command_uses_manifest_default_variant_policy(capsys, mocker) -> None:
     build_mock = mocker.patch(
-        "astronomical_calendars.services.stub_service.build_calendar",
+        "astrocal.services.stub_service.build_calendar",
         return_value=(
             BuildReport(
                 calendar_name="astronomy-eclipses",
@@ -103,7 +103,7 @@ def test_validate_command_writes_reports_only_when_report_dir_is_requested(
     tmp_path,
 ) -> None:
     mocker.patch(
-        "astronomical_calendars.services.stub_service.ASTRONOMY_ADAPTERS",
+        "astrocal.services.stub_service.ASTRONOMY_ADAPTERS",
         {"moon-phases": CliAdapter()},
     )
 
@@ -127,11 +127,11 @@ def test_validate_command_writes_reports_only_when_report_dir_is_requested(
 
 def test_run_command_uses_repo_report_store_by_default(capsys, mocker) -> None:
     mocker.patch(
-        "astronomical_calendars.services.run_service.ASTRONOMY_ADAPTERS",
+        "astrocal.services.run_service.ASTRONOMY_ADAPTERS",
         {"moon-phases": CliAdapter()},
     )
     reconcile_mock = mocker.patch(
-        "astronomical_calendars.services.run_service.reconcile_calendar",
+        "astrocal.services.run_service.reconcile_calendar",
         return_value=(
             ReconciliationReport(
                 calendar_name="astronomy-all",
@@ -142,7 +142,7 @@ def test_run_command_uses_repo_report_store_by_default(capsys, mocker) -> None:
         ),
     )
     mocker.patch(
-        "astronomical_calendars.services.run_service.build_calendar",
+        "astrocal.services.run_service.build_calendar",
         return_value=(
             BuildReport(
                 calendar_name="astronomy-all",
@@ -165,7 +165,7 @@ def test_run_command_uses_repo_report_store_by_default(capsys, mocker) -> None:
 
 def test_reconcile_command_returns_non_zero_on_validation_failure(capsys, mocker) -> None:
     mocker.patch(
-        "astronomical_calendars.services.stub_service.reconcile_calendar",
+        "astrocal.services.stub_service.reconcile_calendar",
         return_value=(
             ReconciliationReport(
                 calendar_name="astronomy-all",

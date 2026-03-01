@@ -3,9 +3,9 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
-from astronomical_calendars.adapters.astronomy.usno_moon_phases import MoonPhasesAdapter
-from astronomical_calendars.repositories import CandidateStore, RawStore
-from astronomical_calendars.services.normalize_service import normalize_source_family
+from astrocal.adapters.astronomy.usno_moon_phases import MoonPhasesAdapter
+from astrocal.repositories import CandidateStore, RawStore
+from astrocal.services.normalize_service import normalize_source_family
 
 
 FIXTURE_PATH = Path(__file__).resolve().parent / "fixtures" / "usno" / "moon_phases_2026.json"

@@ -1,12 +1,12 @@
 from __future__ import annotations
 
-from astronomical_calendars.models import (
+from astrocal.models import (
     AcceptedRecord,
     CandidateRecord,
     SourceReference,
     ValidationResult,
 )
-from astronomical_calendars.repositories import CandidateStore, CatalogStore, SequenceStore
+from astrocal.repositories import CandidateStore, CatalogStore, SequenceStore
 
 
 def build_candidate() -> CandidateRecord:

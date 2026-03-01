@@ -126,5 +126,5 @@ def _report_store_context(report_dir: Path | None):
             yield report_store
         return
 
-    with tempfile.TemporaryDirectory(prefix="astronomical-calendars-reports-") as temp_dir:
+    with tempfile.TemporaryDirectory(prefix="astrocal-reports-") as temp_dir:
         yield ReportStore(base_dir=Path(temp_dir))

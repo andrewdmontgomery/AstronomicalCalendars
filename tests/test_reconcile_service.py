@@ -2,9 +2,9 @@ from __future__ import annotations
 
 from pathlib import Path
 
-from astronomical_calendars.models import CalendarManifest
-from astronomical_calendars.repositories import CandidateStore, CatalogStore, ReportStore
-from astronomical_calendars.services.reconcile_service import reconcile_calendar
+from astrocal.models import CalendarManifest
+from astrocal.repositories import CandidateStore, CatalogStore, ReportStore
+from astrocal.services.reconcile_service import reconcile_calendar
 from tests.test_repositories import build_candidate
 
 
@@ -216,7 +216,7 @@ def test_reconcile_stops_before_catalog_writes_on_validation_failure(tmp_path: P
 
 
 def _accepted_from_candidate(candidate, *, revision, status, accepted_at, change_reason):
-    from astronomical_calendars.models import AcceptedRecord
+    from astrocal.models import AcceptedRecord
 
     return AcceptedRecord(
         occurrence_id=candidate.occurrence_id,

@@ -4,10 +4,10 @@ from pathlib import Path
 
 import pytest
 
-from astronomical_calendars.models import RawFetchResult, ValidationReport
-from astronomical_calendars.repositories import ReportStore
-from astronomical_calendars.services.fetch_service import fetch_source_family
-from astronomical_calendars.services.validation_service import validate_source_family
+from astrocal.models import RawFetchResult, ValidationReport
+from astrocal.repositories import ReportStore
+from astrocal.services.fetch_service import fetch_source_family
+from astrocal.services.validation_service import validate_source_family
 
 
 class PassingAdapter:
