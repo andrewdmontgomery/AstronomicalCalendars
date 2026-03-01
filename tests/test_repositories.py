@@ -34,6 +34,7 @@ def build_candidate() -> CandidateRecord:
             validated_at="2026-03-01T00:00:00Z",
             reason=None,
             checks=["reachable"],
+            canary_ok=True,
             detail_url_ok=True,
         ),
         content_hash="sha256:abc123",
@@ -63,6 +64,7 @@ def test_candidate_store_round_trip(tmp_path) -> None:
     assert loaded[0].occurrence_id == candidate.occurrence_id
     assert loaded[0].source_validation is not None
     assert loaded[0].source_validation.status == "passed"
+    assert loaded[0].source_validation.canary_ok is True
 
 
 def test_catalog_store_round_trip(tmp_path) -> None:
