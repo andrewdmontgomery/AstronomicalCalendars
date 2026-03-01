@@ -35,6 +35,9 @@ If any required validation fails:
 - stop the action before normalization
 - in automation contexts, open an issue instead of continuing
 
+Validation artifacts should persist whether the canary checks passed via a dedicated
+boolean such as `canary_ok`, in addition to the human-readable validation `checks` list.
+
 ## Preferred Sources
 
 ### Moon phases

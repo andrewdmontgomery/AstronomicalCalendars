@@ -30,7 +30,14 @@ this schema and does not depend on source-specific payload structure.
     "status": "passed",
     "validated_at": "2026-03-01T12:00:00Z",
     "reason": null,
-    "checks": ["reachable", "required timing fields present", "detail url resolved"],
+    "checks": [
+      "reachable",
+      "canary payload present",
+      "canary required fields present",
+      "required timing fields present",
+      "detail url resolved"
+    ],
+    "canary_ok": true,
     "detail_url_ok": true
   },
   "content_hash": "sha256:...",
@@ -92,6 +99,8 @@ this schema and does not depend on source-specific payload structure.
 
 - `source_validation`
   - Required. Result of preflight validation for the source used in this run.
+  - `canary_ok` records whether the source-specific structure check passed before fetch or
+    normalization proceeded.
 
 - `content_hash`
   - Required. Hash of the normalized candidate content used for change detection.
