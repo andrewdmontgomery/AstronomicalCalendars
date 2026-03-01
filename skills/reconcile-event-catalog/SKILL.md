@@ -6,40 +6,20 @@ description: Reconcile newly normalized event candidates with the accepted event
 # Reconcile Event Catalog
 
 Treat freshly normalized source output as candidate data. Compare those candidates to the
-accepted catalog before any `.ics` generation.
+accepted catalog before any `.ics` generation. Treat `specs/` and manifests as the source
+of truth for reconciliation behavior.
 
 ## Workflow
 
 1. Read candidate occurrence data from source modules.
 2. Read the accepted catalog defined in
    [`specs/event-catalog-schema.md`](../../specs/event-catalog-schema.md).
-3. Stop immediately if any required candidate has `source_validation.status = failed`.
-4. Match candidates to accepted records by `occurrence_id`.
-5. Add new occurrences automatically.
-6. Mark unchanged occurrences as verified.
-7. Detect changed existing occurrences by comparing `content_hash`.
-8. Apply correction handling according to the manifest and run context.
-9. Write updated accepted catalog records plus a reconciliation report.
-
-## Correction Rules
-
-- Never silently modify accepted existing dates.
-- In manual git-backed runs, apply approved corrections to the working tree and stage them.
-- In automation runs, prepare correction changes and open a pull request.
-- If a source validation failure occurs in automation, open an issue and stop.
-- Do not auto-delete missing events. Mark them as `suspected-removed` until reviewed.
-
-## Report Rules
-
-Every reconciliation run should produce a report that includes:
-
-- source validation failures
-- new dates added
-- existing dates verified unchanged
-- corrections staged for review
-- corrections opened as a pull request
-- suspected removals
-- unresolved conflicts
+3. Read the active manifest in
+   [`config/calendars`](../../config/calendars).
+4. Stop immediately if any required candidate has `source_validation.status = failed`.
+5. Match candidates to accepted records by `occurrence_id`.
+6. Apply the manifest's reconciliation and correction policy.
+7. Write updated accepted catalog records plus a reconciliation report.
 
 ## Output Expectations
 
