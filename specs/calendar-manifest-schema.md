@@ -7,9 +7,9 @@ calendar file. Separate and combined calendars are both represented by manifests
 
 ```toml
 name = "astronomy-all"
-output = "output/calendars/astronomy-all.ics"
+output = "calendars/astronomical-events.ics"
 calendar_name = "Astronomical Events"
-calendar_description = "Moon phases, seasons, eclipses, and planetary events"
+calendar_description = "Moon phases, equinoxes and solstices, and eclipses"
 variant_policy = "default"
 source_validation_policy = "strict"
 reconciliation_mode = "verify"
@@ -35,13 +35,12 @@ tags = ["eclipse"]
 
 - `reconciliation_mode`
   - `append-only`: add new dates only
-  - `verify`: compare existing accepted dates and report or stage corrections
+  - `verify`: compare existing accepted dates and report corrections
   - `verify-and-apply`: compare existing accepted dates and apply corrections according to
     `correction_mode`
 
 - `correction_mode`
-  - `apply-working-tree`: for manual git-backed runs, apply corrections to the working tree
-    and stage them
+  - `apply-working-tree`: for manual runs, apply corrections to the working tree
   - `report-only`: emit a reconciliation report but do not change accepted records
   - `automation-pr`: when corrections are detected in automation, prepare repo changes and
     open a pull request
@@ -76,10 +75,9 @@ If a requested manifest includes eclipses and the user did not specify a variant
   - `both`
 - If no prompt is possible, resolve to `default`.
 
-## Git-Aware Defaults
+## Manual and Automation Defaults
 
-- Manual runs in a git repository should default to `correction_mode = apply-working-tree`.
-- Those corrections should be staged for review.
+- Manual runs should default to `correction_mode = apply-working-tree`.
 - Automation runs should default to `correction_mode = automation-pr`.
 - If source validation fails in automation, open an issue and stop.
 - New dates can be added automatically without changing existing accepted dates.
@@ -99,9 +97,9 @@ If a requested manifest includes eclipses and the user did not specify a variant
 
 ```toml
 name = "astronomy-moon-phases"
-output = "output/calendars/astronomy-moon-phases.ics"
+output = "calendars/moon-phases.ics"
 calendar_name = "Moon Phases"
-calendar_description = "Major moon phase events"
+calendar_description = "Exact astronomical timings for the major moon phases"
 source_types = ["astronomy"]
 event_types = ["moon-phase"]
 variant_policy = "default"
@@ -116,9 +114,9 @@ stop_on_conflict = true
 
 ```toml
 name = "astronomy-eclipses"
-output = "output/calendars/astronomy-eclipses.ics"
+output = "calendars/eclipses.ics"
 calendar_name = "Eclipses"
-calendar_description = "Solar and lunar eclipses"
+calendar_description = "Solar and lunar eclipses with exact astronomical timing"
 source_types = ["astronomy"]
 event_types = ["eclipse"]
 variant_policy = "default"
@@ -133,7 +131,7 @@ stop_on_conflict = true
 
 ```toml
 name = "jupiter-major-events"
-output = "output/calendars/jupiter-major-events.ics"
+output = "calendars/jupiter-major-events.ics"
 calendar_name = "Jupiter Major Events"
 calendar_description = "Major Jupiter observing events"
 source_types = ["planetary"]
@@ -150,10 +148,10 @@ stop_on_conflict = true
 
 ```toml
 name = "astronomy-all"
-output = "output/calendars/astronomy-all.ics"
+output = "calendars/astronomical-events.ics"
 calendar_name = "Astronomical Events"
-calendar_description = "Moon phases, seasons, eclipses, and planetary events"
-source_types = ["astronomy", "planetary"]
+calendar_description = "Moon phases, equinoxes and solstices, and eclipses"
+source_types = ["astronomy"]
 variant_policy = "default"
 source_validation_policy = "strict"
 reconciliation_mode = "verify"
