@@ -5,6 +5,11 @@
       "source": "wshobson/agents",
       "sourceType": "github",
       "computedHash": "b70500bae0d16740d8a359be63c4645a0ab0f9b839d11d181c45d20958313698"
+    },
+    "python-testing-patterns": {
+      "source": "wshobson/agents",
+      "sourceType": "github",
+      "computedHash": "a2cc64d28bbda77aeac8ec634ae38102a3b8d2314f3aa802811a44281c5d7838"
     }
   }
 }
