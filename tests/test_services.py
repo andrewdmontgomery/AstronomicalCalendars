@@ -60,6 +60,11 @@ class BrokenNormalizeAdapter(PassingAdapter):
         raise ValueError("unexpected payload shape")
 
 
+class BrokenFetchAdapter(PassingAdapter):
+    def fetch(self, year: int) -> RawFetchResult:
+        raise ValueError("request timed out")
+
+
 def test_validate_source_family_writes_json_reports(tmp_path) -> None:
     report_store = ReportStore(base_dir=tmp_path)
     diagnostic_store = DiagnosticStore(base_dir=tmp_path / "diagnostics")
@@ -144,6 +149,57 @@ def test_fetch_source_family_returns_raw_results_after_validation_passes() -> No
 
     assert len(results) == 1
     assert results[0].raw_ref.endswith("response.json")
+
+
+def test_fetch_source_family_writes_fetch_summary_diagnostics(tmp_path) -> None:
+    results = fetch_source_family(
+        2026,
+        adapters={"moon-phases": PassingAdapter()},
+        validation_reports=[
+            ValidationReport(
+                source_name="moon-phases",
+                year=2026,
+                status="passed",
+                validated_at="2026-03-01T00:00:00Z",
+                checks=["reachable"],
+                canary_ok=True,
+                source_url="https://example.com/moon-phases",
+            )
+        ],
+        diagnostic_store=DiagnosticStore(base_dir=tmp_path / "diagnostics"),
+    )
+
+    summary_path = tmp_path / "diagnostics" / "astronomy" / "2026" / "moon-phases" / "fetch-summary.json"
+    assert len(results) == 1
+    assert summary_path.exists()
+    summary_text = summary_path.read_text(encoding="utf-8")
+    assert '"raw_ref": "data/raw/astronomy/2026/moon-phases/response.json"' in summary_text
+
+
+def test_fetch_source_family_writes_failure_diagnostics(tmp_path) -> None:
+    with pytest.raises(ValueError, match="request timed out"):
+        fetch_source_family(
+            2026,
+            adapters={"moon-phases": BrokenFetchAdapter()},
+            validation_reports=[
+                ValidationReport(
+                    source_name="moon-phases",
+                    year=2026,
+                    status="passed",
+                    validated_at="2026-03-01T00:00:00Z",
+                    checks=["reachable"],
+                    canary_ok=True,
+                    source_url="https://example.com/moon-phases",
+                )
+            ],
+            diagnostic_store=DiagnosticStore(base_dir=tmp_path / "diagnostics"),
+        )
+
+    failure_path = tmp_path / "diagnostics" / "astronomy" / "2026" / "moon-phases" / "fetch-failure.json"
+    assert failure_path.exists()
+    failure_text = failure_path.read_text(encoding="utf-8")
+    assert '"failure_stage": "fetch"' in failure_text
+    assert '"reason": "request timed out"' in failure_text
 
 
 def test_normalize_source_family_writes_summary_diagnostics(tmp_path) -> None:
