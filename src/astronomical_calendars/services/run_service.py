@@ -3,64 +3,98 @@
 from __future__ import annotations
 
 import argparse
-from types import SimpleNamespace
+import tempfile
+from contextlib import contextmanager, nullcontext
+from datetime import datetime, timezone
+from pathlib import Path
 
-from .stub_service import (
-    build_command,
-    fetch_command,
-    normalize_command,
-    reconcile_command,
-    validate_command,
-)
+from ..adapters import ASTRONOMY_ADAPTERS
+from ..git import GitStager
+from ..manifests import load_manifest
+from ..repositories import ReportStore
+from .build_ics_service import build_calendar
+from .fetch_service import fetch_source_family
+from .normalize_service import normalize_source_family
+from .reconcile_service import reconcile_calendar
+from .stub_service import _print_validation_reports, _report_dir_value
+from .validation_service import validate_source_family
 
 
 def run_command(args: argparse.Namespace) -> int:
     source_family = "astronomy"
-    validate_exit = validate_command(
-        SimpleNamespace(
-            source_family=source_family,
-            year=args.year,
-            report_dir=args.report_dir,
-        )
-    )
-    if validate_exit:
-        return validate_exit
+    manifest = load_manifest(args.calendar)
+    run_timestamp = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H-%M-%SZ")
+    report_dir = _report_dir_value(args.report_dir)
 
-    fetch_exit = fetch_command(
-        SimpleNamespace(
-            source_family=source_family,
-            year=args.year,
-            report_dir=args.report_dir,
+    print(f"validate {source_family} year={args.year}")
+    with _report_store_context(args.report_dir) as report_store:
+        validate_exit, reports = validate_source_family(
+            source_family,
+            args.year,
+            adapters=ASTRONOMY_ADAPTERS,
+            report_store=report_store,
+            run_timestamp=run_timestamp,
         )
-    )
-    if fetch_exit:
-        return fetch_exit
+        _print_validation_reports(reports, args.year)
+        if validate_exit:
+            return validate_exit
 
-    normalize_exit = normalize_command(
-        SimpleNamespace(
-            source_family=source_family,
-            year=args.year,
-            report_dir=args.report_dir,
+        print(f"fetch {source_family} year={args.year}")
+        raw_results = fetch_source_family(
+            args.year,
+            adapters=ASTRONOMY_ADAPTERS,
+            validation_reports=reports,
         )
-    )
-    if normalize_exit:
-        return normalize_exit
+        for result in raw_results:
+            print(f"fetch {result.source_name} raw_ref={result.raw_ref} year={args.year}")
 
-    reconcile_exit = reconcile_command(
-        SimpleNamespace(
-            calendar=args.calendar,
-            year=args.year,
-            report_dir=args.report_dir,
-            no_stage=args.no_stage,
+        print(f"normalize {source_family} year={args.year}")
+        normalized_results = normalize_source_family(
+            source_family,
+            args.year,
+            adapters=ASTRONOMY_ADAPTERS,
+            raw_results=raw_results,
         )
-    )
-    if reconcile_exit:
-        return reconcile_exit
+        for source_name, candidates in normalized_results:
+            print(f"normalize {source_name} candidates={len(candidates)} year={args.year}")
 
-    return build_command(
-        SimpleNamespace(
-            calendar=args.calendar,
-            variant_policy=args.variant_policy,
-            report_dir=args.report_dir,
+        reconcile_report, _ = reconcile_calendar(
+            manifest=manifest,
+            year=args.year,
+            report_store=report_store,
+            git_stager=GitStager(),
+            stage_changes=not args.no_stage,
+            run_timestamp=run_timestamp,
         )
-    )
+        print(
+            f"reconcile {manifest.name} year={args.year} report_dir={report_dir} "
+            f"stage={'no' if args.no_stage else 'yes'} new={len(reconcile_report.new_occurrences)} "
+            f"changed={len(reconcile_report.changed_occurrences)} "
+            f"removed={len(reconcile_report.suspected_removals)}"
+        )
+
+        build_report, _ = build_calendar(
+            manifest=manifest,
+            report_store=report_store,
+            git_stager=GitStager(),
+            stage_changes=not args.no_stage,
+            variant_policy=args.variant_policy or manifest.variant_policy,
+            run_timestamp=run_timestamp,
+        )
+        print(
+            f"build {manifest.name} variant_policy={args.variant_policy or manifest.variant_policy} "
+            f"report_dir={report_dir} stage={'no' if args.no_stage else 'yes'} "
+            f"events={build_report.event_count}"
+        )
+        return 0
+
+
+@contextmanager
+def _report_store_context(report_dir: Path | None):
+    if report_dir is not None:
+        with nullcontext(ReportStore(base_dir=report_dir)) as report_store:
+            yield report_store
+        return
+
+    with tempfile.TemporaryDirectory(prefix="astronomical-calendars-reports-") as temp_dir:
+        yield ReportStore(base_dir=Path(temp_dir))

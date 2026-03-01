@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from astronomical_calendars.cli import main
-from astronomical_calendars.models import RawFetchResult, ReconciliationReport, ValidationReport
+from astronomical_calendars.models import BuildReport, RawFetchResult, ReconciliationReport, ValidationReport
 
 
 class CliAdapter:
@@ -33,11 +33,11 @@ class CliAdapter:
 
 def test_run_command_executes_pipeline(capsys, mocker) -> None:
     mocker.patch(
-        "astronomical_calendars.services.stub_service.ASTRONOMY_ADAPTERS",
+        "astronomical_calendars.services.run_service.ASTRONOMY_ADAPTERS",
         {"moon-phases": CliAdapter()},
     )
     mocker.patch(
-        "astronomical_calendars.services.stub_service.reconcile_calendar",
+        "astronomical_calendars.services.run_service.reconcile_calendar",
         return_value=(
             ReconciliationReport(
                 calendar_name="astronomy-all",
@@ -47,21 +47,47 @@ def test_run_command_executes_pipeline(capsys, mocker) -> None:
             [],
         ),
     )
-    exit_code = main(
-        ["run", "--calendar", "astronomy-all", "--year", "2026", "--no-stage"]
+    mocker.patch(
+        "astronomical_calendars.services.run_service.build_calendar",
+        return_value=(
+            BuildReport(
+                calendar_name="astronomy-all",
+                generated_at="2026-03-01T00:00:00Z",
+                output_path="output/calendars/astronomy-all.ics",
+                event_count=3,
+                sequence_path="data/state/sequences/astronomy-all.json",
+            ),
+            [],
+        ),
     )
 
+    exit_code = main(["run", "--calendar", "astronomy-all", "--year", "2026", "--no-stage"])
     captured = capsys.readouterr()
 
     assert exit_code == 0
     assert "validate astronomy year=2026" in captured.out
+    assert "fetch astronomy year=2026" in captured.out
+    assert "normalize astronomy year=2026" in captured.out
     assert "reconcile astronomy-all year=2026" in captured.out
     assert "build astronomy-all variant_policy=default" in captured.out
 
 
-def test_build_command_uses_manifest_default_variant_policy(capsys) -> None:
-    exit_code = main(["build", "--calendar", "astronomy-eclipses"])
+def test_build_command_uses_manifest_default_variant_policy(capsys, mocker) -> None:
+    mocker.patch(
+        "astronomical_calendars.services.stub_service.build_calendar",
+        return_value=(
+            BuildReport(
+                calendar_name="astronomy-eclipses",
+                generated_at="2026-03-01T00:00:00Z",
+                output_path="output/calendars/astronomy-eclipses.ics",
+                event_count=2,
+                sequence_path="data/state/sequences/astronomy-eclipses.json",
+            ),
+            [],
+        ),
+    )
 
+    exit_code = main(["build", "--calendar", "astronomy-eclipses"])
     captured = capsys.readouterr()
 
     assert exit_code == 0
@@ -88,7 +114,6 @@ def test_validate_command_writes_reports_only_when_report_dir_is_requested(
             "astronomy",
         ]
     )
-
     captured = capsys.readouterr()
 
     assert exit_code == 0

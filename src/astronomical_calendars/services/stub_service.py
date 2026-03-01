@@ -100,10 +100,15 @@ def build_command(args: argparse.Namespace) -> int:
         report, _ = build_calendar(
             manifest=manifest,
             report_store=report_store,
+            git_stager=GitStager(),
+            stage_changes=True,
             variant_policy=variant_policy,
         )
     report_dir = _report_dir_value(args.report_dir)
-    print(f"build {manifest.name} variant_policy={variant_policy} report_dir={report_dir} events={report.event_count}")
+    print(
+        f"build {manifest.name} variant_policy={variant_policy} report_dir={report_dir} "
+        f"stage=yes events={report.event_count}"
+    )
     return 0
 
 

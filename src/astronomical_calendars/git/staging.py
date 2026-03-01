@@ -12,6 +12,10 @@ class GitStager:
     def __init__(self, repo_root: Path | None = None) -> None:
         self._repo_root = repo_root or PROJECT_ROOT
 
+    @property
+    def repo_root(self) -> Path:
+        return self._repo_root
+
     def stage_paths(self, paths: list[Path]) -> list[str]:
         normalized = self.preview_paths(paths)
         if not normalized:
