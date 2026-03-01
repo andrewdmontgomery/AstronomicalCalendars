@@ -24,5 +24,5 @@ rules.
 
 Suggested outputs:
 
-- `.ics` files under `output/calendars/...`
+- `.ics` files under `calendars/...`
 - sequence state under `data/state/sequences/...`

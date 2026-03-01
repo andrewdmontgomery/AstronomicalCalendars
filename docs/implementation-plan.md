@@ -204,7 +204,7 @@ Tracked outputs:
 
 - `data/catalog/accepted/<source-type>/<year>/<source-name>.json`
 - `data/catalog/reports/<run-timestamp>/...`
-- `output/calendars/*.ics`
+- `calendars/*.ics`
 - `data/state/sequences/*.json` if sequence persistence is required for deterministic subscription semantics
 
 Untracked outputs:
@@ -224,8 +224,8 @@ Implement exactly:
 - validation failure: stop before catalog modification and before build
 
 Decision:
-- manual mode stages changed catalog files, report files, and built `.ics` files
-- manual mode never auto-commits
+- manual mode writes changed catalog files, report files, and built `.ics` files to the working tree
+- commits remain an explicit user action
 
 ### ICS Rules
 
