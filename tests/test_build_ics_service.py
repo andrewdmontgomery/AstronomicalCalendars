@@ -15,9 +15,9 @@ def test_build_calendar_writes_ics_and_sequence_state(tmp_path) -> None:
     report_store = ReportStore(base_dir=tmp_path / "reports")
     manifest = CalendarManifest(
         name="astronomy-all",
-        output=str(tmp_path / "astronomy-all.ics"),
+        output=str(tmp_path / "astronomical-events.ics"),
         calendar_name="Astronomical Events",
-        calendar_description="Moon phases, seasons, and eclipses",
+        calendar_description="Moon phases, equinoxes and solstices, and eclipses",
         variant_policy="default",
         source_validation_policy="strict",
         reconciliation_mode="verify",
@@ -93,9 +93,9 @@ def test_build_calendar_respects_variant_policy_and_sequence_changes(tmp_path) -
     report_store = ReportStore(base_dir=tmp_path / "reports")
     manifest = CalendarManifest(
         name="astronomy-eclipses",
-        output=str(tmp_path / "astronomy-eclipses.ics"),
+        output=str(tmp_path / "eclipses.ics"),
         calendar_name="Eclipses",
-        calendar_description="Solar and lunar eclipses",
+        calendar_description="Solar and lunar eclipses with exact astronomical timing",
         variant_policy="default",
         source_validation_policy="strict",
         reconciliation_mode="verify",

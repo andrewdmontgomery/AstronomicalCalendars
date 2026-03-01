@@ -338,7 +338,7 @@ def _candidate_from_parsed(
         is_default=is_default,
         title=title,
         summary=title,
-        description=f"{parsed['title']} with exact timing and detail page.",
+        description=_variant_description(parsed["title"], parsed["degree"], variant),
         start=start,
         end=end,
         all_day=False,
@@ -386,6 +386,17 @@ def _variant_title(base_title: str, degree: str, variant: str) -> str:
     if degree == "annular":
         return f"{base_title}: Annularity"
     return f"{base_title}: Totality"
+
+
+def _variant_description(base_title: str, degree: str, variant: str) -> str:
+    if variant == "full-duration":
+        return (
+            f"This entry covers the full duration of the {base_title.lower()} worldwide. "
+            "See the source page for local visibility and circumstances."
+        )
+    if degree == "annular":
+        return "This entry marks the period of annularity during the eclipse."
+    return "This entry marks the period of totality during the eclipse."
 
 
 def _month_number(value: str) -> int:

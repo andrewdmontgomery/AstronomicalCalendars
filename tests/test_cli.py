@@ -53,7 +53,7 @@ def test_run_command_executes_pipeline(capsys, mocker) -> None:
             BuildReport(
                 calendar_name="astronomy-all",
                 generated_at="2026-03-01T00:00:00Z",
-                output_path="output/calendars/astronomy-all.ics",
+                output_path="calendars/astronomical-events.ics",
                 event_count=3,
                 sequence_path="data/state/sequences/astronomy-all.json",
             ),
@@ -80,7 +80,7 @@ def test_build_command_uses_manifest_default_variant_policy(capsys, mocker) -> N
             BuildReport(
                 calendar_name="astronomy-eclipses",
                 generated_at="2026-03-01T00:00:00Z",
-                output_path="output/calendars/astronomy-eclipses.ics",
+                output_path="calendars/eclipses.ics",
                 event_count=2,
                 sequence_path="data/state/sequences/astronomy-eclipses.json",
             ),
@@ -147,7 +147,7 @@ def test_run_command_uses_repo_report_store_by_default(capsys, mocker) -> None:
             BuildReport(
                 calendar_name="astronomy-all",
                 generated_at="2026-03-01T00:00:00Z",
-                output_path="output/calendars/astronomy-all.ics",
+                output_path="calendars/astronomical-events.ics",
                 event_count=3,
                 sequence_path="data/state/sequences/astronomy-all.json",
             ),

@@ -59,6 +59,25 @@ SEASON_MONTHS = {
     12: ("december-solstice", "December Solstice"),
 }
 
+SEASON_DESCRIPTIONS = {
+    "March Equinox": (
+        "The Sun crosses the celestial equator heading north. "
+        "This entry marks the exact astronomical moment of the March Equinox."
+    ),
+    "June Solstice": (
+        "The Sun reaches its northernmost declination. "
+        "This entry marks the exact astronomical moment of the June Solstice."
+    ),
+    "September Equinox": (
+        "The Sun crosses the celestial equator heading south. "
+        "This entry marks the exact astronomical moment of the September Equinox."
+    ),
+    "December Solstice": (
+        "The Sun reaches its southernmost declination. "
+        "This entry marks the exact astronomical moment of the December Solstice."
+    ),
+}
+
 MONTH_NAMES = {
     "jan": 1,
     "january": 1,
@@ -216,7 +235,7 @@ class SeasonsAdapter:
                 is_default=True,
                 title=title,
                 summary=title,
-                description=f"{title} at exact astronomical timing.",
+                description=SEASON_DESCRIPTIONS[title],
                 start=start,
                 end=None,
                 all_day=False,

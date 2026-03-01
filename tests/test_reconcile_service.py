@@ -11,9 +11,9 @@ from tests.test_repositories import build_candidate
 def build_manifest() -> CalendarManifest:
     return CalendarManifest(
         name="astronomy-all",
-        output="output/calendars/astronomy-all.ics",
+        output="calendars/astronomical-events.ics",
         calendar_name="Astronomical Events",
-        calendar_description="Moon phases, seasons, and eclipses",
+        calendar_description="Moon phases, equinoxes and solstices, and eclipses",
         variant_policy="default",
         source_validation_policy="strict",
         reconciliation_mode="verify",

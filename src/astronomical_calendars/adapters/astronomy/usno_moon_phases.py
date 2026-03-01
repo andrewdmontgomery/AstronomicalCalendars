@@ -40,6 +40,13 @@ PHASE_NAMES = {
     "Last Quarter": "last-quarter",
 }
 
+PHASE_DESCRIPTIONS = {
+    "New Moon": "This entry marks the exact astronomical moment of the New Moon.",
+    "First Quarter": "This entry marks the exact astronomical moment of the First Quarter Moon.",
+    "Full Moon": "This entry marks the exact astronomical moment of the Full Moon.",
+    "Last Quarter": "This entry marks the exact astronomical moment of the Last Quarter Moon.",
+}
+
 
 class MoonPhasesAdapter:
     source_name = "moon-phases"
@@ -160,7 +167,7 @@ class MoonPhasesAdapter:
                 is_default=True,
                 title=phase["phase"],
                 summary=phase["phase"],
-                description=f"{phase['phase']} at exact astronomical timing.",
+                description=PHASE_DESCRIPTIONS[phase["phase"]],
                 start=start,
                 end=None,
                 all_day=False,

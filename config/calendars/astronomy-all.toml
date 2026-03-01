@@ -1,7 +1,7 @@
 name = "astronomy-all"
-output = "output/calendars/astronomy-all.ics"
+output = "calendars/astronomical-events.ics"
 calendar_name = "Astronomical Events"
-calendar_description = "Moon phases, seasons, and eclipses"
+calendar_description = "Moon phases, equinoxes and solstices, and eclipses"
 source_types = ["astronomy"]
 variant_policy = "default"
 source_validation_policy = "strict"
