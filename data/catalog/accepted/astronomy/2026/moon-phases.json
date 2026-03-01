@@ -1,0 +1,3152 @@
+[
+  {
+    "accepted_at": "2026-03-01T05-43-24Z",
+    "change_reason": "Initial acceptance",
+    "content_hash": "sha256:5e3c8b30cc668b959c9adceecac01443c488129e479d147b3eb774de964c4eab",
+    "detail_url": "https://in-the-sky.org/news.php?id=20260103_08_100&phase=full-moon",
+    "occurrence_id": "astronomy/moon-phase/2026-01-03/full-moon/default",
+    "record": {
+      "accepted_revision": null,
+      "all_day": false,
+      "body": "moon",
+      "candidate_status": "new",
+      "categories": [
+        "Astronomy",
+        "Moon Phase"
+      ],
+      "content_hash": "sha256:5e3c8b30cc668b959c9adceecac01443c488129e479d147b3eb774de964c4eab",
+      "description": "This entry marks the exact astronomical moment of the Full Moon.",
+      "detail_url": "https://in-the-sky.org/news.php?id=20260103_08_100&phase=full-moon",
+      "end": null,
+      "event_type": "moon-phase",
+      "first_seen_at": "2026-03-01T05:43:27Z",
+      "group_id": "astronomy/moon-phase/2026-01-03/full-moon",
+      "is_default": true,
+      "last_seen_at": "2026-03-01T05:43:27Z",
+      "metadata": {
+        "phase": "Full Moon",
+        "source_id": null
+      },
+      "occurrence_id": "astronomy/moon-phase/2026-01-03/full-moon/default",
+      "raw_ref": "data/raw/astronomy/2026/usno-moon-phases/response.json",
+      "source_adapter": "usno-moon-phases-v1",
+      "source_type": "astronomy",
+      "source_validation": {
+        "checks": [
+          "reachable",
+          "required timing fields present",
+          "detail url resolved"
+        ],
+        "detail_url_ok": true,
+        "reason": null,
+        "status": "passed",
+        "validated_at": "2026-03-01T05:43:27Z"
+      },
+      "start": "2026-01-03T10:03:00Z",
+      "summary": "Full Moon",
+      "tags": [
+        "moon-phase",
+        "full-moon"
+      ],
+      "timezone": "UTC",
+      "timing_source": {
+        "name": "usno",
+        "url": "https://aa.usno.navy.mil/api/moon/phases/year"
+      },
+      "title": "Full Moon",
+      "validation_sources": [],
+      "variant": "default"
+    },
+    "revision": 1,
+    "source_adapter": "usno-moon-phases-v1",
+    "status": "active",
+    "superseded_at": null
+  },
+  {
+    "accepted_at": "2026-03-01T05-43-24Z",
+    "change_reason": "Initial acceptance",
+    "content_hash": "sha256:742d0dea80c8948702b9faac6f98eb6008cf5fe943c3158d3e13105de009d092",
+    "detail_url": "https://in-the-sky.org/news.php?id=20260110_08_100&phase=last-quarter",
+    "occurrence_id": "astronomy/moon-phase/2026-01-10/last-quarter/default",
+    "record": {
+      "accepted_revision": null,
+      "all_day": false,
+      "body": "moon",
+      "candidate_status": "new",
+      "categories": [
+        "Astronomy",
+        "Moon Phase"
+      ],
+      "content_hash": "sha256:742d0dea80c8948702b9faac6f98eb6008cf5fe943c3158d3e13105de009d092",
+      "description": "This entry marks the exact astronomical moment of the Last Quarter Moon.",
+      "detail_url": "https://in-the-sky.org/news.php?id=20260110_08_100&phase=last-quarter",
+      "end": null,
+      "event_type": "moon-phase",
+      "first_seen_at": "2026-03-01T05:43:27Z",
+      "group_id": "astronomy/moon-phase/2026-01-10/last-quarter",
+      "is_default": true,
+      "last_seen_at": "2026-03-01T05:43:27Z",
+      "metadata": {
+        "phase": "Last Quarter",
+        "source_id": null
+      },
+      "occurrence_id": "astronomy/moon-phase/2026-01-10/last-quarter/default",
+      "raw_ref": "data/raw/astronomy/2026/usno-moon-phases/response.json",
+      "source_adapter": "usno-moon-phases-v1",
+      "source_type": "astronomy",
+      "source_validation": {
+        "checks": [
+          "reachable",
+          "required timing fields present",
+          "detail url resolved"
+        ],
+        "detail_url_ok": true,
+        "reason": null,
+        "status": "passed",
+        "validated_at": "2026-03-01T05:43:27Z"
+      },
+      "start": "2026-01-10T15:48:00Z",
+      "summary": "Last Quarter",
+      "tags": [
+        "moon-phase",
+        "last-quarter"
+      ],
+      "timezone": "UTC",
+      "timing_source": {
+        "name": "usno",
+        "url": "https://aa.usno.navy.mil/api/moon/phases/year"
+      },
+      "title": "Last Quarter",
+      "validation_sources": [],
+      "variant": "default"
+    },
+    "revision": 1,
+    "source_adapter": "usno-moon-phases-v1",
+    "status": "active",
+    "superseded_at": null
+  },
+  {
+    "accepted_at": "2026-03-01T05-43-24Z",
+    "change_reason": "Initial acceptance",
+    "content_hash": "sha256:d712d50b0f8f6605cc1f564b905393760e72efa70cd8d5c275528de7f2e12e97",
+    "detail_url": "https://in-the-sky.org/news.php?id=20260118_08_100&phase=new-moon",
+    "occurrence_id": "astronomy/moon-phase/2026-01-18/new-moon/default",
+    "record": {
+      "accepted_revision": null,
+      "all_day": false,
+      "body": "moon",
+      "candidate_status": "new",
+      "categories": [
+        "Astronomy",
+        "Moon Phase"
+      ],
+      "content_hash": "sha256:d712d50b0f8f6605cc1f564b905393760e72efa70cd8d5c275528de7f2e12e97",
+      "description": "This entry marks the exact astronomical moment of the New Moon.",
+      "detail_url": "https://in-the-sky.org/news.php?id=20260118_08_100&phase=new-moon",
+      "end": null,
+      "event_type": "moon-phase",
+      "first_seen_at": "2026-03-01T05:43:27Z",
+      "group_id": "astronomy/moon-phase/2026-01-18/new-moon",
+      "is_default": true,
+      "last_seen_at": "2026-03-01T05:43:27Z",
+      "metadata": {
+        "phase": "New Moon",
+        "source_id": null
+      },
+      "occurrence_id": "astronomy/moon-phase/2026-01-18/new-moon/default",
+      "raw_ref": "data/raw/astronomy/2026/usno-moon-phases/response.json",
+      "source_adapter": "usno-moon-phases-v1",
+      "source_type": "astronomy",
+      "source_validation": {
+        "checks": [
+          "reachable",
+          "required timing fields present",
+          "detail url resolved"
+        ],
+        "detail_url_ok": true,
+        "reason": null,
+        "status": "passed",
+        "validated_at": "2026-03-01T05:43:27Z"
+      },
+      "start": "2026-01-18T19:52:00Z",
+      "summary": "New Moon",
+      "tags": [
+        "moon-phase",
+        "new-moon"
+      ],
+      "timezone": "UTC",
+      "timing_source": {
+        "name": "usno",
+        "url": "https://aa.usno.navy.mil/api/moon/phases/year"
+      },
+      "title": "New Moon",
+      "validation_sources": [],
+      "variant": "default"
+    },
+    "revision": 1,
+    "source_adapter": "usno-moon-phases-v1",
+    "status": "active",
+    "superseded_at": null
+  },
+  {
+    "accepted_at": "2026-03-01T05-43-24Z",
+    "change_reason": "Initial acceptance",
+    "content_hash": "sha256:85ffdec7578470da12603fe9160cad11fc0353e4aaf98ff3501e41cbea65a78a",
+    "detail_url": "https://in-the-sky.org/news.php?id=20260126_08_100&phase=first-quarter",
+    "occurrence_id": "astronomy/moon-phase/2026-01-26/first-quarter/default",
+    "record": {
+      "accepted_revision": null,
+      "all_day": false,
+      "body": "moon",
+      "candidate_status": "new",
+      "categories": [
+        "Astronomy",
+        "Moon Phase"
+      ],
+      "content_hash": "sha256:85ffdec7578470da12603fe9160cad11fc0353e4aaf98ff3501e41cbea65a78a",
+      "description": "This entry marks the exact astronomical moment of the First Quarter Moon.",
+      "detail_url": "https://in-the-sky.org/news.php?id=20260126_08_100&phase=first-quarter",
+      "end": null,
+      "event_type": "moon-phase",
+      "first_seen_at": "2026-03-01T05:43:27Z",
+      "group_id": "astronomy/moon-phase/2026-01-26/first-quarter",
+      "is_default": true,
+      "last_seen_at": "2026-03-01T05:43:27Z",
+      "metadata": {
+        "phase": "First Quarter",
+        "source_id": null
+      },
+      "occurrence_id": "astronomy/moon-phase/2026-01-26/first-quarter/default",
+      "raw_ref": "data/raw/astronomy/2026/usno-moon-phases/response.json",
+      "source_adapter": "usno-moon-phases-v1",
+      "source_type": "astronomy",
+      "source_validation": {
+        "checks": [
+          "reachable",
+          "required timing fields present",
+          "detail url resolved"
+        ],
+        "detail_url_ok": true,
+        "reason": null,
+        "status": "passed",
+        "validated_at": "2026-03-01T05:43:27Z"
+      },
+      "start": "2026-01-26T04:47:00Z",
+      "summary": "First Quarter",
+      "tags": [
+        "moon-phase",
+        "first-quarter"
+      ],
+      "timezone": "UTC",
+      "timing_source": {
+        "name": "usno",
+        "url": "https://aa.usno.navy.mil/api/moon/phases/year"
+      },
+      "title": "First Quarter",
+      "validation_sources": [],
+      "variant": "default"
+    },
+    "revision": 1,
+    "source_adapter": "usno-moon-phases-v1",
+    "status": "active",
+    "superseded_at": null
+  },
+  {
+    "accepted_at": "2026-03-01T05-43-24Z",
+    "change_reason": "Initial acceptance",
+    "content_hash": "sha256:83864eae40ab1b8c9d8e0080562416733960538e6f4e9bf166bc7e8353266b4a",
+    "detail_url": "https://in-the-sky.org/news.php?id=20260201_08_100&phase=full-moon",
+    "occurrence_id": "astronomy/moon-phase/2026-02-01/full-moon/default",
+    "record": {
+      "accepted_revision": null,
+      "all_day": false,
+      "body": "moon",
+      "candidate_status": "new",
+      "categories": [
+        "Astronomy",
+        "Moon Phase"
+      ],
+      "content_hash": "sha256:83864eae40ab1b8c9d8e0080562416733960538e6f4e9bf166bc7e8353266b4a",
+      "description": "This entry marks the exact astronomical moment of the Full Moon.",
+      "detail_url": "https://in-the-sky.org/news.php?id=20260201_08_100&phase=full-moon",
+      "end": null,
+      "event_type": "moon-phase",
+      "first_seen_at": "2026-03-01T05:43:27Z",
+      "group_id": "astronomy/moon-phase/2026-02-01/full-moon",
+      "is_default": true,
+      "last_seen_at": "2026-03-01T05:43:27Z",
+      "metadata": {
+        "phase": "Full Moon",
+        "source_id": null
+      },
+      "occurrence_id": "astronomy/moon-phase/2026-02-01/full-moon/default",
+      "raw_ref": "data/raw/astronomy/2026/usno-moon-phases/response.json",
+      "source_adapter": "usno-moon-phases-v1",
+      "source_type": "astronomy",
+      "source_validation": {
+        "checks": [
+          "reachable",
+          "required timing fields present",
+          "detail url resolved"
+        ],
+        "detail_url_ok": true,
+        "reason": null,
+        "status": "passed",
+        "validated_at": "2026-03-01T05:43:27Z"
+      },
+      "start": "2026-02-01T22:09:00Z",
+      "summary": "Full Moon",
+      "tags": [
+        "moon-phase",
+        "full-moon"
+      ],
+      "timezone": "UTC",
+      "timing_source": {
+        "name": "usno",
+        "url": "https://aa.usno.navy.mil/api/moon/phases/year"
+      },
+      "title": "Full Moon",
+      "validation_sources": [],
+      "variant": "default"
+    },
+    "revision": 1,
+    "source_adapter": "usno-moon-phases-v1",
+    "status": "active",
+    "superseded_at": null
+  },
+  {
+    "accepted_at": "2026-03-01T05-43-24Z",
+    "change_reason": "Initial acceptance",
+    "content_hash": "sha256:368e0ec9ff29ea258894503f6971323f508ed5db1099cabacff67ccefb617b60",
+    "detail_url": "https://in-the-sky.org/news.php?id=20260209_08_100&phase=last-quarter",
+    "occurrence_id": "astronomy/moon-phase/2026-02-09/last-quarter/default",
+    "record": {
+      "accepted_revision": null,
+      "all_day": false,
+      "body": "moon",
+      "candidate_status": "new",
+      "categories": [
+        "Astronomy",
+        "Moon Phase"
+      ],
+      "content_hash": "sha256:368e0ec9ff29ea258894503f6971323f508ed5db1099cabacff67ccefb617b60",
+      "description": "This entry marks the exact astronomical moment of the Last Quarter Moon.",
+      "detail_url": "https://in-the-sky.org/news.php?id=20260209_08_100&phase=last-quarter",
+      "end": null,
+      "event_type": "moon-phase",
+      "first_seen_at": "2026-03-01T05:43:27Z",
+      "group_id": "astronomy/moon-phase/2026-02-09/last-quarter",
+      "is_default": true,
+      "last_seen_at": "2026-03-01T05:43:27Z",
+      "metadata": {
+        "phase": "Last Quarter",
+        "source_id": null
+      },
+      "occurrence_id": "astronomy/moon-phase/2026-02-09/last-quarter/default",
+      "raw_ref": "data/raw/astronomy/2026/usno-moon-phases/response.json",
+      "source_adapter": "usno-moon-phases-v1",
+      "source_type": "astronomy",
+      "source_validation": {
+        "checks": [
+          "reachable",
+          "required timing fields present",
+          "detail url resolved"
+        ],
+        "detail_url_ok": true,
+        "reason": null,
+        "status": "passed",
+        "validated_at": "2026-03-01T05:43:27Z"
+      },
+      "start": "2026-02-09T12:43:00Z",
+      "summary": "Last Quarter",
+      "tags": [
+        "moon-phase",
+        "last-quarter"
+      ],
+      "timezone": "UTC",
+      "timing_source": {
+        "name": "usno",
+        "url": "https://aa.usno.navy.mil/api/moon/phases/year"
+      },
+      "title": "Last Quarter",
+      "validation_sources": [],
+      "variant": "default"
+    },
+    "revision": 1,
+    "source_adapter": "usno-moon-phases-v1",
+    "status": "active",
+    "superseded_at": null
+  },
+  {
+    "accepted_at": "2026-03-01T05-43-24Z",
+    "change_reason": "Initial acceptance",
+    "content_hash": "sha256:93f8f4e0ac875bdb5b98d4e2c9e3ba308ba637c6be1093b9dc512ddde1ef6ed4",
+    "detail_url": "https://in-the-sky.org/news.php?id=20260217_08_100&phase=new-moon",
+    "occurrence_id": "astronomy/moon-phase/2026-02-17/new-moon/default",
+    "record": {
+      "accepted_revision": null,
+      "all_day": false,
+      "body": "moon",
+      "candidate_status": "new",
+      "categories": [
+        "Astronomy",
+        "Moon Phase"
+      ],
+      "content_hash": "sha256:93f8f4e0ac875bdb5b98d4e2c9e3ba308ba637c6be1093b9dc512ddde1ef6ed4",
+      "description": "This entry marks the exact astronomical moment of the New Moon.",
+      "detail_url": "https://in-the-sky.org/news.php?id=20260217_08_100&phase=new-moon",
+      "end": null,
+      "event_type": "moon-phase",
+      "first_seen_at": "2026-03-01T05:43:27Z",
+      "group_id": "astronomy/moon-phase/2026-02-17/new-moon",
+      "is_default": true,
+      "last_seen_at": "2026-03-01T05:43:27Z",
+      "metadata": {
+        "phase": "New Moon",
+        "source_id": null
+      },
+      "occurrence_id": "astronomy/moon-phase/2026-02-17/new-moon/default",
+      "raw_ref": "data/raw/astronomy/2026/usno-moon-phases/response.json",
+      "source_adapter": "usno-moon-phases-v1",
+      "source_type": "astronomy",
+      "source_validation": {
+        "checks": [
+          "reachable",
+          "required timing fields present",
+          "detail url resolved"
+        ],
+        "detail_url_ok": true,
+        "reason": null,
+        "status": "passed",
+        "validated_at": "2026-03-01T05:43:27Z"
+      },
+      "start": "2026-02-17T12:01:00Z",
+      "summary": "New Moon",
+      "tags": [
+        "moon-phase",
+        "new-moon"
+      ],
+      "timezone": "UTC",
+      "timing_source": {
+        "name": "usno",
+        "url": "https://aa.usno.navy.mil/api/moon/phases/year"
+      },
+      "title": "New Moon",
+      "validation_sources": [],
+      "variant": "default"
+    },
+    "revision": 1,
+    "source_adapter": "usno-moon-phases-v1",
+    "status": "active",
+    "superseded_at": null
+  },
+  {
+    "accepted_at": "2026-03-01T05-43-24Z",
+    "change_reason": "Initial acceptance",
+    "content_hash": "sha256:1ae3f98827eaf07a291fd82dac83b4a5d35c2c5d2f1d61c54baf1067b8a8768d",
+    "detail_url": "https://in-the-sky.org/news.php?id=20260224_08_100&phase=first-quarter",
+    "occurrence_id": "astronomy/moon-phase/2026-02-24/first-quarter/default",
+    "record": {
+      "accepted_revision": null,
+      "all_day": false,
+      "body": "moon",
+      "candidate_status": "new",
+      "categories": [
+        "Astronomy",
+        "Moon Phase"
+      ],
+      "content_hash": "sha256:1ae3f98827eaf07a291fd82dac83b4a5d35c2c5d2f1d61c54baf1067b8a8768d",
+      "description": "This entry marks the exact astronomical moment of the First Quarter Moon.",
+      "detail_url": "https://in-the-sky.org/news.php?id=20260224_08_100&phase=first-quarter",
+      "end": null,
+      "event_type": "moon-phase",
+      "first_seen_at": "2026-03-01T05:43:27Z",
+      "group_id": "astronomy/moon-phase/2026-02-24/first-quarter",
+      "is_default": true,
+      "last_seen_at": "2026-03-01T05:43:27Z",
+      "metadata": {
+        "phase": "First Quarter",
+        "source_id": null
+      },
+      "occurrence_id": "astronomy/moon-phase/2026-02-24/first-quarter/default",
+      "raw_ref": "data/raw/astronomy/2026/usno-moon-phases/response.json",
+      "source_adapter": "usno-moon-phases-v1",
+      "source_type": "astronomy",
+      "source_validation": {
+        "checks": [
+          "reachable",
+          "required timing fields present",
+          "detail url resolved"
+        ],
+        "detail_url_ok": true,
+        "reason": null,
+        "status": "passed",
+        "validated_at": "2026-03-01T05:43:27Z"
+      },
+      "start": "2026-02-24T12:27:00Z",
+      "summary": "First Quarter",
+      "tags": [
+        "moon-phase",
+        "first-quarter"
+      ],
+      "timezone": "UTC",
+      "timing_source": {
+        "name": "usno",
+        "url": "https://aa.usno.navy.mil/api/moon/phases/year"
+      },
+      "title": "First Quarter",
+      "validation_sources": [],
+      "variant": "default"
+    },
+    "revision": 1,
+    "source_adapter": "usno-moon-phases-v1",
+    "status": "active",
+    "superseded_at": null
+  },
+  {
+    "accepted_at": "2026-03-01T05-43-24Z",
+    "change_reason": "Initial acceptance",
+    "content_hash": "sha256:27c80ddf5a7413b473c817fd44728d4e8d1297629e1a8907776af5297a4e36e4",
+    "detail_url": "https://in-the-sky.org/news.php?id=20260303_08_100&phase=full-moon",
+    "occurrence_id": "astronomy/moon-phase/2026-03-03/full-moon/default",
+    "record": {
+      "accepted_revision": null,
+      "all_day": false,
+      "body": "moon",
+      "candidate_status": "new",
+      "categories": [
+        "Astronomy",
+        "Moon Phase"
+      ],
+      "content_hash": "sha256:27c80ddf5a7413b473c817fd44728d4e8d1297629e1a8907776af5297a4e36e4",
+      "description": "This entry marks the exact astronomical moment of the Full Moon.",
+      "detail_url": "https://in-the-sky.org/news.php?id=20260303_08_100&phase=full-moon",
+      "end": null,
+      "event_type": "moon-phase",
+      "first_seen_at": "2026-03-01T05:43:27Z",
+      "group_id": "astronomy/moon-phase/2026-03-03/full-moon",
+      "is_default": true,
+      "last_seen_at": "2026-03-01T05:43:27Z",
+      "metadata": {
+        "phase": "Full Moon",
+        "source_id": null
+      },
+      "occurrence_id": "astronomy/moon-phase/2026-03-03/full-moon/default",
+      "raw_ref": "data/raw/astronomy/2026/usno-moon-phases/response.json",
+      "source_adapter": "usno-moon-phases-v1",
+      "source_type": "astronomy",
+      "source_validation": {
+        "checks": [
+          "reachable",
+          "required timing fields present",
+          "detail url resolved"
+        ],
+        "detail_url_ok": true,
+        "reason": null,
+        "status": "passed",
+        "validated_at": "2026-03-01T05:43:27Z"
+      },
+      "start": "2026-03-03T11:38:00Z",
+      "summary": "Full Moon",
+      "tags": [
+        "moon-phase",
+        "full-moon"
+      ],
+      "timezone": "UTC",
+      "timing_source": {
+        "name": "usno",
+        "url": "https://aa.usno.navy.mil/api/moon/phases/year"
+      },
+      "title": "Full Moon",
+      "validation_sources": [],
+      "variant": "default"
+    },
+    "revision": 1,
+    "source_adapter": "usno-moon-phases-v1",
+    "status": "active",
+    "superseded_at": null
+  },
+  {
+    "accepted_at": "2026-03-01T05-43-24Z",
+    "change_reason": "Initial acceptance",
+    "content_hash": "sha256:a931284a2f7b0c981e07bba46dae58f7c6946e99fec366c0cfce87fd3cf0396b",
+    "detail_url": "https://in-the-sky.org/news.php?id=20260311_08_100&phase=last-quarter",
+    "occurrence_id": "astronomy/moon-phase/2026-03-11/last-quarter/default",
+    "record": {
+      "accepted_revision": null,
+      "all_day": false,
+      "body": "moon",
+      "candidate_status": "new",
+      "categories": [
+        "Astronomy",
+        "Moon Phase"
+      ],
+      "content_hash": "sha256:a931284a2f7b0c981e07bba46dae58f7c6946e99fec366c0cfce87fd3cf0396b",
+      "description": "This entry marks the exact astronomical moment of the Last Quarter Moon.",
+      "detail_url": "https://in-the-sky.org/news.php?id=20260311_08_100&phase=last-quarter",
+      "end": null,
+      "event_type": "moon-phase",
+      "first_seen_at": "2026-03-01T05:43:27Z",
+      "group_id": "astronomy/moon-phase/2026-03-11/last-quarter",
+      "is_default": true,
+      "last_seen_at": "2026-03-01T05:43:27Z",
+      "metadata": {
+        "phase": "Last Quarter",
+        "source_id": null
+      },
+      "occurrence_id": "astronomy/moon-phase/2026-03-11/last-quarter/default",
+      "raw_ref": "data/raw/astronomy/2026/usno-moon-phases/response.json",
+      "source_adapter": "usno-moon-phases-v1",
+      "source_type": "astronomy",
+      "source_validation": {
+        "checks": [
+          "reachable",
+          "required timing fields present",
+          "detail url resolved"
+        ],
+        "detail_url_ok": true,
+        "reason": null,
+        "status": "passed",
+        "validated_at": "2026-03-01T05:43:27Z"
+      },
+      "start": "2026-03-11T09:38:00Z",
+      "summary": "Last Quarter",
+      "tags": [
+        "moon-phase",
+        "last-quarter"
+      ],
+      "timezone": "UTC",
+      "timing_source": {
+        "name": "usno",
+        "url": "https://aa.usno.navy.mil/api/moon/phases/year"
+      },
+      "title": "Last Quarter",
+      "validation_sources": [],
+      "variant": "default"
+    },
+    "revision": 1,
+    "source_adapter": "usno-moon-phases-v1",
+    "status": "active",
+    "superseded_at": null
+  },
+  {
+    "accepted_at": "2026-03-01T05-43-24Z",
+    "change_reason": "Initial acceptance",
+    "content_hash": "sha256:9dfc7ce8e3d15056fff7dcc10f92f7c8bcdbfcad2ee00d7beffe9a80446dc213",
+    "detail_url": "https://in-the-sky.org/news.php?id=20260319_08_100&phase=new-moon",
+    "occurrence_id": "astronomy/moon-phase/2026-03-19/new-moon/default",
+    "record": {
+      "accepted_revision": null,
+      "all_day": false,
+      "body": "moon",
+      "candidate_status": "new",
+      "categories": [
+        "Astronomy",
+        "Moon Phase"
+      ],
+      "content_hash": "sha256:9dfc7ce8e3d15056fff7dcc10f92f7c8bcdbfcad2ee00d7beffe9a80446dc213",
+      "description": "This entry marks the exact astronomical moment of the New Moon.",
+      "detail_url": "https://in-the-sky.org/news.php?id=20260319_08_100&phase=new-moon",
+      "end": null,
+      "event_type": "moon-phase",
+      "first_seen_at": "2026-03-01T05:43:27Z",
+      "group_id": "astronomy/moon-phase/2026-03-19/new-moon",
+      "is_default": true,
+      "last_seen_at": "2026-03-01T05:43:27Z",
+      "metadata": {
+        "phase": "New Moon",
+        "source_id": null
+      },
+      "occurrence_id": "astronomy/moon-phase/2026-03-19/new-moon/default",
+      "raw_ref": "data/raw/astronomy/2026/usno-moon-phases/response.json",
+      "source_adapter": "usno-moon-phases-v1",
+      "source_type": "astronomy",
+      "source_validation": {
+        "checks": [
+          "reachable",
+          "required timing fields present",
+          "detail url resolved"
+        ],
+        "detail_url_ok": true,
+        "reason": null,
+        "status": "passed",
+        "validated_at": "2026-03-01T05:43:27Z"
+      },
+      "start": "2026-03-19T01:23:00Z",
+      "summary": "New Moon",
+      "tags": [
+        "moon-phase",
+        "new-moon"
+      ],
+      "timezone": "UTC",
+      "timing_source": {
+        "name": "usno",
+        "url": "https://aa.usno.navy.mil/api/moon/phases/year"
+      },
+      "title": "New Moon",
+      "validation_sources": [],
+      "variant": "default"
+    },
+    "revision": 1,
+    "source_adapter": "usno-moon-phases-v1",
+    "status": "active",
+    "superseded_at": null
+  },
+  {
+    "accepted_at": "2026-03-01T05-43-24Z",
+    "change_reason": "Initial acceptance",
+    "content_hash": "sha256:68e78b4ae5b2de9f37b08a8724e1444eed90060125d0ed2ebab5968d7bd37da1",
+    "detail_url": "https://in-the-sky.org/news.php?id=20260325_08_100&phase=first-quarter",
+    "occurrence_id": "astronomy/moon-phase/2026-03-25/first-quarter/default",
+    "record": {
+      "accepted_revision": null,
+      "all_day": false,
+      "body": "moon",
+      "candidate_status": "new",
+      "categories": [
+        "Astronomy",
+        "Moon Phase"
+      ],
+      "content_hash": "sha256:68e78b4ae5b2de9f37b08a8724e1444eed90060125d0ed2ebab5968d7bd37da1",
+      "description": "This entry marks the exact astronomical moment of the First Quarter Moon.",
+      "detail_url": "https://in-the-sky.org/news.php?id=20260325_08_100&phase=first-quarter",
+      "end": null,
+      "event_type": "moon-phase",
+      "first_seen_at": "2026-03-01T05:43:27Z",
+      "group_id": "astronomy/moon-phase/2026-03-25/first-quarter",
+      "is_default": true,
+      "last_seen_at": "2026-03-01T05:43:27Z",
+      "metadata": {
+        "phase": "First Quarter",
+        "source_id": null
+      },
+      "occurrence_id": "astronomy/moon-phase/2026-03-25/first-quarter/default",
+      "raw_ref": "data/raw/astronomy/2026/usno-moon-phases/response.json",
+      "source_adapter": "usno-moon-phases-v1",
+      "source_type": "astronomy",
+      "source_validation": {
+        "checks": [
+          "reachable",
+          "required timing fields present",
+          "detail url resolved"
+        ],
+        "detail_url_ok": true,
+        "reason": null,
+        "status": "passed",
+        "validated_at": "2026-03-01T05:43:27Z"
+      },
+      "start": "2026-03-25T19:18:00Z",
+      "summary": "First Quarter",
+      "tags": [
+        "moon-phase",
+        "first-quarter"
+      ],
+      "timezone": "UTC",
+      "timing_source": {
+        "name": "usno",
+        "url": "https://aa.usno.navy.mil/api/moon/phases/year"
+      },
+      "title": "First Quarter",
+      "validation_sources": [],
+      "variant": "default"
+    },
+    "revision": 1,
+    "source_adapter": "usno-moon-phases-v1",
+    "status": "active",
+    "superseded_at": null
+  },
+  {
+    "accepted_at": "2026-03-01T05-43-24Z",
+    "change_reason": "Initial acceptance",
+    "content_hash": "sha256:8a06a5f3208bdbb270be160e3f504a5ed6b683ef58714ac1ef458d532f7f7986",
+    "detail_url": "https://in-the-sky.org/news.php?id=20260402_08_100&phase=full-moon",
+    "occurrence_id": "astronomy/moon-phase/2026-04-02/full-moon/default",
+    "record": {
+      "accepted_revision": null,
+      "all_day": false,
+      "body": "moon",
+      "candidate_status": "new",
+      "categories": [
+        "Astronomy",
+        "Moon Phase"
+      ],
+      "content_hash": "sha256:8a06a5f3208bdbb270be160e3f504a5ed6b683ef58714ac1ef458d532f7f7986",
+      "description": "This entry marks the exact astronomical moment of the Full Moon.",
+      "detail_url": "https://in-the-sky.org/news.php?id=20260402_08_100&phase=full-moon",
+      "end": null,
+      "event_type": "moon-phase",
+      "first_seen_at": "2026-03-01T05:43:27Z",
+      "group_id": "astronomy/moon-phase/2026-04-02/full-moon",
+      "is_default": true,
+      "last_seen_at": "2026-03-01T05:43:27Z",
+      "metadata": {
+        "phase": "Full Moon",
+        "source_id": null
+      },
+      "occurrence_id": "astronomy/moon-phase/2026-04-02/full-moon/default",
+      "raw_ref": "data/raw/astronomy/2026/usno-moon-phases/response.json",
+      "source_adapter": "usno-moon-phases-v1",
+      "source_type": "astronomy",
+      "source_validation": {
+        "checks": [
+          "reachable",
+          "required timing fields present",
+          "detail url resolved"
+        ],
+        "detail_url_ok": true,
+        "reason": null,
+        "status": "passed",
+        "validated_at": "2026-03-01T05:43:27Z"
+      },
+      "start": "2026-04-02T02:12:00Z",
+      "summary": "Full Moon",
+      "tags": [
+        "moon-phase",
+        "full-moon"
+      ],
+      "timezone": "UTC",
+      "timing_source": {
+        "name": "usno",
+        "url": "https://aa.usno.navy.mil/api/moon/phases/year"
+      },
+      "title": "Full Moon",
+      "validation_sources": [],
+      "variant": "default"
+    },
+    "revision": 1,
+    "source_adapter": "usno-moon-phases-v1",
+    "status": "active",
+    "superseded_at": null
+  },
+  {
+    "accepted_at": "2026-03-01T05-43-24Z",
+    "change_reason": "Initial acceptance",
+    "content_hash": "sha256:cad8d8c329d2c016779522ce02f493c8486a78c0cab7adba46893f46a54107b2",
+    "detail_url": "https://in-the-sky.org/news.php?id=20260410_08_100&phase=last-quarter",
+    "occurrence_id": "astronomy/moon-phase/2026-04-10/last-quarter/default",
+    "record": {
+      "accepted_revision": null,
+      "all_day": false,
+      "body": "moon",
+      "candidate_status": "new",
+      "categories": [
+        "Astronomy",
+        "Moon Phase"
+      ],
+      "content_hash": "sha256:cad8d8c329d2c016779522ce02f493c8486a78c0cab7adba46893f46a54107b2",
+      "description": "This entry marks the exact astronomical moment of the Last Quarter Moon.",
+      "detail_url": "https://in-the-sky.org/news.php?id=20260410_08_100&phase=last-quarter",
+      "end": null,
+      "event_type": "moon-phase",
+      "first_seen_at": "2026-03-01T05:43:27Z",
+      "group_id": "astronomy/moon-phase/2026-04-10/last-quarter",
+      "is_default": true,
+      "last_seen_at": "2026-03-01T05:43:27Z",
+      "metadata": {
+        "phase": "Last Quarter",
+        "source_id": null
+      },
+      "occurrence_id": "astronomy/moon-phase/2026-04-10/last-quarter/default",
+      "raw_ref": "data/raw/astronomy/2026/usno-moon-phases/response.json",
+      "source_adapter": "usno-moon-phases-v1",
+      "source_type": "astronomy",
+      "source_validation": {
+        "checks": [
+          "reachable",
+          "required timing fields present",
+          "detail url resolved"
+        ],
+        "detail_url_ok": true,
+        "reason": null,
+        "status": "passed",
+        "validated_at": "2026-03-01T05:43:27Z"
+      },
+      "start": "2026-04-10T04:51:00Z",
+      "summary": "Last Quarter",
+      "tags": [
+        "moon-phase",
+        "last-quarter"
+      ],
+      "timezone": "UTC",
+      "timing_source": {
+        "name": "usno",
+        "url": "https://aa.usno.navy.mil/api/moon/phases/year"
+      },
+      "title": "Last Quarter",
+      "validation_sources": [],
+      "variant": "default"
+    },
+    "revision": 1,
+    "source_adapter": "usno-moon-phases-v1",
+    "status": "active",
+    "superseded_at": null
+  },
+  {
+    "accepted_at": "2026-03-01T05-43-24Z",
+    "change_reason": "Initial acceptance",
+    "content_hash": "sha256:82bc66dead284f85e80c93a88dd2c1956890211189458cae52a4c032d8087786",
+    "detail_url": "https://in-the-sky.org/news.php?id=20260417_08_100&phase=new-moon",
+    "occurrence_id": "astronomy/moon-phase/2026-04-17/new-moon/default",
+    "record": {
+      "accepted_revision": null,
+      "all_day": false,
+      "body": "moon",
+      "candidate_status": "new",
+      "categories": [
+        "Astronomy",
+        "Moon Phase"
+      ],
+      "content_hash": "sha256:82bc66dead284f85e80c93a88dd2c1956890211189458cae52a4c032d8087786",
+      "description": "This entry marks the exact astronomical moment of the New Moon.",
+      "detail_url": "https://in-the-sky.org/news.php?id=20260417_08_100&phase=new-moon",
+      "end": null,
+      "event_type": "moon-phase",
+      "first_seen_at": "2026-03-01T05:43:27Z",
+      "group_id": "astronomy/moon-phase/2026-04-17/new-moon",
+      "is_default": true,
+      "last_seen_at": "2026-03-01T05:43:27Z",
+      "metadata": {
+        "phase": "New Moon",
+        "source_id": null
+      },
+      "occurrence_id": "astronomy/moon-phase/2026-04-17/new-moon/default",
+      "raw_ref": "data/raw/astronomy/2026/usno-moon-phases/response.json",
+      "source_adapter": "usno-moon-phases-v1",
+      "source_type": "astronomy",
+      "source_validation": {
+        "checks": [
+          "reachable",
+          "required timing fields present",
+          "detail url resolved"
+        ],
+        "detail_url_ok": true,
+        "reason": null,
+        "status": "passed",
+        "validated_at": "2026-03-01T05:43:27Z"
+      },
+      "start": "2026-04-17T11:52:00Z",
+      "summary": "New Moon",
+      "tags": [
+        "moon-phase",
+        "new-moon"
+      ],
+      "timezone": "UTC",
+      "timing_source": {
+        "name": "usno",
+        "url": "https://aa.usno.navy.mil/api/moon/phases/year"
+      },
+      "title": "New Moon",
+      "validation_sources": [],
+      "variant": "default"
+    },
+    "revision": 1,
+    "source_adapter": "usno-moon-phases-v1",
+    "status": "active",
+    "superseded_at": null
+  },
+  {
+    "accepted_at": "2026-03-01T05-43-24Z",
+    "change_reason": "Initial acceptance",
+    "content_hash": "sha256:e8c426aecad66a1a026b0c59d3abae4c6c27dd782a2de9f390948d170dcacc3c",
+    "detail_url": "https://in-the-sky.org/news.php?id=20260424_08_100&phase=first-quarter",
+    "occurrence_id": "astronomy/moon-phase/2026-04-24/first-quarter/default",
+    "record": {
+      "accepted_revision": null,
+      "all_day": false,
+      "body": "moon",
+      "candidate_status": "new",
+      "categories": [
+        "Astronomy",
+        "Moon Phase"
+      ],
+      "content_hash": "sha256:e8c426aecad66a1a026b0c59d3abae4c6c27dd782a2de9f390948d170dcacc3c",
+      "description": "This entry marks the exact astronomical moment of the First Quarter Moon.",
+      "detail_url": "https://in-the-sky.org/news.php?id=20260424_08_100&phase=first-quarter",
+      "end": null,
+      "event_type": "moon-phase",
+      "first_seen_at": "2026-03-01T05:43:27Z",
+      "group_id": "astronomy/moon-phase/2026-04-24/first-quarter",
+      "is_default": true,
+      "last_seen_at": "2026-03-01T05:43:27Z",
+      "metadata": {
+        "phase": "First Quarter",
+        "source_id": null
+      },
+      "occurrence_id": "astronomy/moon-phase/2026-04-24/first-quarter/default",
+      "raw_ref": "data/raw/astronomy/2026/usno-moon-phases/response.json",
+      "source_adapter": "usno-moon-phases-v1",
+      "source_type": "astronomy",
+      "source_validation": {
+        "checks": [
+          "reachable",
+          "required timing fields present",
+          "detail url resolved"
+        ],
+        "detail_url_ok": true,
+        "reason": null,
+        "status": "passed",
+        "validated_at": "2026-03-01T05:43:27Z"
+      },
+      "start": "2026-04-24T02:32:00Z",
+      "summary": "First Quarter",
+      "tags": [
+        "moon-phase",
+        "first-quarter"
+      ],
+      "timezone": "UTC",
+      "timing_source": {
+        "name": "usno",
+        "url": "https://aa.usno.navy.mil/api/moon/phases/year"
+      },
+      "title": "First Quarter",
+      "validation_sources": [],
+      "variant": "default"
+    },
+    "revision": 1,
+    "source_adapter": "usno-moon-phases-v1",
+    "status": "active",
+    "superseded_at": null
+  },
+  {
+    "accepted_at": "2026-03-01T05-43-24Z",
+    "change_reason": "Initial acceptance",
+    "content_hash": "sha256:0af6b924e6fa9f35d1d904451bb96721b8305e4f987d4bcd7a631b7b89abc973",
+    "detail_url": "https://in-the-sky.org/news.php?id=20260501_08_100&phase=full-moon",
+    "occurrence_id": "astronomy/moon-phase/2026-05-01/full-moon/default",
+    "record": {
+      "accepted_revision": null,
+      "all_day": false,
+      "body": "moon",
+      "candidate_status": "new",
+      "categories": [
+        "Astronomy",
+        "Moon Phase"
+      ],
+      "content_hash": "sha256:0af6b924e6fa9f35d1d904451bb96721b8305e4f987d4bcd7a631b7b89abc973",
+      "description": "This entry marks the exact astronomical moment of the Full Moon.",
+      "detail_url": "https://in-the-sky.org/news.php?id=20260501_08_100&phase=full-moon",
+      "end": null,
+      "event_type": "moon-phase",
+      "first_seen_at": "2026-03-01T05:43:27Z",
+      "group_id": "astronomy/moon-phase/2026-05-01/full-moon",
+      "is_default": true,
+      "last_seen_at": "2026-03-01T05:43:27Z",
+      "metadata": {
+        "phase": "Full Moon",
+        "source_id": null
+      },
+      "occurrence_id": "astronomy/moon-phase/2026-05-01/full-moon/default",
+      "raw_ref": "data/raw/astronomy/2026/usno-moon-phases/response.json",
+      "source_adapter": "usno-moon-phases-v1",
+      "source_type": "astronomy",
+      "source_validation": {
+        "checks": [
+          "reachable",
+          "required timing fields present",
+          "detail url resolved"
+        ],
+        "detail_url_ok": true,
+        "reason": null,
+        "status": "passed",
+        "validated_at": "2026-03-01T05:43:27Z"
+      },
+      "start": "2026-05-01T17:23:00Z",
+      "summary": "Full Moon",
+      "tags": [
+        "moon-phase",
+        "full-moon"
+      ],
+      "timezone": "UTC",
+      "timing_source": {
+        "name": "usno",
+        "url": "https://aa.usno.navy.mil/api/moon/phases/year"
+      },
+      "title": "Full Moon",
+      "validation_sources": [],
+      "variant": "default"
+    },
+    "revision": 1,
+    "source_adapter": "usno-moon-phases-v1",
+    "status": "active",
+    "superseded_at": null
+  },
+  {
+    "accepted_at": "2026-03-01T05-43-24Z",
+    "change_reason": "Initial acceptance",
+    "content_hash": "sha256:adcfd3be6ca949a533bd99a8d938707d9100c3498afe2280da2e19a3a2673191",
+    "detail_url": "https://in-the-sky.org/news.php?id=20260509_08_100&phase=last-quarter",
+    "occurrence_id": "astronomy/moon-phase/2026-05-09/last-quarter/default",
+    "record": {
+      "accepted_revision": null,
+      "all_day": false,
+      "body": "moon",
+      "candidate_status": "new",
+      "categories": [
+        "Astronomy",
+        "Moon Phase"
+      ],
+      "content_hash": "sha256:adcfd3be6ca949a533bd99a8d938707d9100c3498afe2280da2e19a3a2673191",
+      "description": "This entry marks the exact astronomical moment of the Last Quarter Moon.",
+      "detail_url": "https://in-the-sky.org/news.php?id=20260509_08_100&phase=last-quarter",
+      "end": null,
+      "event_type": "moon-phase",
+      "first_seen_at": "2026-03-01T05:43:27Z",
+      "group_id": "astronomy/moon-phase/2026-05-09/last-quarter",
+      "is_default": true,
+      "last_seen_at": "2026-03-01T05:43:27Z",
+      "metadata": {
+        "phase": "Last Quarter",
+        "source_id": null
+      },
+      "occurrence_id": "astronomy/moon-phase/2026-05-09/last-quarter/default",
+      "raw_ref": "data/raw/astronomy/2026/usno-moon-phases/response.json",
+      "source_adapter": "usno-moon-phases-v1",
+      "source_type": "astronomy",
+      "source_validation": {
+        "checks": [
+          "reachable",
+          "required timing fields present",
+          "detail url resolved"
+        ],
+        "detail_url_ok": true,
+        "reason": null,
+        "status": "passed",
+        "validated_at": "2026-03-01T05:43:27Z"
+      },
+      "start": "2026-05-09T21:10:00Z",
+      "summary": "Last Quarter",
+      "tags": [
+        "moon-phase",
+        "last-quarter"
+      ],
+      "timezone": "UTC",
+      "timing_source": {
+        "name": "usno",
+        "url": "https://aa.usno.navy.mil/api/moon/phases/year"
+      },
+      "title": "Last Quarter",
+      "validation_sources": [],
+      "variant": "default"
+    },
+    "revision": 1,
+    "source_adapter": "usno-moon-phases-v1",
+    "status": "active",
+    "superseded_at": null
+  },
+  {
+    "accepted_at": "2026-03-01T05-43-24Z",
+    "change_reason": "Initial acceptance",
+    "content_hash": "sha256:f5f839f022aa3b8ff6dffe15bf1106562df13f3aabb221550f438d240a3338ed",
+    "detail_url": "https://in-the-sky.org/news.php?id=20260516_08_100&phase=new-moon",
+    "occurrence_id": "astronomy/moon-phase/2026-05-16/new-moon/default",
+    "record": {
+      "accepted_revision": null,
+      "all_day": false,
+      "body": "moon",
+      "candidate_status": "new",
+      "categories": [
+        "Astronomy",
+        "Moon Phase"
+      ],
+      "content_hash": "sha256:f5f839f022aa3b8ff6dffe15bf1106562df13f3aabb221550f438d240a3338ed",
+      "description": "This entry marks the exact astronomical moment of the New Moon.",
+      "detail_url": "https://in-the-sky.org/news.php?id=20260516_08_100&phase=new-moon",
+      "end": null,
+      "event_type": "moon-phase",
+      "first_seen_at": "2026-03-01T05:43:27Z",
+      "group_id": "astronomy/moon-phase/2026-05-16/new-moon",
+      "is_default": true,
+      "last_seen_at": "2026-03-01T05:43:27Z",
+      "metadata": {
+        "phase": "New Moon",
+        "source_id": null
+      },
+      "occurrence_id": "astronomy/moon-phase/2026-05-16/new-moon/default",
+      "raw_ref": "data/raw/astronomy/2026/usno-moon-phases/response.json",
+      "source_adapter": "usno-moon-phases-v1",
+      "source_type": "astronomy",
+      "source_validation": {
+        "checks": [
+          "reachable",
+          "required timing fields present",
+          "detail url resolved"
+        ],
+        "detail_url_ok": true,
+        "reason": null,
+        "status": "passed",
+        "validated_at": "2026-03-01T05:43:27Z"
+      },
+      "start": "2026-05-16T20:01:00Z",
+      "summary": "New Moon",
+      "tags": [
+        "moon-phase",
+        "new-moon"
+      ],
+      "timezone": "UTC",
+      "timing_source": {
+        "name": "usno",
+        "url": "https://aa.usno.navy.mil/api/moon/phases/year"
+      },
+      "title": "New Moon",
+      "validation_sources": [],
+      "variant": "default"
+    },
+    "revision": 1,
+    "source_adapter": "usno-moon-phases-v1",
+    "status": "active",
+    "superseded_at": null
+  },
+  {
+    "accepted_at": "2026-03-01T05-43-24Z",
+    "change_reason": "Initial acceptance",
+    "content_hash": "sha256:e1b3a3eab1be62f316262a233e7b6c09c9bbef6e3b04714742dc0e7afa0124f2",
+    "detail_url": "https://in-the-sky.org/news.php?id=20260523_08_100&phase=first-quarter",
+    "occurrence_id": "astronomy/moon-phase/2026-05-23/first-quarter/default",
+    "record": {
+      "accepted_revision": null,
+      "all_day": false,
+      "body": "moon",
+      "candidate_status": "new",
+      "categories": [
+        "Astronomy",
+        "Moon Phase"
+      ],
+      "content_hash": "sha256:e1b3a3eab1be62f316262a233e7b6c09c9bbef6e3b04714742dc0e7afa0124f2",
+      "description": "This entry marks the exact astronomical moment of the First Quarter Moon.",
+      "detail_url": "https://in-the-sky.org/news.php?id=20260523_08_100&phase=first-quarter",
+      "end": null,
+      "event_type": "moon-phase",
+      "first_seen_at": "2026-03-01T05:43:27Z",
+      "group_id": "astronomy/moon-phase/2026-05-23/first-quarter",
+      "is_default": true,
+      "last_seen_at": "2026-03-01T05:43:27Z",
+      "metadata": {
+        "phase": "First Quarter",
+        "source_id": null
+      },
+      "occurrence_id": "astronomy/moon-phase/2026-05-23/first-quarter/default",
+      "raw_ref": "data/raw/astronomy/2026/usno-moon-phases/response.json",
+      "source_adapter": "usno-moon-phases-v1",
+      "source_type": "astronomy",
+      "source_validation": {
+        "checks": [
+          "reachable",
+          "required timing fields present",
+          "detail url resolved"
+        ],
+        "detail_url_ok": true,
+        "reason": null,
+        "status": "passed",
+        "validated_at": "2026-03-01T05:43:27Z"
+      },
+      "start": "2026-05-23T11:11:00Z",
+      "summary": "First Quarter",
+      "tags": [
+        "moon-phase",
+        "first-quarter"
+      ],
+      "timezone": "UTC",
+      "timing_source": {
+        "name": "usno",
+        "url": "https://aa.usno.navy.mil/api/moon/phases/year"
+      },
+      "title": "First Quarter",
+      "validation_sources": [],
+      "variant": "default"
+    },
+    "revision": 1,
+    "source_adapter": "usno-moon-phases-v1",
+    "status": "active",
+    "superseded_at": null
+  },
+  {
+    "accepted_at": "2026-03-01T05-43-24Z",
+    "change_reason": "Initial acceptance",
+    "content_hash": "sha256:1a66bbfe313bd6b23c7bd44b67823dab21e9cc76067bc284d7d1593adb9756d5",
+    "detail_url": "https://in-the-sky.org/news.php?id=20260531_08_100&phase=full-moon",
+    "occurrence_id": "astronomy/moon-phase/2026-05-31/full-moon/default",
+    "record": {
+      "accepted_revision": null,
+      "all_day": false,
+      "body": "moon",
+      "candidate_status": "new",
+      "categories": [
+        "Astronomy",
+        "Moon Phase"
+      ],
+      "content_hash": "sha256:1a66bbfe313bd6b23c7bd44b67823dab21e9cc76067bc284d7d1593adb9756d5",
+      "description": "This entry marks the exact astronomical moment of the Full Moon.",
+      "detail_url": "https://in-the-sky.org/news.php?id=20260531_08_100&phase=full-moon",
+      "end": null,
+      "event_type": "moon-phase",
+      "first_seen_at": "2026-03-01T05:43:27Z",
+      "group_id": "astronomy/moon-phase/2026-05-31/full-moon",
+      "is_default": true,
+      "last_seen_at": "2026-03-01T05:43:27Z",
+      "metadata": {
+        "phase": "Full Moon",
+        "source_id": null
+      },
+      "occurrence_id": "astronomy/moon-phase/2026-05-31/full-moon/default",
+      "raw_ref": "data/raw/astronomy/2026/usno-moon-phases/response.json",
+      "source_adapter": "usno-moon-phases-v1",
+      "source_type": "astronomy",
+      "source_validation": {
+        "checks": [
+          "reachable",
+          "required timing fields present",
+          "detail url resolved"
+        ],
+        "detail_url_ok": true,
+        "reason": null,
+        "status": "passed",
+        "validated_at": "2026-03-01T05:43:27Z"
+      },
+      "start": "2026-05-31T08:45:00Z",
+      "summary": "Full Moon",
+      "tags": [
+        "moon-phase",
+        "full-moon"
+      ],
+      "timezone": "UTC",
+      "timing_source": {
+        "name": "usno",
+        "url": "https://aa.usno.navy.mil/api/moon/phases/year"
+      },
+      "title": "Full Moon",
+      "validation_sources": [],
+      "variant": "default"
+    },
+    "revision": 1,
+    "source_adapter": "usno-moon-phases-v1",
+    "status": "active",
+    "superseded_at": null
+  },
+  {
+    "accepted_at": "2026-03-01T05-43-24Z",
+    "change_reason": "Initial acceptance",
+    "content_hash": "sha256:05c8490c69c3215ee22add4207a6eada1998f5396084050de394cac436e375ec",
+    "detail_url": "https://in-the-sky.org/news.php?id=20260608_08_100&phase=last-quarter",
+    "occurrence_id": "astronomy/moon-phase/2026-06-08/last-quarter/default",
+    "record": {
+      "accepted_revision": null,
+      "all_day": false,
+      "body": "moon",
+      "candidate_status": "new",
+      "categories": [
+        "Astronomy",
+        "Moon Phase"
+      ],
+      "content_hash": "sha256:05c8490c69c3215ee22add4207a6eada1998f5396084050de394cac436e375ec",
+      "description": "This entry marks the exact astronomical moment of the Last Quarter Moon.",
+      "detail_url": "https://in-the-sky.org/news.php?id=20260608_08_100&phase=last-quarter",
+      "end": null,
+      "event_type": "moon-phase",
+      "first_seen_at": "2026-03-01T05:43:27Z",
+      "group_id": "astronomy/moon-phase/2026-06-08/last-quarter",
+      "is_default": true,
+      "last_seen_at": "2026-03-01T05:43:27Z",
+      "metadata": {
+        "phase": "Last Quarter",
+        "source_id": null
+      },
+      "occurrence_id": "astronomy/moon-phase/2026-06-08/last-quarter/default",
+      "raw_ref": "data/raw/astronomy/2026/usno-moon-phases/response.json",
+      "source_adapter": "usno-moon-phases-v1",
+      "source_type": "astronomy",
+      "source_validation": {
+        "checks": [
+          "reachable",
+          "required timing fields present",
+          "detail url resolved"
+        ],
+        "detail_url_ok": true,
+        "reason": null,
+        "status": "passed",
+        "validated_at": "2026-03-01T05:43:27Z"
+      },
+      "start": "2026-06-08T10:00:00Z",
+      "summary": "Last Quarter",
+      "tags": [
+        "moon-phase",
+        "last-quarter"
+      ],
+      "timezone": "UTC",
+      "timing_source": {
+        "name": "usno",
+        "url": "https://aa.usno.navy.mil/api/moon/phases/year"
+      },
+      "title": "Last Quarter",
+      "validation_sources": [],
+      "variant": "default"
+    },
+    "revision": 1,
+    "source_adapter": "usno-moon-phases-v1",
+    "status": "active",
+    "superseded_at": null
+  },
+  {
+    "accepted_at": "2026-03-01T05-43-24Z",
+    "change_reason": "Initial acceptance",
+    "content_hash": "sha256:25a157eafffd68c0796c63f560aa944cf9642d4c3521c5ea49ca1ab7cf6cafab",
+    "detail_url": "https://in-the-sky.org/news.php?id=20260615_08_100&phase=new-moon",
+    "occurrence_id": "astronomy/moon-phase/2026-06-15/new-moon/default",
+    "record": {
+      "accepted_revision": null,
+      "all_day": false,
+      "body": "moon",
+      "candidate_status": "new",
+      "categories": [
+        "Astronomy",
+        "Moon Phase"
+      ],
+      "content_hash": "sha256:25a157eafffd68c0796c63f560aa944cf9642d4c3521c5ea49ca1ab7cf6cafab",
+      "description": "This entry marks the exact astronomical moment of the New Moon.",
+      "detail_url": "https://in-the-sky.org/news.php?id=20260615_08_100&phase=new-moon",
+      "end": null,
+      "event_type": "moon-phase",
+      "first_seen_at": "2026-03-01T05:43:27Z",
+      "group_id": "astronomy/moon-phase/2026-06-15/new-moon",
+      "is_default": true,
+      "last_seen_at": "2026-03-01T05:43:27Z",
+      "metadata": {
+        "phase": "New Moon",
+        "source_id": null
+      },
+      "occurrence_id": "astronomy/moon-phase/2026-06-15/new-moon/default",
+      "raw_ref": "data/raw/astronomy/2026/usno-moon-phases/response.json",
+      "source_adapter": "usno-moon-phases-v1",
+      "source_type": "astronomy",
+      "source_validation": {
+        "checks": [
+          "reachable",
+          "required timing fields present",
+          "detail url resolved"
+        ],
+        "detail_url_ok": true,
+        "reason": null,
+        "status": "passed",
+        "validated_at": "2026-03-01T05:43:27Z"
+      },
+      "start": "2026-06-15T02:54:00Z",
+      "summary": "New Moon",
+      "tags": [
+        "moon-phase",
+        "new-moon"
+      ],
+      "timezone": "UTC",
+      "timing_source": {
+        "name": "usno",
+        "url": "https://aa.usno.navy.mil/api/moon/phases/year"
+      },
+      "title": "New Moon",
+      "validation_sources": [],
+      "variant": "default"
+    },
+    "revision": 1,
+    "source_adapter": "usno-moon-phases-v1",
+    "status": "active",
+    "superseded_at": null
+  },
+  {
+    "accepted_at": "2026-03-01T05-43-24Z",
+    "change_reason": "Initial acceptance",
+    "content_hash": "sha256:4bd37155d868d8f64373821d2ea11d1c8f68f9dc08177b12e0345f4c5ceab992",
+    "detail_url": "https://in-the-sky.org/news.php?id=20260621_08_100&phase=first-quarter",
+    "occurrence_id": "astronomy/moon-phase/2026-06-21/first-quarter/default",
+    "record": {
+      "accepted_revision": null,
+      "all_day": false,
+      "body": "moon",
+      "candidate_status": "new",
+      "categories": [
+        "Astronomy",
+        "Moon Phase"
+      ],
+      "content_hash": "sha256:4bd37155d868d8f64373821d2ea11d1c8f68f9dc08177b12e0345f4c5ceab992",
+      "description": "This entry marks the exact astronomical moment of the First Quarter Moon.",
+      "detail_url": "https://in-the-sky.org/news.php?id=20260621_08_100&phase=first-quarter",
+      "end": null,
+      "event_type": "moon-phase",
+      "first_seen_at": "2026-03-01T05:43:27Z",
+      "group_id": "astronomy/moon-phase/2026-06-21/first-quarter",
+      "is_default": true,
+      "last_seen_at": "2026-03-01T05:43:27Z",
+      "metadata": {
+        "phase": "First Quarter",
+        "source_id": null
+      },
+      "occurrence_id": "astronomy/moon-phase/2026-06-21/first-quarter/default",
+      "raw_ref": "data/raw/astronomy/2026/usno-moon-phases/response.json",
+      "source_adapter": "usno-moon-phases-v1",
+      "source_type": "astronomy",
+      "source_validation": {
+        "checks": [
+          "reachable",
+          "required timing fields present",
+          "detail url resolved"
+        ],
+        "detail_url_ok": true,
+        "reason": null,
+        "status": "passed",
+        "validated_at": "2026-03-01T05:43:27Z"
+      },
+      "start": "2026-06-21T21:55:00Z",
+      "summary": "First Quarter",
+      "tags": [
+        "moon-phase",
+        "first-quarter"
+      ],
+      "timezone": "UTC",
+      "timing_source": {
+        "name": "usno",
+        "url": "https://aa.usno.navy.mil/api/moon/phases/year"
+      },
+      "title": "First Quarter",
+      "validation_sources": [],
+      "variant": "default"
+    },
+    "revision": 1,
+    "source_adapter": "usno-moon-phases-v1",
+    "status": "active",
+    "superseded_at": null
+  },
+  {
+    "accepted_at": "2026-03-01T05-43-24Z",
+    "change_reason": "Initial acceptance",
+    "content_hash": "sha256:d4b25f3a59f79808c714c42dc3f2d34795bd33d9e06423c5daf4fe6f08a2dea9",
+    "detail_url": "https://in-the-sky.org/news.php?id=20260629_08_100&phase=full-moon",
+    "occurrence_id": "astronomy/moon-phase/2026-06-29/full-moon/default",
+    "record": {
+      "accepted_revision": null,
+      "all_day": false,
+      "body": "moon",
+      "candidate_status": "new",
+      "categories": [
+        "Astronomy",
+        "Moon Phase"
+      ],
+      "content_hash": "sha256:d4b25f3a59f79808c714c42dc3f2d34795bd33d9e06423c5daf4fe6f08a2dea9",
+      "description": "This entry marks the exact astronomical moment of the Full Moon.",
+      "detail_url": "https://in-the-sky.org/news.php?id=20260629_08_100&phase=full-moon",
+      "end": null,
+      "event_type": "moon-phase",
+      "first_seen_at": "2026-03-01T05:43:27Z",
+      "group_id": "astronomy/moon-phase/2026-06-29/full-moon",
+      "is_default": true,
+      "last_seen_at": "2026-03-01T05:43:27Z",
+      "metadata": {
+        "phase": "Full Moon",
+        "source_id": null
+      },
+      "occurrence_id": "astronomy/moon-phase/2026-06-29/full-moon/default",
+      "raw_ref": "data/raw/astronomy/2026/usno-moon-phases/response.json",
+      "source_adapter": "usno-moon-phases-v1",
+      "source_type": "astronomy",
+      "source_validation": {
+        "checks": [
+          "reachable",
+          "required timing fields present",
+          "detail url resolved"
+        ],
+        "detail_url_ok": true,
+        "reason": null,
+        "status": "passed",
+        "validated_at": "2026-03-01T05:43:27Z"
+      },
+      "start": "2026-06-29T23:56:00Z",
+      "summary": "Full Moon",
+      "tags": [
+        "moon-phase",
+        "full-moon"
+      ],
+      "timezone": "UTC",
+      "timing_source": {
+        "name": "usno",
+        "url": "https://aa.usno.navy.mil/api/moon/phases/year"
+      },
+      "title": "Full Moon",
+      "validation_sources": [],
+      "variant": "default"
+    },
+    "revision": 1,
+    "source_adapter": "usno-moon-phases-v1",
+    "status": "active",
+    "superseded_at": null
+  },
+  {
+    "accepted_at": "2026-03-01T05-43-24Z",
+    "change_reason": "Initial acceptance",
+    "content_hash": "sha256:bd6d97e23317e3e74a7e012a30db4f13ae13ed2abeebdf9fad99d98dde470478",
+    "detail_url": "https://in-the-sky.org/news.php?id=20260707_08_100&phase=last-quarter",
+    "occurrence_id": "astronomy/moon-phase/2026-07-07/last-quarter/default",
+    "record": {
+      "accepted_revision": null,
+      "all_day": false,
+      "body": "moon",
+      "candidate_status": "new",
+      "categories": [
+        "Astronomy",
+        "Moon Phase"
+      ],
+      "content_hash": "sha256:bd6d97e23317e3e74a7e012a30db4f13ae13ed2abeebdf9fad99d98dde470478",
+      "description": "This entry marks the exact astronomical moment of the Last Quarter Moon.",
+      "detail_url": "https://in-the-sky.org/news.php?id=20260707_08_100&phase=last-quarter",
+      "end": null,
+      "event_type": "moon-phase",
+      "first_seen_at": "2026-03-01T05:43:27Z",
+      "group_id": "astronomy/moon-phase/2026-07-07/last-quarter",
+      "is_default": true,
+      "last_seen_at": "2026-03-01T05:43:27Z",
+      "metadata": {
+        "phase": "Last Quarter",
+        "source_id": null
+      },
+      "occurrence_id": "astronomy/moon-phase/2026-07-07/last-quarter/default",
+      "raw_ref": "data/raw/astronomy/2026/usno-moon-phases/response.json",
+      "source_adapter": "usno-moon-phases-v1",
+      "source_type": "astronomy",
+      "source_validation": {
+        "checks": [
+          "reachable",
+          "required timing fields present",
+          "detail url resolved"
+        ],
+        "detail_url_ok": true,
+        "reason": null,
+        "status": "passed",
+        "validated_at": "2026-03-01T05:43:27Z"
+      },
+      "start": "2026-07-07T19:29:00Z",
+      "summary": "Last Quarter",
+      "tags": [
+        "moon-phase",
+        "last-quarter"
+      ],
+      "timezone": "UTC",
+      "timing_source": {
+        "name": "usno",
+        "url": "https://aa.usno.navy.mil/api/moon/phases/year"
+      },
+      "title": "Last Quarter",
+      "validation_sources": [],
+      "variant": "default"
+    },
+    "revision": 1,
+    "source_adapter": "usno-moon-phases-v1",
+    "status": "active",
+    "superseded_at": null
+  },
+  {
+    "accepted_at": "2026-03-01T05-43-24Z",
+    "change_reason": "Initial acceptance",
+    "content_hash": "sha256:c0e378d71d0de203bea28adf7bb0afedeb22b690c9c01d892c3c8fd94e2c3c57",
+    "detail_url": "https://in-the-sky.org/news.php?id=20260714_08_100&phase=new-moon",
+    "occurrence_id": "astronomy/moon-phase/2026-07-14/new-moon/default",
+    "record": {
+      "accepted_revision": null,
+      "all_day": false,
+      "body": "moon",
+      "candidate_status": "new",
+      "categories": [
+        "Astronomy",
+        "Moon Phase"
+      ],
+      "content_hash": "sha256:c0e378d71d0de203bea28adf7bb0afedeb22b690c9c01d892c3c8fd94e2c3c57",
+      "description": "This entry marks the exact astronomical moment of the New Moon.",
+      "detail_url": "https://in-the-sky.org/news.php?id=20260714_08_100&phase=new-moon",
+      "end": null,
+      "event_type": "moon-phase",
+      "first_seen_at": "2026-03-01T05:43:27Z",
+      "group_id": "astronomy/moon-phase/2026-07-14/new-moon",
+      "is_default": true,
+      "last_seen_at": "2026-03-01T05:43:27Z",
+      "metadata": {
+        "phase": "New Moon",
+        "source_id": null
+      },
+      "occurrence_id": "astronomy/moon-phase/2026-07-14/new-moon/default",
+      "raw_ref": "data/raw/astronomy/2026/usno-moon-phases/response.json",
+      "source_adapter": "usno-moon-phases-v1",
+      "source_type": "astronomy",
+      "source_validation": {
+        "checks": [
+          "reachable",
+          "required timing fields present",
+          "detail url resolved"
+        ],
+        "detail_url_ok": true,
+        "reason": null,
+        "status": "passed",
+        "validated_at": "2026-03-01T05:43:27Z"
+      },
+      "start": "2026-07-14T09:43:00Z",
+      "summary": "New Moon",
+      "tags": [
+        "moon-phase",
+        "new-moon"
+      ],
+      "timezone": "UTC",
+      "timing_source": {
+        "name": "usno",
+        "url": "https://aa.usno.navy.mil/api/moon/phases/year"
+      },
+      "title": "New Moon",
+      "validation_sources": [],
+      "variant": "default"
+    },
+    "revision": 1,
+    "source_adapter": "usno-moon-phases-v1",
+    "status": "active",
+    "superseded_at": null
+  },
+  {
+    "accepted_at": "2026-03-01T05-43-24Z",
+    "change_reason": "Initial acceptance",
+    "content_hash": "sha256:6e8520ff27018648bd7b4df788bfcde0bf8f7c35c63cf04900d4baaff6839304",
+    "detail_url": "https://in-the-sky.org/news.php?id=20260721_08_100&phase=first-quarter",
+    "occurrence_id": "astronomy/moon-phase/2026-07-21/first-quarter/default",
+    "record": {
+      "accepted_revision": null,
+      "all_day": false,
+      "body": "moon",
+      "candidate_status": "new",
+      "categories": [
+        "Astronomy",
+        "Moon Phase"
+      ],
+      "content_hash": "sha256:6e8520ff27018648bd7b4df788bfcde0bf8f7c35c63cf04900d4baaff6839304",
+      "description": "This entry marks the exact astronomical moment of the First Quarter Moon.",
+      "detail_url": "https://in-the-sky.org/news.php?id=20260721_08_100&phase=first-quarter",
+      "end": null,
+      "event_type": "moon-phase",
+      "first_seen_at": "2026-03-01T05:43:27Z",
+      "group_id": "astronomy/moon-phase/2026-07-21/first-quarter",
+      "is_default": true,
+      "last_seen_at": "2026-03-01T05:43:27Z",
+      "metadata": {
+        "phase": "First Quarter",
+        "source_id": null
+      },
+      "occurrence_id": "astronomy/moon-phase/2026-07-21/first-quarter/default",
+      "raw_ref": "data/raw/astronomy/2026/usno-moon-phases/response.json",
+      "source_adapter": "usno-moon-phases-v1",
+      "source_type": "astronomy",
+      "source_validation": {
+        "checks": [
+          "reachable",
+          "required timing fields present",
+          "detail url resolved"
+        ],
+        "detail_url_ok": true,
+        "reason": null,
+        "status": "passed",
+        "validated_at": "2026-03-01T05:43:27Z"
+      },
+      "start": "2026-07-21T11:05:00Z",
+      "summary": "First Quarter",
+      "tags": [
+        "moon-phase",
+        "first-quarter"
+      ],
+      "timezone": "UTC",
+      "timing_source": {
+        "name": "usno",
+        "url": "https://aa.usno.navy.mil/api/moon/phases/year"
+      },
+      "title": "First Quarter",
+      "validation_sources": [],
+      "variant": "default"
+    },
+    "revision": 1,
+    "source_adapter": "usno-moon-phases-v1",
+    "status": "active",
+    "superseded_at": null
+  },
+  {
+    "accepted_at": "2026-03-01T05-43-24Z",
+    "change_reason": "Initial acceptance",
+    "content_hash": "sha256:d8a7e606f7624d076c6f501f7c5c3fe91831813a356e33624414dabb97c49163",
+    "detail_url": "https://in-the-sky.org/news.php?id=20260729_08_100&phase=full-moon",
+    "occurrence_id": "astronomy/moon-phase/2026-07-29/full-moon/default",
+    "record": {
+      "accepted_revision": null,
+      "all_day": false,
+      "body": "moon",
+      "candidate_status": "new",
+      "categories": [
+        "Astronomy",
+        "Moon Phase"
+      ],
+      "content_hash": "sha256:d8a7e606f7624d076c6f501f7c5c3fe91831813a356e33624414dabb97c49163",
+      "description": "This entry marks the exact astronomical moment of the Full Moon.",
+      "detail_url": "https://in-the-sky.org/news.php?id=20260729_08_100&phase=full-moon",
+      "end": null,
+      "event_type": "moon-phase",
+      "first_seen_at": "2026-03-01T05:43:27Z",
+      "group_id": "astronomy/moon-phase/2026-07-29/full-moon",
+      "is_default": true,
+      "last_seen_at": "2026-03-01T05:43:27Z",
+      "metadata": {
+        "phase": "Full Moon",
+        "source_id": null
+      },
+      "occurrence_id": "astronomy/moon-phase/2026-07-29/full-moon/default",
+      "raw_ref": "data/raw/astronomy/2026/usno-moon-phases/response.json",
+      "source_adapter": "usno-moon-phases-v1",
+      "source_type": "astronomy",
+      "source_validation": {
+        "checks": [
+          "reachable",
+          "required timing fields present",
+          "detail url resolved"
+        ],
+        "detail_url_ok": true,
+        "reason": null,
+        "status": "passed",
+        "validated_at": "2026-03-01T05:43:27Z"
+      },
+      "start": "2026-07-29T14:36:00Z",
+      "summary": "Full Moon",
+      "tags": [
+        "moon-phase",
+        "full-moon"
+      ],
+      "timezone": "UTC",
+      "timing_source": {
+        "name": "usno",
+        "url": "https://aa.usno.navy.mil/api/moon/phases/year"
+      },
+      "title": "Full Moon",
+      "validation_sources": [],
+      "variant": "default"
+    },
+    "revision": 1,
+    "source_adapter": "usno-moon-phases-v1",
+    "status": "active",
+    "superseded_at": null
+  },
+  {
+    "accepted_at": "2026-03-01T05-43-24Z",
+    "change_reason": "Initial acceptance",
+    "content_hash": "sha256:cae3d42a06cddc23f9ab65ffd30be77cf99562708fa962fb673229b7f981aecb",
+    "detail_url": "https://in-the-sky.org/news.php?id=20260806_08_100&phase=last-quarter",
+    "occurrence_id": "astronomy/moon-phase/2026-08-06/last-quarter/default",
+    "record": {
+      "accepted_revision": null,
+      "all_day": false,
+      "body": "moon",
+      "candidate_status": "new",
+      "categories": [
+        "Astronomy",
+        "Moon Phase"
+      ],
+      "content_hash": "sha256:cae3d42a06cddc23f9ab65ffd30be77cf99562708fa962fb673229b7f981aecb",
+      "description": "This entry marks the exact astronomical moment of the Last Quarter Moon.",
+      "detail_url": "https://in-the-sky.org/news.php?id=20260806_08_100&phase=last-quarter",
+      "end": null,
+      "event_type": "moon-phase",
+      "first_seen_at": "2026-03-01T05:43:27Z",
+      "group_id": "astronomy/moon-phase/2026-08-06/last-quarter",
+      "is_default": true,
+      "last_seen_at": "2026-03-01T05:43:27Z",
+      "metadata": {
+        "phase": "Last Quarter",
+        "source_id": null
+      },
+      "occurrence_id": "astronomy/moon-phase/2026-08-06/last-quarter/default",
+      "raw_ref": "data/raw/astronomy/2026/usno-moon-phases/response.json",
+      "source_adapter": "usno-moon-phases-v1",
+      "source_type": "astronomy",
+      "source_validation": {
+        "checks": [
+          "reachable",
+          "required timing fields present",
+          "detail url resolved"
+        ],
+        "detail_url_ok": true,
+        "reason": null,
+        "status": "passed",
+        "validated_at": "2026-03-01T05:43:27Z"
+      },
+      "start": "2026-08-06T02:21:00Z",
+      "summary": "Last Quarter",
+      "tags": [
+        "moon-phase",
+        "last-quarter"
+      ],
+      "timezone": "UTC",
+      "timing_source": {
+        "name": "usno",
+        "url": "https://aa.usno.navy.mil/api/moon/phases/year"
+      },
+      "title": "Last Quarter",
+      "validation_sources": [],
+      "variant": "default"
+    },
+    "revision": 1,
+    "source_adapter": "usno-moon-phases-v1",
+    "status": "active",
+    "superseded_at": null
+  },
+  {
+    "accepted_at": "2026-03-01T05-43-24Z",
+    "change_reason": "Initial acceptance",
+    "content_hash": "sha256:4d3e84f30d4c59c09ee5bf80dc76307adab599239021263ed118d0f9c2cfacfa",
+    "detail_url": "https://in-the-sky.org/news.php?id=20260812_08_100&phase=new-moon",
+    "occurrence_id": "astronomy/moon-phase/2026-08-12/new-moon/default",
+    "record": {
+      "accepted_revision": null,
+      "all_day": false,
+      "body": "moon",
+      "candidate_status": "new",
+      "categories": [
+        "Astronomy",
+        "Moon Phase"
+      ],
+      "content_hash": "sha256:4d3e84f30d4c59c09ee5bf80dc76307adab599239021263ed118d0f9c2cfacfa",
+      "description": "This entry marks the exact astronomical moment of the New Moon.",
+      "detail_url": "https://in-the-sky.org/news.php?id=20260812_08_100&phase=new-moon",
+      "end": null,
+      "event_type": "moon-phase",
+      "first_seen_at": "2026-03-01T05:43:27Z",
+      "group_id": "astronomy/moon-phase/2026-08-12/new-moon",
+      "is_default": true,
+      "last_seen_at": "2026-03-01T05:43:27Z",
+      "metadata": {
+        "phase": "New Moon",
+        "source_id": null
+      },
+      "occurrence_id": "astronomy/moon-phase/2026-08-12/new-moon/default",
+      "raw_ref": "data/raw/astronomy/2026/usno-moon-phases/response.json",
+      "source_adapter": "usno-moon-phases-v1",
+      "source_type": "astronomy",
+      "source_validation": {
+        "checks": [
+          "reachable",
+          "required timing fields present",
+          "detail url resolved"
+        ],
+        "detail_url_ok": true,
+        "reason": null,
+        "status": "passed",
+        "validated_at": "2026-03-01T05:43:27Z"
+      },
+      "start": "2026-08-12T17:37:00Z",
+      "summary": "New Moon",
+      "tags": [
+        "moon-phase",
+        "new-moon"
+      ],
+      "timezone": "UTC",
+      "timing_source": {
+        "name": "usno",
+        "url": "https://aa.usno.navy.mil/api/moon/phases/year"
+      },
+      "title": "New Moon",
+      "validation_sources": [],
+      "variant": "default"
+    },
+    "revision": 1,
+    "source_adapter": "usno-moon-phases-v1",
+    "status": "active",
+    "superseded_at": null
+  },
+  {
+    "accepted_at": "2026-03-01T05-43-24Z",
+    "change_reason": "Initial acceptance",
+    "content_hash": "sha256:96e2c6a08e87a30e760fd80c7a34df99a5d8d48bfa3086b2a89927eed4f67440",
+    "detail_url": "https://in-the-sky.org/news.php?id=20260820_08_100&phase=first-quarter",
+    "occurrence_id": "astronomy/moon-phase/2026-08-20/first-quarter/default",
+    "record": {
+      "accepted_revision": null,
+      "all_day": false,
+      "body": "moon",
+      "candidate_status": "new",
+      "categories": [
+        "Astronomy",
+        "Moon Phase"
+      ],
+      "content_hash": "sha256:96e2c6a08e87a30e760fd80c7a34df99a5d8d48bfa3086b2a89927eed4f67440",
+      "description": "This entry marks the exact astronomical moment of the First Quarter Moon.",
+      "detail_url": "https://in-the-sky.org/news.php?id=20260820_08_100&phase=first-quarter",
+      "end": null,
+      "event_type": "moon-phase",
+      "first_seen_at": "2026-03-01T05:43:27Z",
+      "group_id": "astronomy/moon-phase/2026-08-20/first-quarter",
+      "is_default": true,
+      "last_seen_at": "2026-03-01T05:43:27Z",
+      "metadata": {
+        "phase": "First Quarter",
+        "source_id": null
+      },
+      "occurrence_id": "astronomy/moon-phase/2026-08-20/first-quarter/default",
+      "raw_ref": "data/raw/astronomy/2026/usno-moon-phases/response.json",
+      "source_adapter": "usno-moon-phases-v1",
+      "source_type": "astronomy",
+      "source_validation": {
+        "checks": [
+          "reachable",
+          "required timing fields present",
+          "detail url resolved"
+        ],
+        "detail_url_ok": true,
+        "reason": null,
+        "status": "passed",
+        "validated_at": "2026-03-01T05:43:27Z"
+      },
+      "start": "2026-08-20T02:46:00Z",
+      "summary": "First Quarter",
+      "tags": [
+        "moon-phase",
+        "first-quarter"
+      ],
+      "timezone": "UTC",
+      "timing_source": {
+        "name": "usno",
+        "url": "https://aa.usno.navy.mil/api/moon/phases/year"
+      },
+      "title": "First Quarter",
+      "validation_sources": [],
+      "variant": "default"
+    },
+    "revision": 1,
+    "source_adapter": "usno-moon-phases-v1",
+    "status": "active",
+    "superseded_at": null
+  },
+  {
+    "accepted_at": "2026-03-01T05-43-24Z",
+    "change_reason": "Initial acceptance",
+    "content_hash": "sha256:5cfd9daea743000bb06a7f7c256e73b42c4299d410c0c775ba221201c5729258",
+    "detail_url": "https://in-the-sky.org/news.php?id=20260828_08_100&phase=full-moon",
+    "occurrence_id": "astronomy/moon-phase/2026-08-28/full-moon/default",
+    "record": {
+      "accepted_revision": null,
+      "all_day": false,
+      "body": "moon",
+      "candidate_status": "new",
+      "categories": [
+        "Astronomy",
+        "Moon Phase"
+      ],
+      "content_hash": "sha256:5cfd9daea743000bb06a7f7c256e73b42c4299d410c0c775ba221201c5729258",
+      "description": "This entry marks the exact astronomical moment of the Full Moon.",
+      "detail_url": "https://in-the-sky.org/news.php?id=20260828_08_100&phase=full-moon",
+      "end": null,
+      "event_type": "moon-phase",
+      "first_seen_at": "2026-03-01T05:43:27Z",
+      "group_id": "astronomy/moon-phase/2026-08-28/full-moon",
+      "is_default": true,
+      "last_seen_at": "2026-03-01T05:43:27Z",
+      "metadata": {
+        "phase": "Full Moon",
+        "source_id": null
+      },
+      "occurrence_id": "astronomy/moon-phase/2026-08-28/full-moon/default",
+      "raw_ref": "data/raw/astronomy/2026/usno-moon-phases/response.json",
+      "source_adapter": "usno-moon-phases-v1",
+      "source_type": "astronomy",
+      "source_validation": {
+        "checks": [
+          "reachable",
+          "required timing fields present",
+          "detail url resolved"
+        ],
+        "detail_url_ok": true,
+        "reason": null,
+        "status": "passed",
+        "validated_at": "2026-03-01T05:43:27Z"
+      },
+      "start": "2026-08-28T04:18:00Z",
+      "summary": "Full Moon",
+      "tags": [
+        "moon-phase",
+        "full-moon"
+      ],
+      "timezone": "UTC",
+      "timing_source": {
+        "name": "usno",
+        "url": "https://aa.usno.navy.mil/api/moon/phases/year"
+      },
+      "title": "Full Moon",
+      "validation_sources": [],
+      "variant": "default"
+    },
+    "revision": 1,
+    "source_adapter": "usno-moon-phases-v1",
+    "status": "active",
+    "superseded_at": null
+  },
+  {
+    "accepted_at": "2026-03-01T05-43-24Z",
+    "change_reason": "Initial acceptance",
+    "content_hash": "sha256:a925cbb08e21e31c92d4c86242d04cd3189f4e80bbe484167a0a27c473c68f2d",
+    "detail_url": "https://in-the-sky.org/news.php?id=20260904_08_100&phase=last-quarter",
+    "occurrence_id": "astronomy/moon-phase/2026-09-04/last-quarter/default",
+    "record": {
+      "accepted_revision": null,
+      "all_day": false,
+      "body": "moon",
+      "candidate_status": "new",
+      "categories": [
+        "Astronomy",
+        "Moon Phase"
+      ],
+      "content_hash": "sha256:a925cbb08e21e31c92d4c86242d04cd3189f4e80bbe484167a0a27c473c68f2d",
+      "description": "This entry marks the exact astronomical moment of the Last Quarter Moon.",
+      "detail_url": "https://in-the-sky.org/news.php?id=20260904_08_100&phase=last-quarter",
+      "end": null,
+      "event_type": "moon-phase",
+      "first_seen_at": "2026-03-01T05:43:27Z",
+      "group_id": "astronomy/moon-phase/2026-09-04/last-quarter",
+      "is_default": true,
+      "last_seen_at": "2026-03-01T05:43:27Z",
+      "metadata": {
+        "phase": "Last Quarter",
+        "source_id": null
+      },
+      "occurrence_id": "astronomy/moon-phase/2026-09-04/last-quarter/default",
+      "raw_ref": "data/raw/astronomy/2026/usno-moon-phases/response.json",
+      "source_adapter": "usno-moon-phases-v1",
+      "source_type": "astronomy",
+      "source_validation": {
+        "checks": [
+          "reachable",
+          "required timing fields present",
+          "detail url resolved"
+        ],
+        "detail_url_ok": true,
+        "reason": null,
+        "status": "passed",
+        "validated_at": "2026-03-01T05:43:27Z"
+      },
+      "start": "2026-09-04T07:51:00Z",
+      "summary": "Last Quarter",
+      "tags": [
+        "moon-phase",
+        "last-quarter"
+      ],
+      "timezone": "UTC",
+      "timing_source": {
+        "name": "usno",
+        "url": "https://aa.usno.navy.mil/api/moon/phases/year"
+      },
+      "title": "Last Quarter",
+      "validation_sources": [],
+      "variant": "default"
+    },
+    "revision": 1,
+    "source_adapter": "usno-moon-phases-v1",
+    "status": "active",
+    "superseded_at": null
+  },
+  {
+    "accepted_at": "2026-03-01T05-43-24Z",
+    "change_reason": "Initial acceptance",
+    "content_hash": "sha256:ed9120909c29930dde9df54861ae1b9c90a473f15db93ce2c71604a1394819e2",
+    "detail_url": "https://in-the-sky.org/news.php?id=20260911_08_100&phase=new-moon",
+    "occurrence_id": "astronomy/moon-phase/2026-09-11/new-moon/default",
+    "record": {
+      "accepted_revision": null,
+      "all_day": false,
+      "body": "moon",
+      "candidate_status": "new",
+      "categories": [
+        "Astronomy",
+        "Moon Phase"
+      ],
+      "content_hash": "sha256:ed9120909c29930dde9df54861ae1b9c90a473f15db93ce2c71604a1394819e2",
+      "description": "This entry marks the exact astronomical moment of the New Moon.",
+      "detail_url": "https://in-the-sky.org/news.php?id=20260911_08_100&phase=new-moon",
+      "end": null,
+      "event_type": "moon-phase",
+      "first_seen_at": "2026-03-01T05:43:27Z",
+      "group_id": "astronomy/moon-phase/2026-09-11/new-moon",
+      "is_default": true,
+      "last_seen_at": "2026-03-01T05:43:27Z",
+      "metadata": {
+        "phase": "New Moon",
+        "source_id": null
+      },
+      "occurrence_id": "astronomy/moon-phase/2026-09-11/new-moon/default",
+      "raw_ref": "data/raw/astronomy/2026/usno-moon-phases/response.json",
+      "source_adapter": "usno-moon-phases-v1",
+      "source_type": "astronomy",
+      "source_validation": {
+        "checks": [
+          "reachable",
+          "required timing fields present",
+          "detail url resolved"
+        ],
+        "detail_url_ok": true,
+        "reason": null,
+        "status": "passed",
+        "validated_at": "2026-03-01T05:43:27Z"
+      },
+      "start": "2026-09-11T03:27:00Z",
+      "summary": "New Moon",
+      "tags": [
+        "moon-phase",
+        "new-moon"
+      ],
+      "timezone": "UTC",
+      "timing_source": {
+        "name": "usno",
+        "url": "https://aa.usno.navy.mil/api/moon/phases/year"
+      },
+      "title": "New Moon",
+      "validation_sources": [],
+      "variant": "default"
+    },
+    "revision": 1,
+    "source_adapter": "usno-moon-phases-v1",
+    "status": "active",
+    "superseded_at": null
+  },
+  {
+    "accepted_at": "2026-03-01T05-43-24Z",
+    "change_reason": "Initial acceptance",
+    "content_hash": "sha256:40fec9d7932bd4b32b26a8c6c2323fdd197d93933e035ebcdd297f46747840cc",
+    "detail_url": "https://in-the-sky.org/news.php?id=20260918_08_100&phase=first-quarter",
+    "occurrence_id": "astronomy/moon-phase/2026-09-18/first-quarter/default",
+    "record": {
+      "accepted_revision": null,
+      "all_day": false,
+      "body": "moon",
+      "candidate_status": "new",
+      "categories": [
+        "Astronomy",
+        "Moon Phase"
+      ],
+      "content_hash": "sha256:40fec9d7932bd4b32b26a8c6c2323fdd197d93933e035ebcdd297f46747840cc",
+      "description": "This entry marks the exact astronomical moment of the First Quarter Moon.",
+      "detail_url": "https://in-the-sky.org/news.php?id=20260918_08_100&phase=first-quarter",
+      "end": null,
+      "event_type": "moon-phase",
+      "first_seen_at": "2026-03-01T05:43:27Z",
+      "group_id": "astronomy/moon-phase/2026-09-18/first-quarter",
+      "is_default": true,
+      "last_seen_at": "2026-03-01T05:43:27Z",
+      "metadata": {
+        "phase": "First Quarter",
+        "source_id": null
+      },
+      "occurrence_id": "astronomy/moon-phase/2026-09-18/first-quarter/default",
+      "raw_ref": "data/raw/astronomy/2026/usno-moon-phases/response.json",
+      "source_adapter": "usno-moon-phases-v1",
+      "source_type": "astronomy",
+      "source_validation": {
+        "checks": [
+          "reachable",
+          "required timing fields present",
+          "detail url resolved"
+        ],
+        "detail_url_ok": true,
+        "reason": null,
+        "status": "passed",
+        "validated_at": "2026-03-01T05:43:27Z"
+      },
+      "start": "2026-09-18T20:44:00Z",
+      "summary": "First Quarter",
+      "tags": [
+        "moon-phase",
+        "first-quarter"
+      ],
+      "timezone": "UTC",
+      "timing_source": {
+        "name": "usno",
+        "url": "https://aa.usno.navy.mil/api/moon/phases/year"
+      },
+      "title": "First Quarter",
+      "validation_sources": [],
+      "variant": "default"
+    },
+    "revision": 1,
+    "source_adapter": "usno-moon-phases-v1",
+    "status": "active",
+    "superseded_at": null
+  },
+  {
+    "accepted_at": "2026-03-01T05-43-24Z",
+    "change_reason": "Initial acceptance",
+    "content_hash": "sha256:ec2b9e0d5347ccdfd2dcd85be848f45b300a33c7ba4e59c1aa441c256428f770",
+    "detail_url": "https://in-the-sky.org/news.php?id=20260926_08_100&phase=full-moon",
+    "occurrence_id": "astronomy/moon-phase/2026-09-26/full-moon/default",
+    "record": {
+      "accepted_revision": null,
+      "all_day": false,
+      "body": "moon",
+      "candidate_status": "new",
+      "categories": [
+        "Astronomy",
+        "Moon Phase"
+      ],
+      "content_hash": "sha256:ec2b9e0d5347ccdfd2dcd85be848f45b300a33c7ba4e59c1aa441c256428f770",
+      "description": "This entry marks the exact astronomical moment of the Full Moon.",
+      "detail_url": "https://in-the-sky.org/news.php?id=20260926_08_100&phase=full-moon",
+      "end": null,
+      "event_type": "moon-phase",
+      "first_seen_at": "2026-03-01T05:43:27Z",
+      "group_id": "astronomy/moon-phase/2026-09-26/full-moon",
+      "is_default": true,
+      "last_seen_at": "2026-03-01T05:43:27Z",
+      "metadata": {
+        "phase": "Full Moon",
+        "source_id": null
+      },
+      "occurrence_id": "astronomy/moon-phase/2026-09-26/full-moon/default",
+      "raw_ref": "data/raw/astronomy/2026/usno-moon-phases/response.json",
+      "source_adapter": "usno-moon-phases-v1",
+      "source_type": "astronomy",
+      "source_validation": {
+        "checks": [
+          "reachable",
+          "required timing fields present",
+          "detail url resolved"
+        ],
+        "detail_url_ok": true,
+        "reason": null,
+        "status": "passed",
+        "validated_at": "2026-03-01T05:43:27Z"
+      },
+      "start": "2026-09-26T16:49:00Z",
+      "summary": "Full Moon",
+      "tags": [
+        "moon-phase",
+        "full-moon"
+      ],
+      "timezone": "UTC",
+      "timing_source": {
+        "name": "usno",
+        "url": "https://aa.usno.navy.mil/api/moon/phases/year"
+      },
+      "title": "Full Moon",
+      "validation_sources": [],
+      "variant": "default"
+    },
+    "revision": 1,
+    "source_adapter": "usno-moon-phases-v1",
+    "status": "active",
+    "superseded_at": null
+  },
+  {
+    "accepted_at": "2026-03-01T05-43-24Z",
+    "change_reason": "Initial acceptance",
+    "content_hash": "sha256:045b66ed4c0aac8cab50d46339b0dcad261f96d309e00829510f537a5fef98e1",
+    "detail_url": "https://in-the-sky.org/news.php?id=20261003_08_100&phase=last-quarter",
+    "occurrence_id": "astronomy/moon-phase/2026-10-03/last-quarter/default",
+    "record": {
+      "accepted_revision": null,
+      "all_day": false,
+      "body": "moon",
+      "candidate_status": "new",
+      "categories": [
+        "Astronomy",
+        "Moon Phase"
+      ],
+      "content_hash": "sha256:045b66ed4c0aac8cab50d46339b0dcad261f96d309e00829510f537a5fef98e1",
+      "description": "This entry marks the exact astronomical moment of the Last Quarter Moon.",
+      "detail_url": "https://in-the-sky.org/news.php?id=20261003_08_100&phase=last-quarter",
+      "end": null,
+      "event_type": "moon-phase",
+      "first_seen_at": "2026-03-01T05:43:27Z",
+      "group_id": "astronomy/moon-phase/2026-10-03/last-quarter",
+      "is_default": true,
+      "last_seen_at": "2026-03-01T05:43:27Z",
+      "metadata": {
+        "phase": "Last Quarter",
+        "source_id": null
+      },
+      "occurrence_id": "astronomy/moon-phase/2026-10-03/last-quarter/default",
+      "raw_ref": "data/raw/astronomy/2026/usno-moon-phases/response.json",
+      "source_adapter": "usno-moon-phases-v1",
+      "source_type": "astronomy",
+      "source_validation": {
+        "checks": [
+          "reachable",
+          "required timing fields present",
+          "detail url resolved"
+        ],
+        "detail_url_ok": true,
+        "reason": null,
+        "status": "passed",
+        "validated_at": "2026-03-01T05:43:27Z"
+      },
+      "start": "2026-10-03T13:25:00Z",
+      "summary": "Last Quarter",
+      "tags": [
+        "moon-phase",
+        "last-quarter"
+      ],
+      "timezone": "UTC",
+      "timing_source": {
+        "name": "usno",
+        "url": "https://aa.usno.navy.mil/api/moon/phases/year"
+      },
+      "title": "Last Quarter",
+      "validation_sources": [],
+      "variant": "default"
+    },
+    "revision": 1,
+    "source_adapter": "usno-moon-phases-v1",
+    "status": "active",
+    "superseded_at": null
+  },
+  {
+    "accepted_at": "2026-03-01T05-43-24Z",
+    "change_reason": "Initial acceptance",
+    "content_hash": "sha256:cae943c546d5dd1c9d774860f4249535b6b0846798425e4bed34cb3b5e8540a3",
+    "detail_url": "https://in-the-sky.org/news.php?id=20261010_08_100&phase=new-moon",
+    "occurrence_id": "astronomy/moon-phase/2026-10-10/new-moon/default",
+    "record": {
+      "accepted_revision": null,
+      "all_day": false,
+      "body": "moon",
+      "candidate_status": "new",
+      "categories": [
+        "Astronomy",
+        "Moon Phase"
+      ],
+      "content_hash": "sha256:cae943c546d5dd1c9d774860f4249535b6b0846798425e4bed34cb3b5e8540a3",
+      "description": "This entry marks the exact astronomical moment of the New Moon.",
+      "detail_url": "https://in-the-sky.org/news.php?id=20261010_08_100&phase=new-moon",
+      "end": null,
+      "event_type": "moon-phase",
+      "first_seen_at": "2026-03-01T05:43:27Z",
+      "group_id": "astronomy/moon-phase/2026-10-10/new-moon",
+      "is_default": true,
+      "last_seen_at": "2026-03-01T05:43:27Z",
+      "metadata": {
+        "phase": "New Moon",
+        "source_id": null
+      },
+      "occurrence_id": "astronomy/moon-phase/2026-10-10/new-moon/default",
+      "raw_ref": "data/raw/astronomy/2026/usno-moon-phases/response.json",
+      "source_adapter": "usno-moon-phases-v1",
+      "source_type": "astronomy",
+      "source_validation": {
+        "checks": [
+          "reachable",
+          "required timing fields present",
+          "detail url resolved"
+        ],
+        "detail_url_ok": true,
+        "reason": null,
+        "status": "passed",
+        "validated_at": "2026-03-01T05:43:27Z"
+      },
+      "start": "2026-10-10T15:50:00Z",
+      "summary": "New Moon",
+      "tags": [
+        "moon-phase",
+        "new-moon"
+      ],
+      "timezone": "UTC",
+      "timing_source": {
+        "name": "usno",
+        "url": "https://aa.usno.navy.mil/api/moon/phases/year"
+      },
+      "title": "New Moon",
+      "validation_sources": [],
+      "variant": "default"
+    },
+    "revision": 1,
+    "source_adapter": "usno-moon-phases-v1",
+    "status": "active",
+    "superseded_at": null
+  },
+  {
+    "accepted_at": "2026-03-01T05-43-24Z",
+    "change_reason": "Initial acceptance",
+    "content_hash": "sha256:7f3118433fd5c802a160aec8cc0462ac453ebb8142555616c5781dfa41ec59db",
+    "detail_url": "https://in-the-sky.org/news.php?id=20261018_08_100&phase=first-quarter",
+    "occurrence_id": "astronomy/moon-phase/2026-10-18/first-quarter/default",
+    "record": {
+      "accepted_revision": null,
+      "all_day": false,
+      "body": "moon",
+      "candidate_status": "new",
+      "categories": [
+        "Astronomy",
+        "Moon Phase"
+      ],
+      "content_hash": "sha256:7f3118433fd5c802a160aec8cc0462ac453ebb8142555616c5781dfa41ec59db",
+      "description": "This entry marks the exact astronomical moment of the First Quarter Moon.",
+      "detail_url": "https://in-the-sky.org/news.php?id=20261018_08_100&phase=first-quarter",
+      "end": null,
+      "event_type": "moon-phase",
+      "first_seen_at": "2026-03-01T05:43:27Z",
+      "group_id": "astronomy/moon-phase/2026-10-18/first-quarter",
+      "is_default": true,
+      "last_seen_at": "2026-03-01T05:43:27Z",
+      "metadata": {
+        "phase": "First Quarter",
+        "source_id": null
+      },
+      "occurrence_id": "astronomy/moon-phase/2026-10-18/first-quarter/default",
+      "raw_ref": "data/raw/astronomy/2026/usno-moon-phases/response.json",
+      "source_adapter": "usno-moon-phases-v1",
+      "source_type": "astronomy",
+      "source_validation": {
+        "checks": [
+          "reachable",
+          "required timing fields present",
+          "detail url resolved"
+        ],
+        "detail_url_ok": true,
+        "reason": null,
+        "status": "passed",
+        "validated_at": "2026-03-01T05:43:27Z"
+      },
+      "start": "2026-10-18T16:12:00Z",
+      "summary": "First Quarter",
+      "tags": [
+        "moon-phase",
+        "first-quarter"
+      ],
+      "timezone": "UTC",
+      "timing_source": {
+        "name": "usno",
+        "url": "https://aa.usno.navy.mil/api/moon/phases/year"
+      },
+      "title": "First Quarter",
+      "validation_sources": [],
+      "variant": "default"
+    },
+    "revision": 1,
+    "source_adapter": "usno-moon-phases-v1",
+    "status": "active",
+    "superseded_at": null
+  },
+  {
+    "accepted_at": "2026-03-01T05-43-24Z",
+    "change_reason": "Initial acceptance",
+    "content_hash": "sha256:045af3cc0484bcd24c474f67ed380eb33c7ea636a2ededd5896bbf9ae05715ae",
+    "detail_url": "https://in-the-sky.org/news.php?id=20261026_08_100&phase=full-moon",
+    "occurrence_id": "astronomy/moon-phase/2026-10-26/full-moon/default",
+    "record": {
+      "accepted_revision": null,
+      "all_day": false,
+      "body": "moon",
+      "candidate_status": "new",
+      "categories": [
+        "Astronomy",
+        "Moon Phase"
+      ],
+      "content_hash": "sha256:045af3cc0484bcd24c474f67ed380eb33c7ea636a2ededd5896bbf9ae05715ae",
+      "description": "This entry marks the exact astronomical moment of the Full Moon.",
+      "detail_url": "https://in-the-sky.org/news.php?id=20261026_08_100&phase=full-moon",
+      "end": null,
+      "event_type": "moon-phase",
+      "first_seen_at": "2026-03-01T05:43:27Z",
+      "group_id": "astronomy/moon-phase/2026-10-26/full-moon",
+      "is_default": true,
+      "last_seen_at": "2026-03-01T05:43:27Z",
+      "metadata": {
+        "phase": "Full Moon",
+        "source_id": null
+      },
+      "occurrence_id": "astronomy/moon-phase/2026-10-26/full-moon/default",
+      "raw_ref": "data/raw/astronomy/2026/usno-moon-phases/response.json",
+      "source_adapter": "usno-moon-phases-v1",
+      "source_type": "astronomy",
+      "source_validation": {
+        "checks": [
+          "reachable",
+          "required timing fields present",
+          "detail url resolved"
+        ],
+        "detail_url_ok": true,
+        "reason": null,
+        "status": "passed",
+        "validated_at": "2026-03-01T05:43:27Z"
+      },
+      "start": "2026-10-26T04:12:00Z",
+      "summary": "Full Moon",
+      "tags": [
+        "moon-phase",
+        "full-moon"
+      ],
+      "timezone": "UTC",
+      "timing_source": {
+        "name": "usno",
+        "url": "https://aa.usno.navy.mil/api/moon/phases/year"
+      },
+      "title": "Full Moon",
+      "validation_sources": [],
+      "variant": "default"
+    },
+    "revision": 1,
+    "source_adapter": "usno-moon-phases-v1",
+    "status": "active",
+    "superseded_at": null
+  },
+  {
+    "accepted_at": "2026-03-01T05-43-24Z",
+    "change_reason": "Initial acceptance",
+    "content_hash": "sha256:1eeb1bb6affb50c3bc48c7e665401a499165fff3eb4bff011aef63ee27c0f918",
+    "detail_url": "https://in-the-sky.org/news.php?id=20261101_08_100&phase=last-quarter",
+    "occurrence_id": "astronomy/moon-phase/2026-11-01/last-quarter/default",
+    "record": {
+      "accepted_revision": null,
+      "all_day": false,
+      "body": "moon",
+      "candidate_status": "new",
+      "categories": [
+        "Astronomy",
+        "Moon Phase"
+      ],
+      "content_hash": "sha256:1eeb1bb6affb50c3bc48c7e665401a499165fff3eb4bff011aef63ee27c0f918",
+      "description": "This entry marks the exact astronomical moment of the Last Quarter Moon.",
+      "detail_url": "https://in-the-sky.org/news.php?id=20261101_08_100&phase=last-quarter",
+      "end": null,
+      "event_type": "moon-phase",
+      "first_seen_at": "2026-03-01T05:43:27Z",
+      "group_id": "astronomy/moon-phase/2026-11-01/last-quarter",
+      "is_default": true,
+      "last_seen_at": "2026-03-01T05:43:27Z",
+      "metadata": {
+        "phase": "Last Quarter",
+        "source_id": null
+      },
+      "occurrence_id": "astronomy/moon-phase/2026-11-01/last-quarter/default",
+      "raw_ref": "data/raw/astronomy/2026/usno-moon-phases/response.json",
+      "source_adapter": "usno-moon-phases-v1",
+      "source_type": "astronomy",
+      "source_validation": {
+        "checks": [
+          "reachable",
+          "required timing fields present",
+          "detail url resolved"
+        ],
+        "detail_url_ok": true,
+        "reason": null,
+        "status": "passed",
+        "validated_at": "2026-03-01T05:43:27Z"
+      },
+      "start": "2026-11-01T20:28:00Z",
+      "summary": "Last Quarter",
+      "tags": [
+        "moon-phase",
+        "last-quarter"
+      ],
+      "timezone": "UTC",
+      "timing_source": {
+        "name": "usno",
+        "url": "https://aa.usno.navy.mil/api/moon/phases/year"
+      },
+      "title": "Last Quarter",
+      "validation_sources": [],
+      "variant": "default"
+    },
+    "revision": 1,
+    "source_adapter": "usno-moon-phases-v1",
+    "status": "active",
+    "superseded_at": null
+  },
+  {
+    "accepted_at": "2026-03-01T05-43-24Z",
+    "change_reason": "Initial acceptance",
+    "content_hash": "sha256:e78af22be9e742ad42dd07fb0b01b05090fd4b5f657d2a1b0ec99a4fd681cbcd",
+    "detail_url": "https://in-the-sky.org/news.php?id=20261109_08_100&phase=new-moon",
+    "occurrence_id": "astronomy/moon-phase/2026-11-09/new-moon/default",
+    "record": {
+      "accepted_revision": null,
+      "all_day": false,
+      "body": "moon",
+      "candidate_status": "new",
+      "categories": [
+        "Astronomy",
+        "Moon Phase"
+      ],
+      "content_hash": "sha256:e78af22be9e742ad42dd07fb0b01b05090fd4b5f657d2a1b0ec99a4fd681cbcd",
+      "description": "This entry marks the exact astronomical moment of the New Moon.",
+      "detail_url": "https://in-the-sky.org/news.php?id=20261109_08_100&phase=new-moon",
+      "end": null,
+      "event_type": "moon-phase",
+      "first_seen_at": "2026-03-01T05:43:27Z",
+      "group_id": "astronomy/moon-phase/2026-11-09/new-moon",
+      "is_default": true,
+      "last_seen_at": "2026-03-01T05:43:27Z",
+      "metadata": {
+        "phase": "New Moon",
+        "source_id": null
+      },
+      "occurrence_id": "astronomy/moon-phase/2026-11-09/new-moon/default",
+      "raw_ref": "data/raw/astronomy/2026/usno-moon-phases/response.json",
+      "source_adapter": "usno-moon-phases-v1",
+      "source_type": "astronomy",
+      "source_validation": {
+        "checks": [
+          "reachable",
+          "required timing fields present",
+          "detail url resolved"
+        ],
+        "detail_url_ok": true,
+        "reason": null,
+        "status": "passed",
+        "validated_at": "2026-03-01T05:43:27Z"
+      },
+      "start": "2026-11-09T07:02:00Z",
+      "summary": "New Moon",
+      "tags": [
+        "moon-phase",
+        "new-moon"
+      ],
+      "timezone": "UTC",
+      "timing_source": {
+        "name": "usno",
+        "url": "https://aa.usno.navy.mil/api/moon/phases/year"
+      },
+      "title": "New Moon",
+      "validation_sources": [],
+      "variant": "default"
+    },
+    "revision": 1,
+    "source_adapter": "usno-moon-phases-v1",
+    "status": "active",
+    "superseded_at": null
+  },
+  {
+    "accepted_at": "2026-03-01T05-43-24Z",
+    "change_reason": "Initial acceptance",
+    "content_hash": "sha256:8434887b5e59df65e142d9ae08856e04e8493109a741d49596201c949dd424c2",
+    "detail_url": "https://in-the-sky.org/news.php?id=20261117_08_100&phase=first-quarter",
+    "occurrence_id": "astronomy/moon-phase/2026-11-17/first-quarter/default",
+    "record": {
+      "accepted_revision": null,
+      "all_day": false,
+      "body": "moon",
+      "candidate_status": "new",
+      "categories": [
+        "Astronomy",
+        "Moon Phase"
+      ],
+      "content_hash": "sha256:8434887b5e59df65e142d9ae08856e04e8493109a741d49596201c949dd424c2",
+      "description": "This entry marks the exact astronomical moment of the First Quarter Moon.",
+      "detail_url": "https://in-the-sky.org/news.php?id=20261117_08_100&phase=first-quarter",
+      "end": null,
+      "event_type": "moon-phase",
+      "first_seen_at": "2026-03-01T05:43:27Z",
+      "group_id": "astronomy/moon-phase/2026-11-17/first-quarter",
+      "is_default": true,
+      "last_seen_at": "2026-03-01T05:43:27Z",
+      "metadata": {
+        "phase": "First Quarter",
+        "source_id": null
+      },
+      "occurrence_id": "astronomy/moon-phase/2026-11-17/first-quarter/default",
+      "raw_ref": "data/raw/astronomy/2026/usno-moon-phases/response.json",
+      "source_adapter": "usno-moon-phases-v1",
+      "source_type": "astronomy",
+      "source_validation": {
+        "checks": [
+          "reachable",
+          "required timing fields present",
+          "detail url resolved"
+        ],
+        "detail_url_ok": true,
+        "reason": null,
+        "status": "passed",
+        "validated_at": "2026-03-01T05:43:27Z"
+      },
+      "start": "2026-11-17T11:48:00Z",
+      "summary": "First Quarter",
+      "tags": [
+        "moon-phase",
+        "first-quarter"
+      ],
+      "timezone": "UTC",
+      "timing_source": {
+        "name": "usno",
+        "url": "https://aa.usno.navy.mil/api/moon/phases/year"
+      },
+      "title": "First Quarter",
+      "validation_sources": [],
+      "variant": "default"
+    },
+    "revision": 1,
+    "source_adapter": "usno-moon-phases-v1",
+    "status": "active",
+    "superseded_at": null
+  },
+  {
+    "accepted_at": "2026-03-01T05-43-24Z",
+    "change_reason": "Initial acceptance",
+    "content_hash": "sha256:f1810565dca26409751b634070f3a9da718e1b3108f85f8f6b3dc34a8d35e9dc",
+    "detail_url": "https://in-the-sky.org/news.php?id=20261124_08_100&phase=full-moon",
+    "occurrence_id": "astronomy/moon-phase/2026-11-24/full-moon/default",
+    "record": {
+      "accepted_revision": null,
+      "all_day": false,
+      "body": "moon",
+      "candidate_status": "new",
+      "categories": [
+        "Astronomy",
+        "Moon Phase"
+      ],
+      "content_hash": "sha256:f1810565dca26409751b634070f3a9da718e1b3108f85f8f6b3dc34a8d35e9dc",
+      "description": "This entry marks the exact astronomical moment of the Full Moon.",
+      "detail_url": "https://in-the-sky.org/news.php?id=20261124_08_100&phase=full-moon",
+      "end": null,
+      "event_type": "moon-phase",
+      "first_seen_at": "2026-03-01T05:43:27Z",
+      "group_id": "astronomy/moon-phase/2026-11-24/full-moon",
+      "is_default": true,
+      "last_seen_at": "2026-03-01T05:43:27Z",
+      "metadata": {
+        "phase": "Full Moon",
+        "source_id": null
+      },
+      "occurrence_id": "astronomy/moon-phase/2026-11-24/full-moon/default",
+      "raw_ref": "data/raw/astronomy/2026/usno-moon-phases/response.json",
+      "source_adapter": "usno-moon-phases-v1",
+      "source_type": "astronomy",
+      "source_validation": {
+        "checks": [
+          "reachable",
+          "required timing fields present",
+          "detail url resolved"
+        ],
+        "detail_url_ok": true,
+        "reason": null,
+        "status": "passed",
+        "validated_at": "2026-03-01T05:43:27Z"
+      },
+      "start": "2026-11-24T14:53:00Z",
+      "summary": "Full Moon",
+      "tags": [
+        "moon-phase",
+        "full-moon"
+      ],
+      "timezone": "UTC",
+      "timing_source": {
+        "name": "usno",
+        "url": "https://aa.usno.navy.mil/api/moon/phases/year"
+      },
+      "title": "Full Moon",
+      "validation_sources": [],
+      "variant": "default"
+    },
+    "revision": 1,
+    "source_adapter": "usno-moon-phases-v1",
+    "status": "active",
+    "superseded_at": null
+  },
+  {
+    "accepted_at": "2026-03-01T05-43-24Z",
+    "change_reason": "Initial acceptance",
+    "content_hash": "sha256:f6874fff7427fd88ee853d8990c3e98c177104029932a690ada0b4c685d1161d",
+    "detail_url": "https://in-the-sky.org/news.php?id=20261201_08_100&phase=last-quarter",
+    "occurrence_id": "astronomy/moon-phase/2026-12-01/last-quarter/default",
+    "record": {
+      "accepted_revision": null,
+      "all_day": false,
+      "body": "moon",
+      "candidate_status": "new",
+      "categories": [
+        "Astronomy",
+        "Moon Phase"
+      ],
+      "content_hash": "sha256:f6874fff7427fd88ee853d8990c3e98c177104029932a690ada0b4c685d1161d",
+      "description": "This entry marks the exact astronomical moment of the Last Quarter Moon.",
+      "detail_url": "https://in-the-sky.org/news.php?id=20261201_08_100&phase=last-quarter",
+      "end": null,
+      "event_type": "moon-phase",
+      "first_seen_at": "2026-03-01T05:43:27Z",
+      "group_id": "astronomy/moon-phase/2026-12-01/last-quarter",
+      "is_default": true,
+      "last_seen_at": "2026-03-01T05:43:27Z",
+      "metadata": {
+        "phase": "Last Quarter",
+        "source_id": null
+      },
+      "occurrence_id": "astronomy/moon-phase/2026-12-01/last-quarter/default",
+      "raw_ref": "data/raw/astronomy/2026/usno-moon-phases/response.json",
+      "source_adapter": "usno-moon-phases-v1",
+      "source_type": "astronomy",
+      "source_validation": {
+        "checks": [
+          "reachable",
+          "required timing fields present",
+          "detail url resolved"
+        ],
+        "detail_url_ok": true,
+        "reason": null,
+        "status": "passed",
+        "validated_at": "2026-03-01T05:43:27Z"
+      },
+      "start": "2026-12-01T06:08:00Z",
+      "summary": "Last Quarter",
+      "tags": [
+        "moon-phase",
+        "last-quarter"
+      ],
+      "timezone": "UTC",
+      "timing_source": {
+        "name": "usno",
+        "url": "https://aa.usno.navy.mil/api/moon/phases/year"
+      },
+      "title": "Last Quarter",
+      "validation_sources": [],
+      "variant": "default"
+    },
+    "revision": 1,
+    "source_adapter": "usno-moon-phases-v1",
+    "status": "active",
+    "superseded_at": null
+  },
+  {
+    "accepted_at": "2026-03-01T05-43-24Z",
+    "change_reason": "Initial acceptance",
+    "content_hash": "sha256:77fca54b4ba05da6eecba0cb53b8db265f7b27cbe5c9f074900fe593f45d3506",
+    "detail_url": "https://in-the-sky.org/news.php?id=20261209_08_100&phase=new-moon",
+    "occurrence_id": "astronomy/moon-phase/2026-12-09/new-moon/default",
+    "record": {
+      "accepted_revision": null,
+      "all_day": false,
+      "body": "moon",
+      "candidate_status": "new",
+      "categories": [
+        "Astronomy",
+        "Moon Phase"
+      ],
+      "content_hash": "sha256:77fca54b4ba05da6eecba0cb53b8db265f7b27cbe5c9f074900fe593f45d3506",
+      "description": "This entry marks the exact astronomical moment of the New Moon.",
+      "detail_url": "https://in-the-sky.org/news.php?id=20261209_08_100&phase=new-moon",
+      "end": null,
+      "event_type": "moon-phase",
+      "first_seen_at": "2026-03-01T05:43:27Z",
+      "group_id": "astronomy/moon-phase/2026-12-09/new-moon",
+      "is_default": true,
+      "last_seen_at": "2026-03-01T05:43:27Z",
+      "metadata": {
+        "phase": "New Moon",
+        "source_id": null
+      },
+      "occurrence_id": "astronomy/moon-phase/2026-12-09/new-moon/default",
+      "raw_ref": "data/raw/astronomy/2026/usno-moon-phases/response.json",
+      "source_adapter": "usno-moon-phases-v1",
+      "source_type": "astronomy",
+      "source_validation": {
+        "checks": [
+          "reachable",
+          "required timing fields present",
+          "detail url resolved"
+        ],
+        "detail_url_ok": true,
+        "reason": null,
+        "status": "passed",
+        "validated_at": "2026-03-01T05:43:27Z"
+      },
+      "start": "2026-12-09T00:52:00Z",
+      "summary": "New Moon",
+      "tags": [
+        "moon-phase",
+        "new-moon"
+      ],
+      "timezone": "UTC",
+      "timing_source": {
+        "name": "usno",
+        "url": "https://aa.usno.navy.mil/api/moon/phases/year"
+      },
+      "title": "New Moon",
+      "validation_sources": [],
+      "variant": "default"
+    },
+    "revision": 1,
+    "source_adapter": "usno-moon-phases-v1",
+    "status": "active",
+    "superseded_at": null
+  },
+  {
+    "accepted_at": "2026-03-01T05-43-24Z",
+    "change_reason": "Initial acceptance",
+    "content_hash": "sha256:c79993dbf11cb2d5ce5805719e509c9cb33e41bc2775fa5951e02a7c0e43d474",
+    "detail_url": "https://in-the-sky.org/news.php?id=20261217_08_100&phase=first-quarter",
+    "occurrence_id": "astronomy/moon-phase/2026-12-17/first-quarter/default",
+    "record": {
+      "accepted_revision": null,
+      "all_day": false,
+      "body": "moon",
+      "candidate_status": "new",
+      "categories": [
+        "Astronomy",
+        "Moon Phase"
+      ],
+      "content_hash": "sha256:c79993dbf11cb2d5ce5805719e509c9cb33e41bc2775fa5951e02a7c0e43d474",
+      "description": "This entry marks the exact astronomical moment of the First Quarter Moon.",
+      "detail_url": "https://in-the-sky.org/news.php?id=20261217_08_100&phase=first-quarter",
+      "end": null,
+      "event_type": "moon-phase",
+      "first_seen_at": "2026-03-01T05:43:27Z",
+      "group_id": "astronomy/moon-phase/2026-12-17/first-quarter",
+      "is_default": true,
+      "last_seen_at": "2026-03-01T05:43:27Z",
+      "metadata": {
+        "phase": "First Quarter",
+        "source_id": null
+      },
+      "occurrence_id": "astronomy/moon-phase/2026-12-17/first-quarter/default",
+      "raw_ref": "data/raw/astronomy/2026/usno-moon-phases/response.json",
+      "source_adapter": "usno-moon-phases-v1",
+      "source_type": "astronomy",
+      "source_validation": {
+        "checks": [
+          "reachable",
+          "required timing fields present",
+          "detail url resolved"
+        ],
+        "detail_url_ok": true,
+        "reason": null,
+        "status": "passed",
+        "validated_at": "2026-03-01T05:43:27Z"
+      },
+      "start": "2026-12-17T05:42:00Z",
+      "summary": "First Quarter",
+      "tags": [
+        "moon-phase",
+        "first-quarter"
+      ],
+      "timezone": "UTC",
+      "timing_source": {
+        "name": "usno",
+        "url": "https://aa.usno.navy.mil/api/moon/phases/year"
+      },
+      "title": "First Quarter",
+      "validation_sources": [],
+      "variant": "default"
+    },
+    "revision": 1,
+    "source_adapter": "usno-moon-phases-v1",
+    "status": "active",
+    "superseded_at": null
+  },
+  {
+    "accepted_at": "2026-03-01T05-43-24Z",
+    "change_reason": "Initial acceptance",
+    "content_hash": "sha256:c68b74126b4531fb79e8dcf66d05dd5ed1e064163381d791601f0df0a8ab991a",
+    "detail_url": "https://in-the-sky.org/news.php?id=20261224_08_100&phase=full-moon",
+    "occurrence_id": "astronomy/moon-phase/2026-12-24/full-moon/default",
+    "record": {
+      "accepted_revision": null,
+      "all_day": false,
+      "body": "moon",
+      "candidate_status": "new",
+      "categories": [
+        "Astronomy",
+        "Moon Phase"
+      ],
+      "content_hash": "sha256:c68b74126b4531fb79e8dcf66d05dd5ed1e064163381d791601f0df0a8ab991a",
+      "description": "This entry marks the exact astronomical moment of the Full Moon.",
+      "detail_url": "https://in-the-sky.org/news.php?id=20261224_08_100&phase=full-moon",
+      "end": null,
+      "event_type": "moon-phase",
+      "first_seen_at": "2026-03-01T05:43:27Z",
+      "group_id": "astronomy/moon-phase/2026-12-24/full-moon",
+      "is_default": true,
+      "last_seen_at": "2026-03-01T05:43:27Z",
+      "metadata": {
+        "phase": "Full Moon",
+        "source_id": null
+      },
+      "occurrence_id": "astronomy/moon-phase/2026-12-24/full-moon/default",
+      "raw_ref": "data/raw/astronomy/2026/usno-moon-phases/response.json",
+      "source_adapter": "usno-moon-phases-v1",
+      "source_type": "astronomy",
+      "source_validation": {
+        "checks": [
+          "reachable",
+          "required timing fields present",
+          "detail url resolved"
+        ],
+        "detail_url_ok": true,
+        "reason": null,
+        "status": "passed",
+        "validated_at": "2026-03-01T05:43:27Z"
+      },
+      "start": "2026-12-24T01:28:00Z",
+      "summary": "Full Moon",
+      "tags": [
+        "moon-phase",
+        "full-moon"
+      ],
+      "timezone": "UTC",
+      "timing_source": {
+        "name": "usno",
+        "url": "https://aa.usno.navy.mil/api/moon/phases/year"
+      },
+      "title": "Full Moon",
+      "validation_sources": [],
+      "variant": "default"
+    },
+    "revision": 1,
+    "source_adapter": "usno-moon-phases-v1",
+    "status": "active",
+    "superseded_at": null
+  },
+  {
+    "accepted_at": "2026-03-01T05-43-24Z",
+    "change_reason": "Initial acceptance",
+    "content_hash": "sha256:a7930b39b69fbfa9fe18ebc31ecc3e7c08ea6c6cd9201b66ac72b23e69159c8b",
+    "detail_url": "https://in-the-sky.org/news.php?id=20261230_08_100&phase=last-quarter",
+    "occurrence_id": "astronomy/moon-phase/2026-12-30/last-quarter/default",
+    "record": {
+      "accepted_revision": null,
+      "all_day": false,
+      "body": "moon",
+      "candidate_status": "new",
+      "categories": [
+        "Astronomy",
+        "Moon Phase"
+      ],
+      "content_hash": "sha256:a7930b39b69fbfa9fe18ebc31ecc3e7c08ea6c6cd9201b66ac72b23e69159c8b",
+      "description": "This entry marks the exact astronomical moment of the Last Quarter Moon.",
+      "detail_url": "https://in-the-sky.org/news.php?id=20261230_08_100&phase=last-quarter",
+      "end": null,
+      "event_type": "moon-phase",
+      "first_seen_at": "2026-03-01T05:43:27Z",
+      "group_id": "astronomy/moon-phase/2026-12-30/last-quarter",
+      "is_default": true,
+      "last_seen_at": "2026-03-01T05:43:27Z",
+      "metadata": {
+        "phase": "Last Quarter",
+        "source_id": null
+      },
+      "occurrence_id": "astronomy/moon-phase/2026-12-30/last-quarter/default",
+      "raw_ref": "data/raw/astronomy/2026/usno-moon-phases/response.json",
+      "source_adapter": "usno-moon-phases-v1",
+      "source_type": "astronomy",
+      "source_validation": {
+        "checks": [
+          "reachable",
+          "required timing fields present",
+          "detail url resolved"
+        ],
+        "detail_url_ok": true,
+        "reason": null,
+        "status": "passed",
+        "validated_at": "2026-03-01T05:43:27Z"
+      },
+      "start": "2026-12-30T18:59:00Z",
+      "summary": "Last Quarter",
+      "tags": [
+        "moon-phase",
+        "last-quarter"
+      ],
+      "timezone": "UTC",
+      "timing_source": {
+        "name": "usno",
+        "url": "https://aa.usno.navy.mil/api/moon/phases/year"
+      },
+      "title": "Last Quarter",
+      "validation_sources": [],
+      "variant": "default"
+    },
+    "revision": 1,
+    "source_adapter": "usno-moon-phases-v1",
+    "status": "active",
+    "superseded_at": null
+  }
+]

@@ -1,0 +1,14 @@
+{
+  "astronomy/eclipse/2026-03-03/total-moon/full-duration": {
+    "content_hash": "sha256:f99b740a30af480867022ae3f4396f1309b9bf0dc35327761b692033ddcfe33d",
+    "sequence": 0
+  },
+  "astronomy/eclipse/2026-08-12/total-sun/full-duration": {
+    "content_hash": "sha256:eedd682e369c1c05db9c2a3fa9f5a148a2ff8327f672f29da19167747b552783",
+    "sequence": 0
+  },
+  "astronomy/eclipse/2026-08-28/partial-moon/full-duration": {
+    "content_hash": "sha256:92f2d9612f27bcb314d5811c8e55c56cea2d16e034b21181491b7343ac914032",
+    "sequence": 0
+  }
+}

@@ -1,0 +1,556 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//AstronomicalCalendars//EN
+X-WR-CALDESC:Exact astronomical timings for the major moon phases
+X-WR-CALNAME:Moon Phases
+BEGIN:VEVENT
+SUMMARY:Full Moon
+DTSTART:20260103T100300Z
+DTSTAMP:20260301T054327Z
+UID:astronomy/moon-phase/2026-01-03/full-moon/default
+SEQUENCE:0
+CATEGORIES:Astronomy,Moon Phase
+DESCRIPTION:This entry marks the exact astronomical moment of the Full Moo
+ n.
+URL:https://in-the-sky.org/news.php?id=20260103_08_100&phase=full-moon
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:Last Quarter
+DTSTART:20260110T154800Z
+DTSTAMP:20260301T054327Z
+UID:astronomy/moon-phase/2026-01-10/last-quarter/default
+SEQUENCE:0
+CATEGORIES:Astronomy,Moon Phase
+DESCRIPTION:This entry marks the exact astronomical moment of the Last Qua
+ rter Moon.
+URL:https://in-the-sky.org/news.php?id=20260110_08_100&phase=last-quarter
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:New Moon
+DTSTART:20260118T195200Z
+DTSTAMP:20260301T054327Z
+UID:astronomy/moon-phase/2026-01-18/new-moon/default
+SEQUENCE:0
+CATEGORIES:Astronomy,Moon Phase
+DESCRIPTION:This entry marks the exact astronomical moment of the New Moon
+ .
+URL:https://in-the-sky.org/news.php?id=20260118_08_100&phase=new-moon
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:First Quarter
+DTSTART:20260126T044700Z
+DTSTAMP:20260301T054327Z
+UID:astronomy/moon-phase/2026-01-26/first-quarter/default
+SEQUENCE:0
+CATEGORIES:Astronomy,Moon Phase
+DESCRIPTION:This entry marks the exact astronomical moment of the First Qu
+ arter Moon.
+URL:https://in-the-sky.org/news.php?id=20260126_08_100&phase=first-quarter
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:Full Moon
+DTSTART:20260201T220900Z
+DTSTAMP:20260301T054327Z
+UID:astronomy/moon-phase/2026-02-01/full-moon/default
+SEQUENCE:0
+CATEGORIES:Astronomy,Moon Phase
+DESCRIPTION:This entry marks the exact astronomical moment of the Full Moo
+ n.
+URL:https://in-the-sky.org/news.php?id=20260201_08_100&phase=full-moon
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:Last Quarter
+DTSTART:20260209T124300Z
+DTSTAMP:20260301T054327Z
+UID:astronomy/moon-phase/2026-02-09/last-quarter/default
+SEQUENCE:0
+CATEGORIES:Astronomy,Moon Phase
+DESCRIPTION:This entry marks the exact astronomical moment of the Last Qua
+ rter Moon.
+URL:https://in-the-sky.org/news.php?id=20260209_08_100&phase=last-quarter
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:New Moon
+DTSTART:20260217T120100Z
+DTSTAMP:20260301T054327Z
+UID:astronomy/moon-phase/2026-02-17/new-moon/default
+SEQUENCE:0
+CATEGORIES:Astronomy,Moon Phase
+DESCRIPTION:This entry marks the exact astronomical moment of the New Moon
+ .
+URL:https://in-the-sky.org/news.php?id=20260217_08_100&phase=new-moon
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:First Quarter
+DTSTART:20260224T122700Z
+DTSTAMP:20260301T054327Z
+UID:astronomy/moon-phase/2026-02-24/first-quarter/default
+SEQUENCE:0
+CATEGORIES:Astronomy,Moon Phase
+DESCRIPTION:This entry marks the exact astronomical moment of the First Qu
+ arter Moon.
+URL:https://in-the-sky.org/news.php?id=20260224_08_100&phase=first-quarter
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:Full Moon
+DTSTART:20260303T113800Z
+DTSTAMP:20260301T054327Z
+UID:astronomy/moon-phase/2026-03-03/full-moon/default
+SEQUENCE:0
+CATEGORIES:Astronomy,Moon Phase
+DESCRIPTION:This entry marks the exact astronomical moment of the Full Moo
+ n.
+URL:https://in-the-sky.org/news.php?id=20260303_08_100&phase=full-moon
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:Last Quarter
+DTSTART:20260311T093800Z
+DTSTAMP:20260301T054327Z
+UID:astronomy/moon-phase/2026-03-11/last-quarter/default
+SEQUENCE:0
+CATEGORIES:Astronomy,Moon Phase
+DESCRIPTION:This entry marks the exact astronomical moment of the Last Qua
+ rter Moon.
+URL:https://in-the-sky.org/news.php?id=20260311_08_100&phase=last-quarter
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:New Moon
+DTSTART:20260319T012300Z
+DTSTAMP:20260301T054327Z
+UID:astronomy/moon-phase/2026-03-19/new-moon/default
+SEQUENCE:0
+CATEGORIES:Astronomy,Moon Phase
+DESCRIPTION:This entry marks the exact astronomical moment of the New Moon
+ .
+URL:https://in-the-sky.org/news.php?id=20260319_08_100&phase=new-moon
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:First Quarter
+DTSTART:20260325T191800Z
+DTSTAMP:20260301T054327Z
+UID:astronomy/moon-phase/2026-03-25/first-quarter/default
+SEQUENCE:0
+CATEGORIES:Astronomy,Moon Phase
+DESCRIPTION:This entry marks the exact astronomical moment of the First Qu
+ arter Moon.
+URL:https://in-the-sky.org/news.php?id=20260325_08_100&phase=first-quarter
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:Full Moon
+DTSTART:20260402T021200Z
+DTSTAMP:20260301T054327Z
+UID:astronomy/moon-phase/2026-04-02/full-moon/default
+SEQUENCE:0
+CATEGORIES:Astronomy,Moon Phase
+DESCRIPTION:This entry marks the exact astronomical moment of the Full Moo
+ n.
+URL:https://in-the-sky.org/news.php?id=20260402_08_100&phase=full-moon
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:Last Quarter
+DTSTART:20260410T045100Z
+DTSTAMP:20260301T054327Z
+UID:astronomy/moon-phase/2026-04-10/last-quarter/default
+SEQUENCE:0
+CATEGORIES:Astronomy,Moon Phase
+DESCRIPTION:This entry marks the exact astronomical moment of the Last Qua
+ rter Moon.
+URL:https://in-the-sky.org/news.php?id=20260410_08_100&phase=last-quarter
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:New Moon
+DTSTART:20260417T115200Z
+DTSTAMP:20260301T054327Z
+UID:astronomy/moon-phase/2026-04-17/new-moon/default
+SEQUENCE:0
+CATEGORIES:Astronomy,Moon Phase
+DESCRIPTION:This entry marks the exact astronomical moment of the New Moon
+ .
+URL:https://in-the-sky.org/news.php?id=20260417_08_100&phase=new-moon
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:First Quarter
+DTSTART:20260424T023200Z
+DTSTAMP:20260301T054327Z
+UID:astronomy/moon-phase/2026-04-24/first-quarter/default
+SEQUENCE:0
+CATEGORIES:Astronomy,Moon Phase
+DESCRIPTION:This entry marks the exact astronomical moment of the First Qu
+ arter Moon.
+URL:https://in-the-sky.org/news.php?id=20260424_08_100&phase=first-quarter
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:Full Moon
+DTSTART:20260501T172300Z
+DTSTAMP:20260301T054327Z
+UID:astronomy/moon-phase/2026-05-01/full-moon/default
+SEQUENCE:0
+CATEGORIES:Astronomy,Moon Phase
+DESCRIPTION:This entry marks the exact astronomical moment of the Full Moo
+ n.
+URL:https://in-the-sky.org/news.php?id=20260501_08_100&phase=full-moon
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:Last Quarter
+DTSTART:20260509T211000Z
+DTSTAMP:20260301T054327Z
+UID:astronomy/moon-phase/2026-05-09/last-quarter/default
+SEQUENCE:0
+CATEGORIES:Astronomy,Moon Phase
+DESCRIPTION:This entry marks the exact astronomical moment of the Last Qua
+ rter Moon.
+URL:https://in-the-sky.org/news.php?id=20260509_08_100&phase=last-quarter
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:New Moon
+DTSTART:20260516T200100Z
+DTSTAMP:20260301T054327Z
+UID:astronomy/moon-phase/2026-05-16/new-moon/default
+SEQUENCE:0
+CATEGORIES:Astronomy,Moon Phase
+DESCRIPTION:This entry marks the exact astronomical moment of the New Moon
+ .
+URL:https://in-the-sky.org/news.php?id=20260516_08_100&phase=new-moon
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:First Quarter
+DTSTART:20260523T111100Z
+DTSTAMP:20260301T054327Z
+UID:astronomy/moon-phase/2026-05-23/first-quarter/default
+SEQUENCE:0
+CATEGORIES:Astronomy,Moon Phase
+DESCRIPTION:This entry marks the exact astronomical moment of the First Qu
+ arter Moon.
+URL:https://in-the-sky.org/news.php?id=20260523_08_100&phase=first-quarter
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:Full Moon
+DTSTART:20260531T084500Z
+DTSTAMP:20260301T054327Z
+UID:astronomy/moon-phase/2026-05-31/full-moon/default
+SEQUENCE:0
+CATEGORIES:Astronomy,Moon Phase
+DESCRIPTION:This entry marks the exact astronomical moment of the Full Moo
+ n.
+URL:https://in-the-sky.org/news.php?id=20260531_08_100&phase=full-moon
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:Last Quarter
+DTSTART:20260608T100000Z
+DTSTAMP:20260301T054327Z
+UID:astronomy/moon-phase/2026-06-08/last-quarter/default
+SEQUENCE:0
+CATEGORIES:Astronomy,Moon Phase
+DESCRIPTION:This entry marks the exact astronomical moment of the Last Qua
+ rter Moon.
+URL:https://in-the-sky.org/news.php?id=20260608_08_100&phase=last-quarter
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:New Moon
+DTSTART:20260615T025400Z
+DTSTAMP:20260301T054327Z
+UID:astronomy/moon-phase/2026-06-15/new-moon/default
+SEQUENCE:0
+CATEGORIES:Astronomy,Moon Phase
+DESCRIPTION:This entry marks the exact astronomical moment of the New Moon
+ .
+URL:https://in-the-sky.org/news.php?id=20260615_08_100&phase=new-moon
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:First Quarter
+DTSTART:20260621T215500Z
+DTSTAMP:20260301T054327Z
+UID:astronomy/moon-phase/2026-06-21/first-quarter/default
+SEQUENCE:0
+CATEGORIES:Astronomy,Moon Phase
+DESCRIPTION:This entry marks the exact astronomical moment of the First Qu
+ arter Moon.
+URL:https://in-the-sky.org/news.php?id=20260621_08_100&phase=first-quarter
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:Full Moon
+DTSTART:20260629T235600Z
+DTSTAMP:20260301T054327Z
+UID:astronomy/moon-phase/2026-06-29/full-moon/default
+SEQUENCE:0
+CATEGORIES:Astronomy,Moon Phase
+DESCRIPTION:This entry marks the exact astronomical moment of the Full Moo
+ n.
+URL:https://in-the-sky.org/news.php?id=20260629_08_100&phase=full-moon
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:Last Quarter
+DTSTART:20260707T192900Z
+DTSTAMP:20260301T054327Z
+UID:astronomy/moon-phase/2026-07-07/last-quarter/default
+SEQUENCE:0
+CATEGORIES:Astronomy,Moon Phase
+DESCRIPTION:This entry marks the exact astronomical moment of the Last Qua
+ rter Moon.
+URL:https://in-the-sky.org/news.php?id=20260707_08_100&phase=last-quarter
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:New Moon
+DTSTART:20260714T094300Z
+DTSTAMP:20260301T054327Z
+UID:astronomy/moon-phase/2026-07-14/new-moon/default
+SEQUENCE:0
+CATEGORIES:Astronomy,Moon Phase
+DESCRIPTION:This entry marks the exact astronomical moment of the New Moon
+ .
+URL:https://in-the-sky.org/news.php?id=20260714_08_100&phase=new-moon
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:First Quarter
+DTSTART:20260721T110500Z
+DTSTAMP:20260301T054327Z
+UID:astronomy/moon-phase/2026-07-21/first-quarter/default
+SEQUENCE:0
+CATEGORIES:Astronomy,Moon Phase
+DESCRIPTION:This entry marks the exact astronomical moment of the First Qu
+ arter Moon.
+URL:https://in-the-sky.org/news.php?id=20260721_08_100&phase=first-quarter
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:Full Moon
+DTSTART:20260729T143600Z
+DTSTAMP:20260301T054327Z
+UID:astronomy/moon-phase/2026-07-29/full-moon/default
+SEQUENCE:0
+CATEGORIES:Astronomy,Moon Phase
+DESCRIPTION:This entry marks the exact astronomical moment of the Full Moo
+ n.
+URL:https://in-the-sky.org/news.php?id=20260729_08_100&phase=full-moon
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:Last Quarter
+DTSTART:20260806T022100Z
+DTSTAMP:20260301T054327Z
+UID:astronomy/moon-phase/2026-08-06/last-quarter/default
+SEQUENCE:0
+CATEGORIES:Astronomy,Moon Phase
+DESCRIPTION:This entry marks the exact astronomical moment of the Last Qua
+ rter Moon.
+URL:https://in-the-sky.org/news.php?id=20260806_08_100&phase=last-quarter
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:New Moon
+DTSTART:20260812T173700Z
+DTSTAMP:20260301T054327Z
+UID:astronomy/moon-phase/2026-08-12/new-moon/default
+SEQUENCE:0
+CATEGORIES:Astronomy,Moon Phase
+DESCRIPTION:This entry marks the exact astronomical moment of the New Moon
+ .
+URL:https://in-the-sky.org/news.php?id=20260812_08_100&phase=new-moon
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:First Quarter
+DTSTART:20260820T024600Z
+DTSTAMP:20260301T054327Z
+UID:astronomy/moon-phase/2026-08-20/first-quarter/default
+SEQUENCE:0
+CATEGORIES:Astronomy,Moon Phase
+DESCRIPTION:This entry marks the exact astronomical moment of the First Qu
+ arter Moon.
+URL:https://in-the-sky.org/news.php?id=20260820_08_100&phase=first-quarter
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:Full Moon
+DTSTART:20260828T041800Z
+DTSTAMP:20260301T054327Z
+UID:astronomy/moon-phase/2026-08-28/full-moon/default
+SEQUENCE:0
+CATEGORIES:Astronomy,Moon Phase
+DESCRIPTION:This entry marks the exact astronomical moment of the Full Moo
+ n.
+URL:https://in-the-sky.org/news.php?id=20260828_08_100&phase=full-moon
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:Last Quarter
+DTSTART:20260904T075100Z
+DTSTAMP:20260301T054327Z
+UID:astronomy/moon-phase/2026-09-04/last-quarter/default
+SEQUENCE:0
+CATEGORIES:Astronomy,Moon Phase
+DESCRIPTION:This entry marks the exact astronomical moment of the Last Qua
+ rter Moon.
+URL:https://in-the-sky.org/news.php?id=20260904_08_100&phase=last-quarter
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:New Moon
+DTSTART:20260911T032700Z
+DTSTAMP:20260301T054327Z
+UID:astronomy/moon-phase/2026-09-11/new-moon/default
+SEQUENCE:0
+CATEGORIES:Astronomy,Moon Phase
+DESCRIPTION:This entry marks the exact astronomical moment of the New Moon
+ .
+URL:https://in-the-sky.org/news.php?id=20260911_08_100&phase=new-moon
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:First Quarter
+DTSTART:20260918T204400Z
+DTSTAMP:20260301T054327Z
+UID:astronomy/moon-phase/2026-09-18/first-quarter/default
+SEQUENCE:0
+CATEGORIES:Astronomy,Moon Phase
+DESCRIPTION:This entry marks the exact astronomical moment of the First Qu
+ arter Moon.
+URL:https://in-the-sky.org/news.php?id=20260918_08_100&phase=first-quarter
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:Full Moon
+DTSTART:20260926T164900Z
+DTSTAMP:20260301T054327Z
+UID:astronomy/moon-phase/2026-09-26/full-moon/default
+SEQUENCE:0
+CATEGORIES:Astronomy,Moon Phase
+DESCRIPTION:This entry marks the exact astronomical moment of the Full Moo
+ n.
+URL:https://in-the-sky.org/news.php?id=20260926_08_100&phase=full-moon
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:Last Quarter
+DTSTART:20261003T132500Z
+DTSTAMP:20260301T054327Z
+UID:astronomy/moon-phase/2026-10-03/last-quarter/default
+SEQUENCE:0
+CATEGORIES:Astronomy,Moon Phase
+DESCRIPTION:This entry marks the exact astronomical moment of the Last Qua
+ rter Moon.
+URL:https://in-the-sky.org/news.php?id=20261003_08_100&phase=last-quarter
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:New Moon
+DTSTART:20261010T155000Z
+DTSTAMP:20260301T054327Z
+UID:astronomy/moon-phase/2026-10-10/new-moon/default
+SEQUENCE:0
+CATEGORIES:Astronomy,Moon Phase
+DESCRIPTION:This entry marks the exact astronomical moment of the New Moon
+ .
+URL:https://in-the-sky.org/news.php?id=20261010_08_100&phase=new-moon
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:First Quarter
+DTSTART:20261018T161200Z
+DTSTAMP:20260301T054327Z
+UID:astronomy/moon-phase/2026-10-18/first-quarter/default
+SEQUENCE:0
+CATEGORIES:Astronomy,Moon Phase
+DESCRIPTION:This entry marks the exact astronomical moment of the First Qu
+ arter Moon.
+URL:https://in-the-sky.org/news.php?id=20261018_08_100&phase=first-quarter
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:Full Moon
+DTSTART:20261026T041200Z
+DTSTAMP:20260301T054327Z
+UID:astronomy/moon-phase/2026-10-26/full-moon/default
+SEQUENCE:0
+CATEGORIES:Astronomy,Moon Phase
+DESCRIPTION:This entry marks the exact astronomical moment of the Full Moo
+ n.
+URL:https://in-the-sky.org/news.php?id=20261026_08_100&phase=full-moon
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:Last Quarter
+DTSTART:20261101T202800Z
+DTSTAMP:20260301T054327Z
+UID:astronomy/moon-phase/2026-11-01/last-quarter/default
+SEQUENCE:0
+CATEGORIES:Astronomy,Moon Phase
+DESCRIPTION:This entry marks the exact astronomical moment of the Last Qua
+ rter Moon.
+URL:https://in-the-sky.org/news.php?id=20261101_08_100&phase=last-quarter
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:New Moon
+DTSTART:20261109T070200Z
+DTSTAMP:20260301T054327Z
+UID:astronomy/moon-phase/2026-11-09/new-moon/default
+SEQUENCE:0
+CATEGORIES:Astronomy,Moon Phase
+DESCRIPTION:This entry marks the exact astronomical moment of the New Moon
+ .
+URL:https://in-the-sky.org/news.php?id=20261109_08_100&phase=new-moon
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:First Quarter
+DTSTART:20261117T114800Z
+DTSTAMP:20260301T054327Z
+UID:astronomy/moon-phase/2026-11-17/first-quarter/default
+SEQUENCE:0
+CATEGORIES:Astronomy,Moon Phase
+DESCRIPTION:This entry marks the exact astronomical moment of the First Qu
+ arter Moon.
+URL:https://in-the-sky.org/news.php?id=20261117_08_100&phase=first-quarter
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:Full Moon
+DTSTART:20261124T145300Z
+DTSTAMP:20260301T054327Z
+UID:astronomy/moon-phase/2026-11-24/full-moon/default
+SEQUENCE:0
+CATEGORIES:Astronomy,Moon Phase
+DESCRIPTION:This entry marks the exact astronomical moment of the Full Moo
+ n.
+URL:https://in-the-sky.org/news.php?id=20261124_08_100&phase=full-moon
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:Last Quarter
+DTSTART:20261201T060800Z
+DTSTAMP:20260301T054327Z
+UID:astronomy/moon-phase/2026-12-01/last-quarter/default
+SEQUENCE:0
+CATEGORIES:Astronomy,Moon Phase
+DESCRIPTION:This entry marks the exact astronomical moment of the Last Qua
+ rter Moon.
+URL:https://in-the-sky.org/news.php?id=20261201_08_100&phase=last-quarter
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:New Moon
+DTSTART:20261209T005200Z
+DTSTAMP:20260301T054327Z
+UID:astronomy/moon-phase/2026-12-09/new-moon/default
+SEQUENCE:0
+CATEGORIES:Astronomy,Moon Phase
+DESCRIPTION:This entry marks the exact astronomical moment of the New Moon
+ .
+URL:https://in-the-sky.org/news.php?id=20261209_08_100&phase=new-moon
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:First Quarter
+DTSTART:20261217T054200Z
+DTSTAMP:20260301T054327Z
+UID:astronomy/moon-phase/2026-12-17/first-quarter/default
+SEQUENCE:0
+CATEGORIES:Astronomy,Moon Phase
+DESCRIPTION:This entry marks the exact astronomical moment of the First Qu
+ arter Moon.
+URL:https://in-the-sky.org/news.php?id=20261217_08_100&phase=first-quarter
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:Full Moon
+DTSTART:20261224T012800Z
+DTSTAMP:20260301T054327Z
+UID:astronomy/moon-phase/2026-12-24/full-moon/default
+SEQUENCE:0
+CATEGORIES:Astronomy,Moon Phase
+DESCRIPTION:This entry marks the exact astronomical moment of the Full Moo
+ n.
+URL:https://in-the-sky.org/news.php?id=20261224_08_100&phase=full-moon
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:Last Quarter
+DTSTART:20261230T185900Z
+DTSTAMP:20260301T054327Z
+UID:astronomy/moon-phase/2026-12-30/last-quarter/default
+SEQUENCE:0
+CATEGORIES:Astronomy,Moon Phase
+DESCRIPTION:This entry marks the exact astronomical moment of the Last Qua
+ rter Moon.
+URL:https://in-the-sky.org/news.php?id=20261230_08_100&phase=last-quarter
+END:VEVENT
+END:VCALENDAR

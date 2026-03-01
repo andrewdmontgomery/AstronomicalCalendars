@@ -1,0 +1,14 @@
+{
+  "checks": [
+    "reachable",
+    "required timing fields present",
+    "detail url resolved"
+  ],
+  "detail_url_ok": true,
+  "reason": null,
+  "source_name": "eclipses",
+  "source_url": "https://www.timeanddate.com/eclipse/",
+  "status": "passed",
+  "validated_at": "2026-03-01T05:43:26Z",
+  "year": 2026
+}

@@ -1,0 +1,202 @@
+{
+  "astronomy/moon-phase/2026-01-03/full-moon/default": {
+    "content_hash": "sha256:5e3c8b30cc668b959c9adceecac01443c488129e479d147b3eb774de964c4eab",
+    "sequence": 0
+  },
+  "astronomy/moon-phase/2026-01-10/last-quarter/default": {
+    "content_hash": "sha256:742d0dea80c8948702b9faac6f98eb6008cf5fe943c3158d3e13105de009d092",
+    "sequence": 0
+  },
+  "astronomy/moon-phase/2026-01-18/new-moon/default": {
+    "content_hash": "sha256:d712d50b0f8f6605cc1f564b905393760e72efa70cd8d5c275528de7f2e12e97",
+    "sequence": 0
+  },
+  "astronomy/moon-phase/2026-01-26/first-quarter/default": {
+    "content_hash": "sha256:85ffdec7578470da12603fe9160cad11fc0353e4aaf98ff3501e41cbea65a78a",
+    "sequence": 0
+  },
+  "astronomy/moon-phase/2026-02-01/full-moon/default": {
+    "content_hash": "sha256:83864eae40ab1b8c9d8e0080562416733960538e6f4e9bf166bc7e8353266b4a",
+    "sequence": 0
+  },
+  "astronomy/moon-phase/2026-02-09/last-quarter/default": {
+    "content_hash": "sha256:368e0ec9ff29ea258894503f6971323f508ed5db1099cabacff67ccefb617b60",
+    "sequence": 0
+  },
+  "astronomy/moon-phase/2026-02-17/new-moon/default": {
+    "content_hash": "sha256:93f8f4e0ac875bdb5b98d4e2c9e3ba308ba637c6be1093b9dc512ddde1ef6ed4",
+    "sequence": 0
+  },
+  "astronomy/moon-phase/2026-02-24/first-quarter/default": {
+    "content_hash": "sha256:1ae3f98827eaf07a291fd82dac83b4a5d35c2c5d2f1d61c54baf1067b8a8768d",
+    "sequence": 0
+  },
+  "astronomy/moon-phase/2026-03-03/full-moon/default": {
+    "content_hash": "sha256:27c80ddf5a7413b473c817fd44728d4e8d1297629e1a8907776af5297a4e36e4",
+    "sequence": 0
+  },
+  "astronomy/moon-phase/2026-03-11/last-quarter/default": {
+    "content_hash": "sha256:a931284a2f7b0c981e07bba46dae58f7c6946e99fec366c0cfce87fd3cf0396b",
+    "sequence": 0
+  },
+  "astronomy/moon-phase/2026-03-19/new-moon/default": {
+    "content_hash": "sha256:9dfc7ce8e3d15056fff7dcc10f92f7c8bcdbfcad2ee00d7beffe9a80446dc213",
+    "sequence": 0
+  },
+  "astronomy/moon-phase/2026-03-25/first-quarter/default": {
+    "content_hash": "sha256:68e78b4ae5b2de9f37b08a8724e1444eed90060125d0ed2ebab5968d7bd37da1",
+    "sequence": 0
+  },
+  "astronomy/moon-phase/2026-04-02/full-moon/default": {
+    "content_hash": "sha256:8a06a5f3208bdbb270be160e3f504a5ed6b683ef58714ac1ef458d532f7f7986",
+    "sequence": 0
+  },
+  "astronomy/moon-phase/2026-04-10/last-quarter/default": {
+    "content_hash": "sha256:cad8d8c329d2c016779522ce02f493c8486a78c0cab7adba46893f46a54107b2",
+    "sequence": 0
+  },
+  "astronomy/moon-phase/2026-04-17/new-moon/default": {
+    "content_hash": "sha256:82bc66dead284f85e80c93a88dd2c1956890211189458cae52a4c032d8087786",
+    "sequence": 0
+  },
+  "astronomy/moon-phase/2026-04-24/first-quarter/default": {
+    "content_hash": "sha256:e8c426aecad66a1a026b0c59d3abae4c6c27dd782a2de9f390948d170dcacc3c",
+    "sequence": 0
+  },
+  "astronomy/moon-phase/2026-05-01/full-moon/default": {
+    "content_hash": "sha256:0af6b924e6fa9f35d1d904451bb96721b8305e4f987d4bcd7a631b7b89abc973",
+    "sequence": 0
+  },
+  "astronomy/moon-phase/2026-05-09/last-quarter/default": {
+    "content_hash": "sha256:adcfd3be6ca949a533bd99a8d938707d9100c3498afe2280da2e19a3a2673191",
+    "sequence": 0
+  },
+  "astronomy/moon-phase/2026-05-16/new-moon/default": {
+    "content_hash": "sha256:f5f839f022aa3b8ff6dffe15bf1106562df13f3aabb221550f438d240a3338ed",
+    "sequence": 0
+  },
+  "astronomy/moon-phase/2026-05-23/first-quarter/default": {
+    "content_hash": "sha256:e1b3a3eab1be62f316262a233e7b6c09c9bbef6e3b04714742dc0e7afa0124f2",
+    "sequence": 0
+  },
+  "astronomy/moon-phase/2026-05-31/full-moon/default": {
+    "content_hash": "sha256:1a66bbfe313bd6b23c7bd44b67823dab21e9cc76067bc284d7d1593adb9756d5",
+    "sequence": 0
+  },
+  "astronomy/moon-phase/2026-06-08/last-quarter/default": {
+    "content_hash": "sha256:05c8490c69c3215ee22add4207a6eada1998f5396084050de394cac436e375ec",
+    "sequence": 0
+  },
+  "astronomy/moon-phase/2026-06-15/new-moon/default": {
+    "content_hash": "sha256:25a157eafffd68c0796c63f560aa944cf9642d4c3521c5ea49ca1ab7cf6cafab",
+    "sequence": 0
+  },
+  "astronomy/moon-phase/2026-06-21/first-quarter/default": {
+    "content_hash": "sha256:4bd37155d868d8f64373821d2ea11d1c8f68f9dc08177b12e0345f4c5ceab992",
+    "sequence": 0
+  },
+  "astronomy/moon-phase/2026-06-29/full-moon/default": {
+    "content_hash": "sha256:d4b25f3a59f79808c714c42dc3f2d34795bd33d9e06423c5daf4fe6f08a2dea9",
+    "sequence": 0
+  },
+  "astronomy/moon-phase/2026-07-07/last-quarter/default": {
+    "content_hash": "sha256:bd6d97e23317e3e74a7e012a30db4f13ae13ed2abeebdf9fad99d98dde470478",
+    "sequence": 0
+  },
+  "astronomy/moon-phase/2026-07-14/new-moon/default": {
+    "content_hash": "sha256:c0e378d71d0de203bea28adf7bb0afedeb22b690c9c01d892c3c8fd94e2c3c57",
+    "sequence": 0
+  },
+  "astronomy/moon-phase/2026-07-21/first-quarter/default": {
+    "content_hash": "sha256:6e8520ff27018648bd7b4df788bfcde0bf8f7c35c63cf04900d4baaff6839304",
+    "sequence": 0
+  },
+  "astronomy/moon-phase/2026-07-29/full-moon/default": {
+    "content_hash": "sha256:d8a7e606f7624d076c6f501f7c5c3fe91831813a356e33624414dabb97c49163",
+    "sequence": 0
+  },
+  "astronomy/moon-phase/2026-08-06/last-quarter/default": {
+    "content_hash": "sha256:cae3d42a06cddc23f9ab65ffd30be77cf99562708fa962fb673229b7f981aecb",
+    "sequence": 0
+  },
+  "astronomy/moon-phase/2026-08-12/new-moon/default": {
+    "content_hash": "sha256:4d3e84f30d4c59c09ee5bf80dc76307adab599239021263ed118d0f9c2cfacfa",
+    "sequence": 0
+  },
+  "astronomy/moon-phase/2026-08-20/first-quarter/default": {
+    "content_hash": "sha256:96e2c6a08e87a30e760fd80c7a34df99a5d8d48bfa3086b2a89927eed4f67440",
+    "sequence": 0
+  },
+  "astronomy/moon-phase/2026-08-28/full-moon/default": {
+    "content_hash": "sha256:5cfd9daea743000bb06a7f7c256e73b42c4299d410c0c775ba221201c5729258",
+    "sequence": 0
+  },
+  "astronomy/moon-phase/2026-09-04/last-quarter/default": {
+    "content_hash": "sha256:a925cbb08e21e31c92d4c86242d04cd3189f4e80bbe484167a0a27c473c68f2d",
+    "sequence": 0
+  },
+  "astronomy/moon-phase/2026-09-11/new-moon/default": {
+    "content_hash": "sha256:ed9120909c29930dde9df54861ae1b9c90a473f15db93ce2c71604a1394819e2",
+    "sequence": 0
+  },
+  "astronomy/moon-phase/2026-09-18/first-quarter/default": {
+    "content_hash": "sha256:40fec9d7932bd4b32b26a8c6c2323fdd197d93933e035ebcdd297f46747840cc",
+    "sequence": 0
+  },
+  "astronomy/moon-phase/2026-09-26/full-moon/default": {
+    "content_hash": "sha256:ec2b9e0d5347ccdfd2dcd85be848f45b300a33c7ba4e59c1aa441c256428f770",
+    "sequence": 0
+  },
+  "astronomy/moon-phase/2026-10-03/last-quarter/default": {
+    "content_hash": "sha256:045b66ed4c0aac8cab50d46339b0dcad261f96d309e00829510f537a5fef98e1",
+    "sequence": 0
+  },
+  "astronomy/moon-phase/2026-10-10/new-moon/default": {
+    "content_hash": "sha256:cae943c546d5dd1c9d774860f4249535b6b0846798425e4bed34cb3b5e8540a3",
+    "sequence": 0
+  },
+  "astronomy/moon-phase/2026-10-18/first-quarter/default": {
+    "content_hash": "sha256:7f3118433fd5c802a160aec8cc0462ac453ebb8142555616c5781dfa41ec59db",
+    "sequence": 0
+  },
+  "astronomy/moon-phase/2026-10-26/full-moon/default": {
+    "content_hash": "sha256:045af3cc0484bcd24c474f67ed380eb33c7ea636a2ededd5896bbf9ae05715ae",
+    "sequence": 0
+  },
+  "astronomy/moon-phase/2026-11-01/last-quarter/default": {
+    "content_hash": "sha256:1eeb1bb6affb50c3bc48c7e665401a499165fff3eb4bff011aef63ee27c0f918",
+    "sequence": 0
+  },
+  "astronomy/moon-phase/2026-11-09/new-moon/default": {
+    "content_hash": "sha256:e78af22be9e742ad42dd07fb0b01b05090fd4b5f657d2a1b0ec99a4fd681cbcd",
+    "sequence": 0
+  },
+  "astronomy/moon-phase/2026-11-17/first-quarter/default": {
+    "content_hash": "sha256:8434887b5e59df65e142d9ae08856e04e8493109a741d49596201c949dd424c2",
+    "sequence": 0
+  },
+  "astronomy/moon-phase/2026-11-24/full-moon/default": {
+    "content_hash": "sha256:f1810565dca26409751b634070f3a9da718e1b3108f85f8f6b3dc34a8d35e9dc",
+    "sequence": 0
+  },
+  "astronomy/moon-phase/2026-12-01/last-quarter/default": {
+    "content_hash": "sha256:f6874fff7427fd88ee853d8990c3e98c177104029932a690ada0b4c685d1161d",
+    "sequence": 0
+  },
+  "astronomy/moon-phase/2026-12-09/new-moon/default": {
+    "content_hash": "sha256:77fca54b4ba05da6eecba0cb53b8db265f7b27cbe5c9f074900fe593f45d3506",
+    "sequence": 0
+  },
+  "astronomy/moon-phase/2026-12-17/first-quarter/default": {
+    "content_hash": "sha256:c79993dbf11cb2d5ce5805719e509c9cb33e41bc2775fa5951e02a7c0e43d474",
+    "sequence": 0
+  },
+  "astronomy/moon-phase/2026-12-24/full-moon/default": {
+    "content_hash": "sha256:c68b74126b4531fb79e8dcf66d05dd5ed1e064163381d791601f0df0a8ab991a",
+    "sequence": 0
+  },
+  "astronomy/moon-phase/2026-12-30/last-quarter/default": {
+    "content_hash": "sha256:a7930b39b69fbfa9fe18ebc31ecc3e7c08ea6c6cd9201b66ac72b23e69159c8b",
+    "sequence": 0
+  }
+}

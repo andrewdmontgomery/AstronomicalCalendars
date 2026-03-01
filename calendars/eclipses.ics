@@ -1,0 +1,42 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//AstronomicalCalendars//EN
+X-WR-CALDESC:Solar and lunar eclipses with exact astronomical timing
+X-WR-CALNAME:Eclipses
+BEGIN:VEVENT
+SUMMARY:Total Lunar Eclipse
+DTSTART:20260303T084425Z
+DTEND:20260303T142306Z
+DTSTAMP:20260301T054328Z
+UID:astronomy/eclipse/2026-03-03/total-moon/full-duration
+SEQUENCE:0
+CATEGORIES:Astronomy,Eclipse
+DESCRIPTION:This entry covers the full duration of the total lunar eclipse
+  worldwide. See the source page for local visibility and circumstances.
+URL:https://www.timeanddate.com/eclipse/lunar/2026-march-3
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:Total Solar Eclipse
+DTSTART:20260812T153415Z
+DTEND:20260812T195757Z
+DTSTAMP:20260301T054328Z
+UID:astronomy/eclipse/2026-08-12/total-sun/full-duration
+SEQUENCE:0
+CATEGORIES:Astronomy,Eclipse
+DESCRIPTION:This entry covers the full duration of the total solar eclipse
+  worldwide. See the source page for local visibility and circumstances.
+URL:https://www.timeanddate.com/eclipse/solar/2026-august-12
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:Partial Lunar Eclipse
+DTSTART:20260828T012358Z
+DTEND:20260828T070147Z
+DTSTAMP:20260301T054328Z
+UID:astronomy/eclipse/2026-08-28/partial-moon/full-duration
+SEQUENCE:0
+CATEGORIES:Astronomy,Eclipse
+DESCRIPTION:This entry covers the full duration of the partial lunar eclip
+ se worldwide. See the source page for local visibility and circumstances.
+URL:https://www.timeanddate.com/eclipse/lunar/2026-august-28
+END:VEVENT
+END:VCALENDAR
