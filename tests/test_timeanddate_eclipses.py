@@ -1,9 +1,10 @@
 from __future__ import annotations
 
+import json
 from pathlib import Path
 
 from astrocal.adapters.astronomy.timeanddate_eclipses import EclipsesAdapter
-from astrocal.repositories import CandidateStore, RawStore
+from astrocal.repositories import CandidateStore, DiagnosticStore, RawStore
 from astrocal.services.normalize_service import normalize_source_family
 
 
@@ -125,6 +126,44 @@ def test_eclipse_titles_use_canonical_type_names(tmp_path: Path) -> None:
         titles_by_occurrence["astronomy/eclipse/2026-08-28/partial-moon/full-duration"]
         == "Partial Lunar Eclipse"
     )
+
+
+def test_normalize_diagnostics_include_eclipse_extraction_summary(tmp_path: Path) -> None:
+    adapter = build_adapter(tmp_path)
+
+    raw_result = adapter.fetch(2026)
+    normalize_source_family(
+        "astronomy",
+        2026,
+        adapters={"eclipses": adapter},
+        raw_results=[raw_result],
+        candidate_store=CandidateStore(base_dir=tmp_path / "normalized"),
+        diagnostic_store=DiagnosticStore(base_dir=tmp_path / "diagnostics"),
+    )
+
+    summary_path = (
+        tmp_path / "diagnostics" / "astronomy" / "2026" / "eclipses" / "normalize-summary.json"
+    )
+    summary = json.loads(summary_path.read_text(encoding="utf-8"))
+
+    assert summary["extraction_summary"] == {
+        "titles_seen": [
+            "Partial Lunar Eclipse",
+            "Total Lunar Eclipse",
+            "Total Lunar Eclipse: Totality",
+            "Total Solar Eclipse",
+            "Total Solar Eclipse: Totality",
+        ],
+        "variant_counts": {
+            "full-duration": 3,
+            "totality": 2,
+        },
+        "detail_urls_sample": [
+            "https://www.timeanddate.com/eclipse/lunar/2026-march-3",
+            "https://www.timeanddate.com/eclipse/solar/2026-august-12",
+            "https://www.timeanddate.com/eclipse/lunar/2026-august-28",
+        ],
+    }
 
 
 def test_validate_timeanddate_eclipses_fails_canary_when_timeline_is_missing(tmp_path: Path) -> None:

@@ -2,9 +2,12 @@
 
 from __future__ import annotations
 
+import json
 from collections.abc import Mapping
+from pathlib import Path
 
 from ..models import CandidateRecord, RawFetchResult
+from ..paths import PROJECT_ROOT
 from ..repositories import CandidateStore, DiagnosticStore
 
 
@@ -99,4 +102,59 @@ def _normalize_summary(
         "detail_url_count": sum(1 for candidate in candidates if candidate.detail_url),
         "metadata_keys": metadata_keys,
         "canary_ok": canary_ok,
+        "extraction_summary": _extraction_summary(
+            source_name=source_name,
+            raw_ref=raw_ref,
+            candidates=candidates,
+        ),
     }
+
+
+def _extraction_summary(
+    *,
+    source_name: str,
+    raw_ref: str,
+    candidates: list[CandidateRecord],
+) -> dict[str, object]:
+    if source_name == "moon-phases":
+        return {
+            "phase_names": sorted({candidate.metadata.get("phase", "") for candidate in candidates if candidate.metadata.get("phase")}),
+            "first_start": min((candidate.start for candidate in candidates), default=""),
+            "last_start": max((candidate.start for candidate in candidates), default=""),
+        }
+    if source_name == "seasons":
+        return {
+            "titles_seen": sorted({candidate.title for candidate in candidates}),
+            "ignored_non_season_row_count": _ignored_non_season_row_count(raw_ref),
+        }
+    if source_name == "eclipses":
+        variant_counts: dict[str, int] = {}
+        detail_urls_sample: list[str] = []
+        for candidate in candidates:
+            variant_counts[candidate.variant] = variant_counts.get(candidate.variant, 0) + 1
+            if candidate.detail_url and candidate.detail_url not in detail_urls_sample:
+                detail_urls_sample.append(candidate.detail_url)
+        return {
+            "titles_seen": sorted({candidate.title for candidate in candidates}),
+            "variant_counts": variant_counts,
+            "detail_urls_sample": detail_urls_sample[:3],
+        }
+    return {}
+
+
+def _ignored_non_season_row_count(raw_ref: str) -> int:
+    if not raw_ref:
+        return 0
+    raw_path = Path(raw_ref)
+    if not raw_path.is_absolute():
+        raw_path = PROJECT_ROOT / raw_ref
+    if not raw_path.exists():
+        return 0
+    payload = json.loads(raw_path.read_text(encoding="utf-8"))
+    rows = payload.get("data", [])
+    season_rows = [
+        row
+        for row in rows
+        if str(row.get("phenom", "")).strip().lower() in {"equinox", "solstice"}
+    ]
+    return max(len(rows) - len(season_rows), 0)
