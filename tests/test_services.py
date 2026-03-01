@@ -5,8 +5,9 @@ from pathlib import Path
 import pytest
 
 from astrocal.models import RawFetchResult, ValidationReport
-from astrocal.repositories import ReportStore
+from astrocal.repositories import DiagnosticStore, ReportStore
 from astrocal.services.fetch_service import fetch_source_family
+from astrocal.services.normalize_service import normalize_source_family
 from astrocal.services.validation_service import validate_source_family
 
 
@@ -52,6 +53,11 @@ class FailingAdapter(PassingAdapter):
             canary_ok=False,
             source_url="https://example.com/eclipses",
         )
+
+
+class BrokenNormalizeAdapter(PassingAdapter):
+    def normalize(self, year: int, raw_result: RawFetchResult) -> list[object]:
+        raise ValueError("unexpected payload shape")
 
 
 def test_validate_source_family_writes_json_reports(tmp_path) -> None:
@@ -125,3 +131,51 @@ def test_fetch_source_family_returns_raw_results_after_validation_passes() -> No
 
     assert len(results) == 1
     assert results[0].raw_ref.endswith("response.json")
+
+
+def test_normalize_source_family_writes_summary_diagnostics(tmp_path) -> None:
+    results = normalize_source_family(
+        "astronomy",
+        2026,
+        adapters={"moon-phases": PassingAdapter()},
+        raw_results=[
+            RawFetchResult(
+                source_name="moon-phases",
+                year=2026,
+                fetched_at="2026-03-01T00:01:00Z",
+                raw_ref="data/raw/astronomy/2026/moon-phases/response.json",
+                source_url="https://example.com/moon-phases",
+            )
+        ],
+        diagnostic_store=DiagnosticStore(base_dir=tmp_path / "diagnostics"),
+    )
+
+    summary_path = tmp_path / "diagnostics" / "astronomy" / "2026" / "moon-phases" / "normalize-summary.json"
+    assert len(results) == 1
+    assert summary_path.exists()
+    assert '"candidate_count": 0' in summary_path.read_text(encoding="utf-8")
+
+
+def test_normalize_source_family_writes_failure_diagnostics(tmp_path) -> None:
+    with pytest.raises(ValueError, match="unexpected payload shape"):
+        normalize_source_family(
+            "astronomy",
+            2026,
+            adapters={"moon-phases": BrokenNormalizeAdapter()},
+            raw_results=[
+                RawFetchResult(
+                    source_name="moon-phases",
+                    year=2026,
+                    fetched_at="2026-03-01T00:01:00Z",
+                    raw_ref="data/raw/astronomy/2026/moon-phases/response.json",
+                    source_url="https://example.com/moon-phases",
+                )
+            ],
+            diagnostic_store=DiagnosticStore(base_dir=tmp_path / "diagnostics"),
+        )
+
+    failure_path = tmp_path / "diagnostics" / "astronomy" / "2026" / "moon-phases" / "normalize-failure.json"
+    assert failure_path.exists()
+    failure_text = failure_path.read_text(encoding="utf-8")
+    assert '"failure_stage": "normalize"' in failure_text
+    assert '"reason": "unexpected payload shape"' in failure_text

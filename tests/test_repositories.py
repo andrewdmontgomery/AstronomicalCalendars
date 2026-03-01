@@ -6,7 +6,7 @@ from astrocal.models import (
     SourceReference,
     ValidationResult,
 )
-from astrocal.repositories import CandidateStore, CatalogStore, SequenceStore
+from astrocal.repositories import CandidateStore, CatalogStore, DiagnosticStore, SequenceStore
 
 
 def build_candidate() -> CandidateRecord:
@@ -97,3 +97,18 @@ def test_sequence_store_round_trip(tmp_path) -> None:
 
     assert saved_path.exists()
     assert loaded == {"event-1": 2, "event-2": 1}
+
+
+def test_diagnostic_store_round_trip(tmp_path) -> None:
+    store = DiagnosticStore(base_dir=tmp_path)
+
+    saved_path = store.write_json(
+        "astronomy",
+        2026,
+        "moon-phases",
+        "normalize-summary.json",
+        {"candidate_count": 2, "source_name": "moon-phases"},
+    )
+
+    assert saved_path.exists()
+    assert saved_path.read_text(encoding="utf-8").startswith("{")
