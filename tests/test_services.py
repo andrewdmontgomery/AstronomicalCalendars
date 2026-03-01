@@ -5,7 +5,7 @@ from pathlib import Path
 import pytest
 
 from astrocal.models import RawFetchResult, ValidationReport
-from astrocal.repositories import DiagnosticStore, ReportStore
+from astrocal.repositories import CandidateStore, DiagnosticStore, ReportStore
 from astrocal.services.fetch_service import fetch_source_family
 from astrocal.services.normalize_service import normalize_source_family
 from astrocal.services.validation_service import validate_source_family
@@ -63,6 +63,11 @@ class BrokenNormalizeAdapter(PassingAdapter):
 class BrokenFetchAdapter(PassingAdapter):
     def fetch(self, year: int) -> RawFetchResult:
         raise ValueError("request timed out")
+
+
+class BrokenCandidateStore(CandidateStore):
+    def save(self, source_type: str, year: int, source_name: str, candidates: list[object]):
+        raise OSError("unable to persist candidates")
 
 
 def test_validate_source_family_writes_json_reports(tmp_path) -> None:
@@ -252,3 +257,35 @@ def test_normalize_source_family_writes_failure_diagnostics(tmp_path) -> None:
     failure_text = failure_path.read_text(encoding="utf-8")
     assert '"failure_stage": "normalize"' in failure_text
     assert '"reason": "unexpected payload shape"' in failure_text
+
+
+def test_normalize_source_family_writes_failure_diagnostics_when_candidate_save_fails(
+    tmp_path,
+) -> None:
+    with pytest.raises(OSError, match="unable to persist candidates"):
+        normalize_source_family(
+            "astronomy",
+            2026,
+            adapters={"moon-phases": PassingAdapter()},
+            raw_results=[
+                RawFetchResult(
+                    source_name="moon-phases",
+                    year=2026,
+                    fetched_at="2026-03-01T00:01:00Z",
+                    raw_ref="data/raw/astronomy/2026/moon-phases/response.json",
+                    source_url="https://example.com/moon-phases",
+                )
+            ],
+            candidate_store=BrokenCandidateStore(base_dir=tmp_path / "normalized"),
+            diagnostic_store=DiagnosticStore(base_dir=tmp_path / "diagnostics"),
+        )
+
+    summary_path = tmp_path / "diagnostics" / "astronomy" / "2026" / "moon-phases" / "normalize-summary.json"
+    failure_path = tmp_path / "diagnostics" / "astronomy" / "2026" / "moon-phases" / "normalize-failure.json"
+    candidate_path = tmp_path / "normalized" / "astronomy" / "2026" / "moon-phases.json"
+
+    assert summary_path.exists()
+    assert failure_path.exists()
+    assert not candidate_path.exists()
+    failure_text = failure_path.read_text(encoding="utf-8")
+    assert '"reason": "unable to persist candidates"' in failure_text

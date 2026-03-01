@@ -31,6 +31,23 @@ def normalize_source_family(
         raw_result = raw_results_by_name[name]
         try:
             candidates = adapter.normalize(year, raw_result)
+            summary = _normalize_summary(
+                source_type=source_family,
+                year=year,
+                source_name=name,
+                source_adapter=getattr(adapter, "source_adapter", ""),
+                source_url=getattr(adapter, "source_url", ""),
+                raw_ref=raw_result.raw_ref,
+                candidates=candidates,
+            )
+            diagnostic_store.write_json(
+                source_family,
+                year,
+                name,
+                "normalize-summary.json",
+                summary,
+            )
+            candidate_store.save(source_family, year, name, candidates)
         except Exception as exc:
             diagnostic_store.write_json(
                 source_family,
@@ -49,22 +66,6 @@ def normalize_source_family(
                 },
             )
             raise
-        candidate_store.save(source_family, year, name, candidates)
-        diagnostic_store.write_json(
-            source_family,
-            year,
-            name,
-            "normalize-summary.json",
-            _normalize_summary(
-                source_type=source_family,
-                year=year,
-                source_name=name,
-                source_adapter=getattr(adapter, "source_adapter", ""),
-                source_url=getattr(adapter, "source_url", ""),
-                raw_ref=raw_result.raw_ref,
-                candidates=candidates,
-            ),
-        )
         normalized_results.append((name, candidates))
     return normalized_results
 
