@@ -8,9 +8,7 @@ from pathlib import Path
 from icalendar import Calendar, Event
 
 from ..adapters import ASTRONOMY_ADAPTERS
-from ..git import GitStager
 from ..models import AcceptedRecord, BuildReport, CalendarManifest
-from ..paths import PROJECT_ROOT
 from ..renderers.markdown_report import render_build_report
 from ..repositories import CatalogStore, ReportStore, SequenceStore
 
@@ -21,15 +19,12 @@ def build_calendar(
     catalog_store: CatalogStore | None = None,
     sequence_store: SequenceStore | None = None,
     report_store: ReportStore | None = None,
-    git_stager: GitStager | None = None,
-    stage_changes: bool = False,
     variant_policy: str | None = None,
     run_timestamp: str | None = None,
 ) -> tuple[BuildReport, list[Path]]:
     catalog_store = catalog_store or CatalogStore()
     sequence_store = sequence_store or SequenceStore()
     report_store = report_store or ReportStore()
-    git_stager = git_stager or GitStager()
     run_timestamp = run_timestamp or _run_timestamp()
     effective_variant_policy = variant_policy or manifest.variant_policy
     generated_at = _parse_report_timestamp(run_timestamp)
@@ -75,7 +70,7 @@ def build_calendar(
             event.add("categories", categories)
         calendar.add_component(event)
 
-    output_path = _resolve_output_path(manifest.output, git_stager.repo_root)
+    output_path = Path(manifest.output)
     output_path.parent.mkdir(parents=True, exist_ok=True)
     output_path.write_bytes(calendar.to_ical())
 
@@ -88,18 +83,9 @@ def build_calendar(
         sequence_path=str(sequence_path),
     )
     report_name = f"build.{manifest.name}"
-    json_path = report_store.run_dir(run_timestamp) / f"{report_name}.json"
-    md_path = report_store.run_dir(run_timestamp) / f"{report_name}.md"
-
-    if stage_changes:
-        report.staged_paths.extend(git_stager.preview_paths([output_path, sequence_path, json_path, md_path]))
-
     json_path = report_store.write_json_report(run_timestamp, report_name, report.to_dict())
     md_path = report_store.write_markdown_report(run_timestamp, report_name, render_build_report(report))
     written_paths = [output_path, sequence_path, json_path, md_path]
-
-    if stage_changes:
-        git_stager.stage_paths(written_paths)
 
     return report, written_paths
 
@@ -162,10 +148,3 @@ def _parse_report_timestamp(value: str) -> datetime:
 
 def _run_timestamp() -> str:
     return datetime.now(timezone.utc).strftime("%Y-%m-%dT%H-%M-%SZ")
-
-
-def _resolve_output_path(output: str, repo_root: Path) -> Path:
-    output_path = Path(output)
-    if output_path.is_absolute():
-        return output_path
-    return repo_root / output_path

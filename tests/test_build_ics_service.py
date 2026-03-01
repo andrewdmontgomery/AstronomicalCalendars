@@ -1,11 +1,9 @@
 from __future__ import annotations
 
-import subprocess
 from pathlib import Path
 
 from icalendar import Calendar
 
-from astronomical_calendars.git import GitStager
 from astronomical_calendars.models import AcceptedRecord, CalendarManifest
 from astronomical_calendars.repositories import CatalogStore, ReportStore, SequenceStore
 from astronomical_calendars.services.build_ics_service import build_calendar
@@ -164,70 +162,6 @@ def test_build_calendar_respects_variant_policy_and_sequence_changes(tmp_path) -
 
     assert [str(event["UID"]) for event in second_events] == ["eclipse-totality"]
     assert int(second_events[0]["SEQUENCE"]) == 1
-
-
-def test_build_calendar_stages_output_in_manual_mode(tmp_path) -> None:
-    repo_root = tmp_path / "repo"
-    repo_root.mkdir()
-    subprocess.run(["git", "init"], cwd=repo_root, check=True, capture_output=True)
-    subprocess.run(
-        ["git", "config", "user.email", "codex@example.com"],
-        cwd=repo_root,
-        check=True,
-        capture_output=True,
-    )
-    subprocess.run(
-        ["git", "config", "user.name", "Codex"],
-        cwd=repo_root,
-        check=True,
-        capture_output=True,
-    )
-
-    catalog_store = CatalogStore(base_dir=repo_root / "data" / "catalog" / "accepted")
-    sequence_store = SequenceStore(base_dir=repo_root / "data" / "state" / "sequences")
-    report_store = ReportStore(base_dir=repo_root / "data" / "catalog" / "reports")
-    manifest = CalendarManifest(
-        name="astronomy-all",
-        output="output/calendars/astronomy-all.ics",
-        calendar_name="Astronomical Events",
-        calendar_description="Moon phases, seasons, and eclipses",
-        variant_policy="default",
-        source_validation_policy="strict",
-        reconciliation_mode="verify",
-        correction_mode="apply-working-tree",
-        stop_on_source_failure=True,
-        stop_on_conflict=True,
-        source_types=["astronomy"],
-    )
-    catalog_store.save(
-        "astronomy",
-        2026,
-        "moon-phases",
-        [_accepted_record("moon-default", event_type="moon-phase", end=None, is_default=True)],
-    )
-
-    report, _ = build_calendar(
-        manifest=manifest,
-        catalog_store=catalog_store,
-        sequence_store=sequence_store,
-        report_store=report_store,
-        git_stager=GitStager(repo_root=repo_root),
-        stage_changes=True,
-        run_timestamp="2026-03-01T12-00-00Z",
-    )
-    status = subprocess.run(
-        ["git", "status", "--short"],
-        cwd=repo_root,
-        check=True,
-        capture_output=True,
-        text=True,
-    ).stdout
-
-    assert report.staged_paths
-    assert "A  output/calendars/astronomy-all.ics" in status
-    assert "A  data/state/sequences/astronomy-all.json" in status
-    assert "AM data/catalog/reports/2026-03-01T12-00-00Z/build.astronomy-all.json" not in status
-    assert "AM data/catalog/reports/2026-03-01T12-00-00Z/build.astronomy-all.md" not in status
 
 
 def _accepted_record(

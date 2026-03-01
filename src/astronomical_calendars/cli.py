@@ -34,7 +34,6 @@ def build_parser() -> argparse.ArgumentParser:
     reconcile_parser.add_argument("--calendar", required=True)
     reconcile_parser.add_argument("--year", type=int, required=True)
     reconcile_parser.add_argument("--report-dir", type=Path)
-    reconcile_parser.add_argument("--no-stage", action="store_true")
     reconcile_parser.set_defaults(handler=reconcile_command)
 
     build_parser = subparsers.add_parser("build")
@@ -54,7 +53,6 @@ def build_parser() -> argparse.ArgumentParser:
         choices=["default", "totality-only", "both"],
     )
     run_parser.add_argument("--report-dir", type=Path)
-    run_parser.add_argument("--no-stage", action="store_true")
     run_parser.set_defaults(handler=run_command)
 
     return parser

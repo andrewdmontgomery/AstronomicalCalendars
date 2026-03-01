@@ -36,6 +36,4 @@ def render_build_report(report: BuildReport) -> str:
     ]
     if report.sequence_path:
         lines.append(f"- Sequence path: {report.sequence_path}")
-    if report.staged_paths:
-        lines.append(f"- Staged paths: {len(report.staged_paths)}")
     return "\n".join(lines) + "\n"

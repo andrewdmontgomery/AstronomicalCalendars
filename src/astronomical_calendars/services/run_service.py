@@ -6,9 +6,7 @@ import argparse
 from datetime import datetime, timezone
 
 from ..adapters import ASTRONOMY_ADAPTERS
-from ..git import GitStager
 from ..manifests import load_manifest
-from ..models import ValidationReport
 from ..repositories import ReportStore
 from .build_ics_service import build_calendar
 from .fetch_service import fetch_source_family
@@ -24,7 +22,6 @@ def run_command(args: argparse.Namespace) -> int:
     run_timestamp = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H-%M-%SZ")
     report_dir = _report_dir_value(args.report_dir)
     report_store = ReportStore(base_dir=args.report_dir) if args.report_dir else ReportStore()
-    git_stager = GitStager()
 
     print(f"validate {source_family} year={args.year}")
     validate_exit, reports = validate_source_family(
@@ -37,8 +34,6 @@ def run_command(args: argparse.Namespace) -> int:
     _print_validation_reports(reports, args.year)
     if validate_exit:
         return validate_exit
-    if not args.no_stage:
-        git_stager.stage_paths(_validation_report_paths(report_store, run_timestamp, reports, args.year))
 
     print(f"fetch {source_family} year={args.year}")
     raw_results = fetch_source_family(
@@ -63,13 +58,11 @@ def run_command(args: argparse.Namespace) -> int:
         manifest=manifest,
         year=args.year,
         report_store=report_store,
-        git_stager=git_stager,
-        stage_changes=not args.no_stage,
         run_timestamp=run_timestamp,
     )
     print(
         f"reconcile {manifest.name} year={args.year} report_dir={report_dir} "
-        f"stage={'no' if args.no_stage else 'yes'} new={len(reconcile_report.new_occurrences)} "
+        f"new={len(reconcile_report.new_occurrences)} "
         f"changed={len(reconcile_report.changed_occurrences)} "
         f"removed={len(reconcile_report.suspected_removals)}"
     )
@@ -77,28 +70,11 @@ def run_command(args: argparse.Namespace) -> int:
     build_report, _ = build_calendar(
         manifest=manifest,
         report_store=report_store,
-        git_stager=git_stager,
-        stage_changes=not args.no_stage,
         variant_policy=args.variant_policy or manifest.variant_policy,
         run_timestamp=run_timestamp,
     )
     print(
         f"build {manifest.name} variant_policy={args.variant_policy or manifest.variant_policy} "
-        f"report_dir={report_dir} stage={'no' if args.no_stage else 'yes'} "
-        f"events={build_report.event_count}"
+        f"report_dir={report_dir} events={build_report.event_count}"
     )
     return 0
-
-
-def _validation_report_paths(
-    report_store: ReportStore,
-    run_timestamp: str,
-    reports: list[ValidationReport],
-    year: int,
-) -> list:
-    paths = []
-    for report in reports:
-        report_name = f"validate.{report.source_name}.{year}"
-        paths.append(report_store.run_dir(run_timestamp) / f"{report_name}.json")
-        paths.append(report_store.run_dir(run_timestamp) / f"{report_name}.md")
-    return paths

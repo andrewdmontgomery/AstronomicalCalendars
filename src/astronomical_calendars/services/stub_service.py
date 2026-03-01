@@ -8,7 +8,6 @@ from contextlib import contextmanager, nullcontext
 from pathlib import Path
 
 from ..adapters import ASTRONOMY_ADAPTERS
-from ..git import GitStager
 from ..manifests import load_manifest
 from ..repositories import ReportStore
 from ..services.build_ics_service import build_calendar
@@ -81,13 +80,11 @@ def reconcile_command(args: argparse.Namespace) -> int:
         manifest=manifest,
         year=args.year,
         report_store=ReportStore(base_dir=args.report_dir) if args.report_dir else None,
-        git_stager=GitStager(),
-        stage_changes=not args.no_stage,
     )
     report_dir = _report_dir_value(args.report_dir)
     print(
         f"reconcile {manifest.name} year={args.year} report_dir={report_dir} "
-        f"stage={'no' if args.no_stage else 'yes'} new={len(report.new_occurrences)} "
+        f"new={len(report.new_occurrences)} "
         f"changed={len(report.changed_occurrences)} removed={len(report.suspected_removals)}"
     )
     return 0
@@ -100,14 +97,12 @@ def build_command(args: argparse.Namespace) -> int:
     report, _ = build_calendar(
         manifest=manifest,
         report_store=report_store,
-        git_stager=GitStager(),
-        stage_changes=True,
         variant_policy=variant_policy,
     )
     report_dir = _report_dir_value(args.report_dir)
     print(
         f"build {manifest.name} variant_policy={variant_policy} report_dir={report_dir} "
-        f"stage=yes events={report.event_count}"
+        f"events={report.event_count}"
     )
     return 0
 

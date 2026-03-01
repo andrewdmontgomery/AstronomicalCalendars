@@ -1,7 +1,5 @@
 from __future__ import annotations
 
-from pathlib import Path
-
 from astronomical_calendars.cli import main
 from astronomical_calendars.models import BuildReport, RawFetchResult, ReconciliationReport, ValidationReport
 
@@ -63,7 +61,7 @@ def test_run_command_executes_pipeline(capsys, mocker) -> None:
         ),
     )
 
-    exit_code = main(["run", "--calendar", "astronomy-all", "--year", "2026", "--no-stage"])
+    exit_code = main(["run", "--calendar", "astronomy-all", "--year", "2026"])
     captured = capsys.readouterr()
 
     assert exit_code == 0
@@ -72,6 +70,7 @@ def test_run_command_executes_pipeline(capsys, mocker) -> None:
     assert "normalize astronomy year=2026" in captured.out
     assert "reconcile astronomy-all year=2026" in captured.out
     assert "build astronomy-all variant_policy=default" in captured.out
+    assert "stage=" not in captured.out
 
 
 def test_build_command_uses_manifest_default_variant_policy(capsys, mocker) -> None:
@@ -94,6 +93,7 @@ def test_build_command_uses_manifest_default_variant_policy(capsys, mocker) -> N
 
     assert exit_code == 0
     assert "build astronomy-eclipses variant_policy=default" in captured.out
+    assert "stage=" not in captured.out
     assert "data/catalog/reports" in str(build_mock.call_args.kwargs["report_store"]._base_dir)
 
 
@@ -155,63 +155,9 @@ def test_run_command_uses_repo_report_store_by_default(capsys, mocker) -> None:
         ),
     )
 
-    exit_code = main(["run", "--calendar", "astronomy-all", "--year", "2026", "--no-stage"])
+    exit_code = main(["run", "--calendar", "astronomy-all", "--year", "2026"])
     captured = capsys.readouterr()
 
     assert exit_code == 0
     assert "reconcile astronomy-all year=2026" in captured.out
     assert "data/catalog/reports" in str(reconcile_mock.call_args.kwargs["report_store"]._base_dir)
-
-
-def test_run_command_stages_validation_reports_in_manual_mode(capsys, mocker) -> None:
-    class RecordingStager:
-        def __init__(self) -> None:
-            self.calls: list[list[str]] = []
-
-        def stage_paths(self, paths: list[Path]) -> list[str]:
-            normalized = [str(path) for path in paths]
-            self.calls.append(normalized)
-            return normalized
-
-    stager = RecordingStager()
-    mocker.patch(
-        "astronomical_calendars.services.run_service.ASTRONOMY_ADAPTERS",
-        {"moon-phases": CliAdapter()},
-    )
-    mocker.patch(
-        "astronomical_calendars.services.run_service.GitStager",
-        return_value=stager,
-    )
-    mocker.patch(
-        "astronomical_calendars.services.run_service.reconcile_calendar",
-        return_value=(
-            ReconciliationReport(
-                calendar_name="astronomy-all",
-                year=2026,
-                generated_at="2026-03-01T00:00:00Z",
-            ),
-            [],
-        ),
-    )
-    mocker.patch(
-        "astronomical_calendars.services.run_service.build_calendar",
-        return_value=(
-            BuildReport(
-                calendar_name="astronomy-all",
-                generated_at="2026-03-01T00:00:00Z",
-                output_path="output/calendars/astronomy-all.ics",
-                event_count=3,
-                sequence_path="data/state/sequences/astronomy-all.json",
-            ),
-            [],
-        ),
-    )
-
-    exit_code = main(["run", "--calendar", "astronomy-all", "--year", "2026"])
-    captured = capsys.readouterr()
-
-    assert exit_code == 0
-    assert "build astronomy-all variant_policy=default" in captured.out
-    assert stager.calls
-    assert any("validate.moon-phases.2026.json" in path for path in stager.calls[0])
-    assert any("validate.moon-phases.2026.md" in path for path in stager.calls[0])

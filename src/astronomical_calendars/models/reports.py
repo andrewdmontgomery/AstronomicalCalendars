@@ -44,7 +44,6 @@ class ReconciliationReport:
     changed_occurrences: list[str] = field(default_factory=list)
     suspected_removals: list[str] = field(default_factory=list)
     validation_failures: list[str] = field(default_factory=list)
-    staged_paths: list[str] = field(default_factory=list)
 
     def to_dict(self) -> dict[str, Any]:
         return asdict(self)
@@ -57,7 +56,6 @@ class BuildReport:
     output_path: str
     event_count: int
     sequence_path: str | None = None
-    staged_paths: list[str] = field(default_factory=list)
 
     def to_dict(self) -> dict[str, Any]:
         return asdict(self)

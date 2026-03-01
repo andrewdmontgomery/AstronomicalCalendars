@@ -3,12 +3,10 @@
 from __future__ import annotations
 
 from collections import defaultdict
-from dataclasses import asdict
 from datetime import datetime, timezone
 from pathlib import Path
 
 from ..adapters import ASTRONOMY_ADAPTERS
-from ..git import GitStager
 from ..models import AcceptedRecord, CalendarManifest, CandidateRecord, ReconciliationReport
 from ..repositories import CandidateStore, CatalogStore, ReportStore
 
@@ -20,14 +18,11 @@ def reconcile_calendar(
     candidate_store: CandidateStore | None = None,
     catalog_store: CatalogStore | None = None,
     report_store: ReportStore | None = None,
-    git_stager: GitStager | None = None,
-    stage_changes: bool = True,
     run_timestamp: str | None = None,
 ) -> tuple[ReconciliationReport, list[Path]]:
     candidate_store = candidate_store or CandidateStore()
     catalog_store = catalog_store or CatalogStore()
     report_store = report_store or ReportStore()
-    git_stager = git_stager or GitStager()
     run_timestamp = run_timestamp or _run_timestamp()
 
     candidates_by_source = _load_relevant_candidates(
@@ -66,19 +61,9 @@ def reconcile_calendar(
     report_name = f"reconcile.{manifest.name}"
     json_path = report_store.run_dir(run_timestamp) / f"{report_name}.json"
     md_path = report_store.run_dir(run_timestamp) / f"{report_name}.md"
-    report_paths = [json_path, md_path]
-
-    if stage_changes:
-        staged_catalog_paths = git_stager.stage_paths(catalog_paths)
-        report.staged_paths.extend(staged_catalog_paths)
-        report.staged_paths.extend(git_stager.preview_paths(report_paths))
-
     json_path = report_store.write_json_report(run_timestamp, report_name, report.to_dict())
     md_path = report_store.write_markdown_report(run_timestamp, report_name, _render_report(report))
     written_paths = catalog_paths + [json_path, md_path]
-
-    if stage_changes:
-        git_stager.stage_paths([json_path, md_path])
 
     return report, written_paths
 
@@ -220,9 +205,6 @@ def _render_report(report: ReconciliationReport) -> str:
         f"- Suspected removals: {len(report.suspected_removals)}",
         f"- Validation failures: {len(report.validation_failures)}",
     ]
-    if report.staged_paths:
-        lines.append(f"- Staged paths: {len(report.staged_paths)}")
-
     for title, values in (
         ("New Occurrences", report.new_occurrences),
         ("Changed Occurrences", report.changed_occurrences),

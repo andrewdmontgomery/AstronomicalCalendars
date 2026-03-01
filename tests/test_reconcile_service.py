@@ -1,9 +1,7 @@
 from __future__ import annotations
 
-import subprocess
 from pathlib import Path
 
-from astronomical_calendars.git import GitStager
 from astronomical_calendars.models import CalendarManifest
 from astronomical_calendars.repositories import CandidateStore, CatalogStore, ReportStore
 from astronomical_calendars.services.reconcile_service import reconcile_calendar
@@ -42,7 +40,6 @@ def test_reconcile_adds_new_record(tmp_path: Path) -> None:
         candidate_store=candidate_store,
         catalog_store=catalog_store,
         report_store=report_store,
-        stage_changes=False,
         run_timestamp="2026-03-01T12-00-00Z",
     )
 
@@ -80,7 +77,6 @@ def test_reconcile_leaves_unchanged_record_untouched(tmp_path: Path) -> None:
         candidate_store=candidate_store,
         catalog_store=catalog_store,
         report_store=report_store,
-        stage_changes=False,
         run_timestamp="2026-03-02T12-00-00Z",
     )
 
@@ -120,7 +116,6 @@ def test_reconcile_creates_new_revision_for_changed_record(tmp_path: Path) -> No
         candidate_store=candidate_store,
         catalog_store=catalog_store,
         report_store=report_store,
-        stage_changes=False,
         run_timestamp="2026-03-02T12-00-00Z",
     )
 
@@ -156,7 +151,6 @@ def test_reconcile_marks_missing_candidate_as_suspected_removed(tmp_path: Path) 
         candidate_store=CandidateStore(base_dir=tmp_path / "normalized"),
         catalog_store=catalog_store,
         report_store=report_store,
-        stage_changes=False,
         run_timestamp="2026-03-02T12-00-00Z",
     )
 
@@ -165,26 +159,10 @@ def test_reconcile_marks_missing_candidate_as_suspected_removed(tmp_path: Path) 
     assert report.suspected_removals == [candidate.occurrence_id]
 
 
-def test_reconcile_stages_changed_files_in_manual_mode(tmp_path: Path) -> None:
-    repo_root = tmp_path / "repo"
-    repo_root.mkdir()
-    subprocess.run(["git", "init"], cwd=repo_root, check=True, capture_output=True)
-    subprocess.run(
-        ["git", "config", "user.email", "codex@example.com"],
-        cwd=repo_root,
-        check=True,
-        capture_output=True,
-    )
-    subprocess.run(
-        ["git", "config", "user.name", "Codex"],
-        cwd=repo_root,
-        check=True,
-        capture_output=True,
-    )
-
-    candidate_store = CandidateStore(base_dir=repo_root / "data" / "normalized")
-    catalog_store = CatalogStore(base_dir=repo_root / "data" / "catalog" / "accepted")
-    report_store = ReportStore(base_dir=repo_root / "data" / "catalog" / "reports")
+def test_reconcile_writes_catalog_and_reports_without_staging(tmp_path: Path) -> None:
+    candidate_store = CandidateStore(base_dir=tmp_path / "normalized")
+    catalog_store = CatalogStore(base_dir=tmp_path / "accepted")
+    report_store = ReportStore(base_dir=tmp_path / "reports")
     candidate = build_candidate()
     candidate_store.save("astronomy", 2026, "moon-phases", [candidate])
 
@@ -194,25 +172,14 @@ def test_reconcile_stages_changed_files_in_manual_mode(tmp_path: Path) -> None:
         candidate_store=candidate_store,
         catalog_store=catalog_store,
         report_store=report_store,
-        git_stager=GitStager(repo_root=repo_root),
-        stage_changes=True,
         run_timestamp="2026-03-02T12-00-00Z",
     )
 
-    status = subprocess.run(
-        ["git", "status", "--short"],
-        cwd=repo_root,
-        check=True,
-        capture_output=True,
-        text=True,
-    ).stdout
-
-    assert report.staged_paths
-    assert any("moon-phases.json" in path for path in report.staged_paths)
-    assert "A  data/catalog/accepted/astronomy/2026/moon-phases.json" in status
-    assert "AM data/catalog/reports/2026-03-02T12-00-00Z/reconcile.astronomy-all.json" not in status
-    assert "AM data/catalog/reports/2026-03-02T12-00-00Z/reconcile.astronomy-all.md" not in status
-    assert any(path.exists() for path in written_paths)
+    assert report.new_occurrences == [candidate.occurrence_id]
+    assert any(path.name == "moon-phases.json" for path in written_paths)
+    assert any(path.name == "reconcile.astronomy-all.json" for path in written_paths)
+    assert any(path.name == "reconcile.astronomy-all.md" for path in written_paths)
+    assert all(path.exists() for path in written_paths)
 
 
 def _accepted_from_candidate(candidate, *, revision, status, accepted_at, change_reason):
