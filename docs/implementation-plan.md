@@ -103,12 +103,6 @@ src/astrocal/
     catalog_store.py
     report_store.py
     sequence_store.py
-  git/
-    __init__.py
-    staging.py
-  renderers/
-    __init__.py
-    markdown_report.py
 ```
 
 Decision:
@@ -120,8 +114,6 @@ Decision:
 - Adapter layer: source-specific validation, fetch, parse, normalize.
 - Service layer: orchestration and business rules only.
 - Repository layer: filesystem persistence only.
-- Git helper: staging only, no commit logic.
-- Renderer layer: optional human-facing output helpers only.
 
 No adapter inheritance tree. No plugin registry. Use explicit adapter maps.
 
@@ -186,7 +178,6 @@ Supported flags in phase 1:
 - `--calendar`
 - `--variant-policy`
 - `--report-dir`
-- `--no-stage`
 
 Exit codes:
 
@@ -301,8 +292,7 @@ Reconciliation:
 - changed record creates superseding revision
 - missing current candidate becomes `suspected-removed`
 - failed validation blocks writes
-- manual staging includes expected files
-- `--no-stage` skips staging
+- manual runs write the expected files without altering git state
 
 ICS build:
 
@@ -348,7 +338,7 @@ Decision:
 6. Implement USNO moon phases adapter.
 7. Implement USNO seasons adapter.
 8. Implement timeanddate eclipses adapter.
-9. Implement reconciliation service and git staging helper.
+9. Implement reconciliation service.
 10. Implement ICS build service.
 11. Implement run orchestration service.
 12. Add or update astronomy manifests for phase-1 scope, including making `astronomy-all` astronomy-only.
@@ -366,7 +356,7 @@ Use small, stable commits that tell the implementation story:
 4. `feat: implement moon phase adapter and normalization`
 5. `feat: implement seasons adapter and normalization`
 6. `feat: implement eclipse adapter and normalization`
-7. `feat: add reconciliation service and git staging helper`
+7. `feat: add reconciliation service`
 8. `feat: build ICS output from accepted catalog records`
 9. `test: add fixture-driven adapter and service coverage`
 10. `docs: align manifests and phase-1 scope with astronomy-only combined calendar`
