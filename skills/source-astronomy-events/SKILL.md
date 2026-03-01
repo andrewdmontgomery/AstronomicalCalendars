@@ -20,6 +20,9 @@ Treat `specs/` as the source of truth for source selection, validation, and sche
    [`specs/normalized-event-schema.md`](../../specs/normalized-event-schema.md).
 8. Write normalized output under `data/normalized/astronomy/...`.
 
+If validation, fetch, or normalization fails, use
+[`debug-source-adapters`](../debug-source-adapters/SKILL.md) before changing parser logic.
+
 ## Output Expectations
 
 Expected outputs:

@@ -45,3 +45,10 @@ make install
 .venv/bin/python -m astrocal validate astronomy --year 2026
 .venv/bin/python -m astrocal run --calendar astronomy-all --year 2026
 ```
+
+## Maintainer Notes
+
+For source-boundary failures, use
+[`skills/debug-source-adapters/SKILL.md`](skills/debug-source-adapters/SKILL.md) to inspect
+reports, diagnostics, raw snapshots, normalized candidates, and reconciliation artifacts in
+a fixed order.
