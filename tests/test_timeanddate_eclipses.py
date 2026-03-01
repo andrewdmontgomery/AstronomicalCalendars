@@ -129,7 +129,11 @@ def test_eclipse_titles_use_canonical_type_names(tmp_path: Path) -> None:
 def test_validate_timeanddate_eclipses_fails_canary_when_timeline_is_missing(tmp_path: Path) -> None:
     adapter = EclipsesAdapter(
         http_client=FixtureHttpClient(
-            {"https://www.timeanddate.com/eclipse/lunar/2026-march-3": "<html><title>Example</title></html>"}
+            {
+                "https://www.timeanddate.com/eclipse/lunar/2026-march-3": "<html><title>Example</title></html>",
+                "https://www.timeanddate.com/eclipse/solar/2026-august-12": "<html><title>Example</title></html>",
+                "https://www.timeanddate.com/eclipse/lunar/2026-august-28": "<html><title>Example</title></html>",
+            }
         ),
         raw_store=RawStore(base_dir=tmp_path / "raw"),
         now_provider=lambda: "2026-03-01T12:00:00Z",
@@ -138,4 +142,32 @@ def test_validate_timeanddate_eclipses_fails_canary_when_timeline_is_missing(tmp
     report = adapter.validate(2026)
 
     assert report.status == "failed"
-    assert report.reason == "unable to derive eclipse identity"
+    assert report.reason == (
+        "unable to derive eclipse identity: "
+        "https://www.timeanddate.com/eclipse/lunar/2026-march-3"
+    )
+
+
+def test_validate_timeanddate_eclipses_checks_all_configured_pages(tmp_path: Path) -> None:
+    pages = {
+        "https://www.timeanddate.com/eclipse/lunar/2026-march-3": (
+            FIXTURE_DIR / "eclipse-detail-lunar-2026-03-03.html"
+        ).read_text(encoding="utf-8"),
+        "https://www.timeanddate.com/eclipse/solar/2026-august-12": "<html><title>Broken</title></html>",
+        "https://www.timeanddate.com/eclipse/lunar/2026-august-28": (
+            FIXTURE_DIR / "eclipse-detail-lunar-2026-08-28.html"
+        ).read_text(encoding="utf-8"),
+    }
+    adapter = EclipsesAdapter(
+        http_client=FixtureHttpClient(pages),
+        raw_store=RawStore(base_dir=tmp_path / "raw"),
+        now_provider=lambda: "2026-03-01T12:00:00Z",
+    )
+
+    report = adapter.validate(2026)
+
+    assert report.status == "failed"
+    assert report.reason == (
+        "unable to derive eclipse identity: "
+        "https://www.timeanddate.com/eclipse/solar/2026-august-12"
+    )

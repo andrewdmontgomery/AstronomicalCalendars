@@ -64,12 +64,13 @@ class EclipsesAdapter:
             if not urls:
                 return self._failed_report(year, "no configured eclipse detail URLs")
 
-            html = self._http_client.get(urls[0], timeout=30).text
-            parsed = _parse_eclipse_html(html, urls[0])
-            if not parsed["group_id"]:
-                return self._failed_report(year, "unable to derive eclipse identity")
-            if not parsed["full_duration"]:
-                return self._failed_report(year, "required timing fields missing")
+            for url in urls:
+                html = self._http_client.get(url, timeout=30).text
+                parsed = _parse_eclipse_html(html, url)
+                if not parsed["group_id"]:
+                    return self._failed_report(year, f"unable to derive eclipse identity: {url}")
+                if not parsed["full_duration"]:
+                    return self._failed_report(year, f"required timing fields missing: {url}")
         except Exception as exc:  # pragma: no cover
             return self._failed_report(year, str(exc))
 
@@ -81,6 +82,7 @@ class EclipsesAdapter:
             checks=[
                 "reachable",
                 "canary detail page reachable",
+                "canary all configured detail pages parse",
                 "canary timeline present",
                 "required timing fields present",
                 "detail url resolved",
