@@ -153,7 +153,11 @@ def test_normalize_source_family_writes_summary_diagnostics(tmp_path) -> None:
     summary_path = tmp_path / "diagnostics" / "astronomy" / "2026" / "moon-phases" / "normalize-summary.json"
     assert len(results) == 1
     assert summary_path.exists()
-    assert '"candidate_count": 0' in summary_path.read_text(encoding="utf-8")
+    summary_text = summary_path.read_text(encoding="utf-8")
+    assert '"candidate_count": 0' in summary_text
+    assert '"canary_ok": true' in summary_text
+    assert '"metadata_keys": []' in summary_text
+    assert '"titles_sample": []' in summary_text
 
 
 def test_normalize_source_family_writes_failure_diagnostics(tmp_path) -> None:

@@ -78,6 +78,12 @@ def _normalize_summary(
 ) -> dict[str, object]:
     event_types = sorted({candidate.event_type for candidate in candidates})
     variants = sorted({candidate.variant for candidate in candidates})
+    titles_sample = [candidate.title for candidate in candidates[:5]]
+    metadata_keys = sorted({key for candidate in candidates for key in candidate.metadata})
+    canary_ok = all(
+        candidate.source_validation is None or candidate.source_validation.status == "passed"
+        for candidate in candidates
+    )
     return {
         "source_name": source_name,
         "source_type": source_type,
@@ -88,6 +94,9 @@ def _normalize_summary(
         "candidate_count": len(candidates),
         "event_types": event_types,
         "variants": variants,
+        "titles_sample": titles_sample,
         "occurrence_ids_sample": [candidate.occurrence_id for candidate in candidates[:5]],
         "detail_url_count": sum(1 for candidate in candidates if candidate.detail_url),
+        "metadata_keys": metadata_keys,
+        "canary_ok": canary_ok,
     }
