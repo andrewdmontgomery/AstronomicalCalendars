@@ -15,9 +15,9 @@ Available calendars:
 | Equinoxes and Solstices | March Equinox, June Solstice, September Equinox, and December Solstice |
 | Eclipses | Solar and lunar eclipses with exact astronomical timing |
 
-## Status
+## Current Source Coverage
 
-Phase 1 is live for astronomy sources:
+AstronomicalCalendars currently publishes calendars backed by:
 
 - USNO moon phases
 - USNO seasons
@@ -45,3 +45,10 @@ make install
 .venv/bin/python -m astrocal validate astronomy --year 2026
 .venv/bin/python -m astrocal run --calendar astronomy-all --year 2026
 ```
+
+## Maintainer Notes
+
+For source-boundary failures, use
+[`skills/debug-source-adapters/SKILL.md`](skills/debug-source-adapters/SKILL.md) to inspect
+reports, diagnostics, raw snapshots, normalized candidates, and reconciliation artifacts in
+a fixed order.

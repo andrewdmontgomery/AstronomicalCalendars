@@ -1,0 +1,7 @@
+interface:
+  display_name: "Debug Source Adapters"
+  short_description: "Diagnose source-boundary failures"
+  default_prompt: "Use $debug-source-adapters to inspect source-boundary reports, diagnostics, raw snapshots, normalized candidates, and reconciliation artifacts before proposing a fix."
+
+policy:
+  allow_implicit_invocation: true
