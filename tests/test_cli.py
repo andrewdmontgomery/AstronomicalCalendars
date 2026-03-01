@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from astronomical_calendars.cli import main
-from astronomical_calendars.models import RawFetchResult, ValidationReport
+from astronomical_calendars.models import RawFetchResult, ReconciliationReport, ValidationReport
 
 
 class CliAdapter:
@@ -36,7 +36,20 @@ def test_run_command_executes_pipeline(capsys, mocker) -> None:
         "astronomical_calendars.services.stub_service.ASTRONOMY_ADAPTERS",
         {"moon-phases": CliAdapter()},
     )
-    exit_code = main(["run", "--calendar", "astronomy-all", "--year", "2026"])
+    mocker.patch(
+        "astronomical_calendars.services.stub_service.reconcile_calendar",
+        return_value=(
+            ReconciliationReport(
+                calendar_name="astronomy-all",
+                year=2026,
+                generated_at="2026-03-01T00:00:00Z",
+            ),
+            [],
+        ),
+    )
+    exit_code = main(
+        ["run", "--calendar", "astronomy-all", "--year", "2026", "--no-stage"]
+    )
 
     captured = capsys.readouterr()
 

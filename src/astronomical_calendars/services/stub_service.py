@@ -8,10 +8,12 @@ from contextlib import contextmanager, nullcontext
 from pathlib import Path
 
 from ..adapters import ASTRONOMY_ADAPTERS
+from ..git import GitStager
 from ..manifests import load_manifest
 from ..repositories import ReportStore
 from ..services.fetch_service import fetch_source_family
 from ..services.normalize_service import normalize_source_family
+from ..services.reconcile_service import reconcile_calendar
 from ..services.validation_service import validate_source_family
 
 
@@ -74,10 +76,18 @@ def normalize_command(args: argparse.Namespace) -> int:
 
 def reconcile_command(args: argparse.Namespace) -> int:
     manifest = load_manifest(args.calendar)
+    report, _ = reconcile_calendar(
+        manifest=manifest,
+        year=args.year,
+        report_store=ReportStore(base_dir=args.report_dir) if args.report_dir else None,
+        git_stager=GitStager(),
+        stage_changes=not args.no_stage,
+    )
     report_dir = _report_dir_value(args.report_dir)
     print(
         f"reconcile {manifest.name} year={args.year} report_dir={report_dir} "
-        f"stage={'no' if args.no_stage else 'yes'}"
+        f"stage={'no' if args.no_stage else 'yes'} new={len(report.new_occurrences)} "
+        f"changed={len(report.changed_occurrences)} removed={len(report.suspected_removals)}"
     )
     return 0
 
