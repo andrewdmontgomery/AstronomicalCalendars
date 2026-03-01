@@ -164,6 +164,7 @@ class SeasonsAdapter:
                 "required timing fields present",
                 "detail url resolved",
             ],
+            canary_ok=True,
             detail_url_ok=True,
             source_url=self.source_url,
         )
@@ -270,6 +271,7 @@ class SeasonsAdapter:
             validated_at=self._now_provider(),
             checks=["reachable"],
             reason=reason,
+            canary_ok=False,
             detail_url_ok=False,
             source_url=self.source_url,
         )

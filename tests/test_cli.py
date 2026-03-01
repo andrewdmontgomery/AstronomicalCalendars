@@ -15,6 +15,7 @@ class CliAdapter:
             status="passed",
             validated_at="2026-03-01T00:00:00Z",
             checks=["reachable"],
+            canary_ok=True,
             source_url="https://example.com/moon-phases",
         )
 

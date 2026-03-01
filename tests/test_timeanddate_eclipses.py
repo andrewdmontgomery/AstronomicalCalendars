@@ -51,6 +51,7 @@ def test_validate_timeanddate_eclipses_fixture_passes(tmp_path: Path) -> None:
     report = adapter.validate(2026)
 
     assert report.status == "passed"
+    assert report.canary_ok is True
     assert report.detail_url_ok is True
 
 
@@ -142,6 +143,7 @@ def test_validate_timeanddate_eclipses_fails_canary_when_timeline_is_missing(tmp
     report = adapter.validate(2026)
 
     assert report.status == "failed"
+    assert report.canary_ok is False
     assert report.reason == (
         "unable to derive eclipse identity: "
         "https://www.timeanddate.com/eclipse/lunar/2026-march-3"
@@ -167,6 +169,7 @@ def test_validate_timeanddate_eclipses_checks_all_configured_pages(tmp_path: Pat
     report = adapter.validate(2026)
 
     assert report.status == "failed"
+    assert report.canary_ok is False
     assert report.reason == (
         "unable to derive eclipse identity: "
         "https://www.timeanddate.com/eclipse/solar/2026-august-12"

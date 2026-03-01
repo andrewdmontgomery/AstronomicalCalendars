@@ -46,6 +46,7 @@ def test_validate_usno_seasons_fixture_passes(tmp_path: Path) -> None:
     report = adapter.validate(2026)
 
     assert report.status == "passed"
+    assert report.canary_ok is True
     assert report.detail_url_ok is True
     assert "required timing fields present" in report.checks
 
@@ -107,6 +108,7 @@ def test_validate_usno_seasons_accepts_generic_usno_labels(tmp_path: Path) -> No
     report = adapter.validate(2026)
 
     assert report.status == "passed"
+    assert report.canary_ok is True
 
 
 def test_normalize_usno_seasons_ignores_non_season_rows(tmp_path: Path) -> None:
@@ -143,4 +145,5 @@ def test_validate_usno_seasons_fails_canary_when_no_season_rows_exist(tmp_path: 
     report = adapter.validate(2026)
 
     assert report.status == "failed"
+    assert report.canary_ok is False
     assert report.reason == "season-marker data missing"

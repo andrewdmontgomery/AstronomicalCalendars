@@ -46,6 +46,7 @@ def test_validate_usno_moon_phases_fixture_passes(tmp_path: Path) -> None:
     report = adapter.validate(2026)
 
     assert report.status == "passed"
+    assert report.canary_ok is True
     assert report.detail_url_ok is True
     assert "required timing fields present" in report.checks
 
@@ -104,4 +105,5 @@ def test_validate_usno_moon_phases_fails_canary_when_required_field_is_missing(t
     report = adapter.validate(2026)
 
     assert report.status == "failed"
+    assert report.canary_ok is False
     assert report.reason == "missing required fields: time"

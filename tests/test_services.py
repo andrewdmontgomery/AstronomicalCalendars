@@ -21,6 +21,7 @@ class PassingAdapter:
             status="passed",
             validated_at="2026-03-01T00:00:00Z",
             checks=["reachable", "fields present"],
+            canary_ok=True,
             source_url="https://example.com/moon-phases",
         )
 
@@ -48,6 +49,7 @@ class FailingAdapter(PassingAdapter):
             validated_at="2026-03-01T00:00:00Z",
             checks=["reachable"],
             reason="required timing fields missing",
+            canary_ok=False,
             source_url="https://example.com/eclipses",
         )
 
@@ -67,6 +69,7 @@ def test_validate_source_family_writes_json_reports(tmp_path) -> None:
     assert exit_code == 0
     assert len(reports) == 1
     assert json_report.exists()
+    assert reports[0].canary_ok is True
 
 
 def test_validate_source_family_returns_non_zero_for_failed_validation(tmp_path) -> None:
@@ -80,6 +83,7 @@ def test_validate_source_family_returns_non_zero_for_failed_validation(tmp_path)
 
     assert exit_code == 1
     assert reports[0].status == "failed"
+    assert reports[0].canary_ok is False
 
 
 def test_fetch_source_family_stops_after_validation_failure() -> None:
@@ -95,6 +99,7 @@ def test_fetch_source_family_stops_after_validation_failure() -> None:
                     validated_at="2026-03-01T00:00:00Z",
                     checks=["reachable"],
                     reason="required timing fields missing",
+                    canary_ok=False,
                     source_url="https://example.com/eclipses",
                 )
             ],
@@ -112,6 +117,7 @@ def test_fetch_source_family_returns_raw_results_after_validation_passes() -> No
                 status="passed",
                 validated_at="2026-03-01T00:00:00Z",
                 checks=["reachable"],
+                canary_ok=True,
                 source_url="https://example.com/moon-phases",
             )
         ],
