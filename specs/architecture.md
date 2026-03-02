@@ -49,7 +49,7 @@ Responsibilities:
 - Compare new candidate occurrences against the accepted catalog.
 - Add new dates without modifying accepted existing dates.
 - Verify accepted dates against fresh candidate data.
-- Apply or stage corrections based on the configured correction mode.
+- Write accepted catalog updates directly for non-eclipse sources during manual runs.
 - For eclipses, generate human-review artifacts and leave accepted catalog records unchanged
   until review is complete.
 - Produce reconciliation reports for human review or automation workflows.
@@ -82,7 +82,7 @@ Responsibilities:
 4. For eclipses, a description-generation step produces candidate prose from the structured
    fact bundle, then writes review-ready candidate metadata.
 5. The reconciliation skill compares candidates with the accepted catalog and writes a
-   report plus any approved/staged catalog changes.
+   report plus direct accepted-record updates for non-eclipse sources.
 6. For eclipse changes, a Markdown review report is written to
    `data/catalog/reports/<run_timestamp>/review.<manifest>.md`.
 7. The builder skill filters accepted records using a manifest.

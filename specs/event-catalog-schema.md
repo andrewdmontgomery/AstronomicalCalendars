@@ -88,7 +88,7 @@ Each reconciliation run should emit a report describing:
 - new occurrences added
 - unchanged occurrences verified
 - changed occurrences staged for review
-- changed occurrences auto-applied
+- changed occurrences written directly for non-eclipse sources
 - suspected removals
 - unresolved conflicts
 
@@ -103,7 +103,8 @@ comparison for changed events.
 - Do not silently modify accepted existing occurrences.
 - For eclipse changes, generate review artifacts first and require an explicit accepted
   catalog update before publishing.
-- For manual runs in a git repository, stage approved corrections in the working tree.
+- For manual runs in a git repository, write approved non-eclipse corrections into the
+  working tree.
 - For automation runs, open a pull request when corrections are detected.
 - For source validation failures in automation runs, open an issue and stop.
 - Never auto-delete a missing event by default. Mark it as `suspected-removed` until it is
