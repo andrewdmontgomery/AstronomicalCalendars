@@ -45,16 +45,19 @@ Store the fact bundle under `CandidateRecord.metadata["description_generation"][
   "visibility": {
     "partial_regions": [
       "Europe",
-      "Western Asia",
-      "Northwest Africa",
-      "North America"
+      "North in Asia",
+      "North/West Africa",
+      "Much of North America",
+      "Pacific",
+      "Atlantic",
+      "Arctic"
     ],
     "path_countries": [
       "Greenland",
       "Iceland",
       "Spain"
     ],
-    "visibility_note": "Some locations see only a partial eclipse."
+    "visibility_note": "Local visibility varies by location."
   },
   "generation_inputs": {
     "facts_hash": "sha256:...",
