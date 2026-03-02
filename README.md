@@ -29,11 +29,17 @@ Planetary calendars are planned for phase 2.
 
 The pipeline validates upstream sources, fetches raw source data, normalizes candidate events, reconciles accepted catalog records, and builds published `.ics` calendar files.
 
+For eclipses, normalization will also extract a structured fact bundle that feeds
+description generation. Generated eclipse copy is reviewed in Markdown before any accepted
+catalog update, and the accepted catalog remains the only source for published calendar
+content.
+
 ## Repository Layout
 
 - [`calendars/`](calendars/): published subscriber-facing `.ics` files and calendar index
 - [`data/catalog/accepted/`](data/catalog/accepted/): accepted catalog records that feed calendar builds
 - [`data/catalog/reports/`](data/catalog/reports/): validation, reconciliation, and build reports
+- [`specs/eclipse-description-fact-bundle.md`](specs/eclipse-description-fact-bundle.md): eclipse-specific fact bundle and review contract
 - [`data/diagnostics/`](data/diagnostics/): source-boundary validation, fetch, and normalize diagnostics
 - [`config/calendars/`](config/calendars/): calendar manifest definitions
 - [`src/astrocal/`](src/astrocal/): Python runtime and adapters
@@ -45,6 +51,18 @@ make install
 .venv/bin/python -m astrocal validate astronomy --year 2026
 .venv/bin/python -m astrocal run --calendar astronomy-all --year 2026
 ```
+
+## Eclipse Review Workflow
+
+1. Run `astrocal reconcile --calendar astronomy-eclipses --year 2026` or the equivalent
+   `run` flow.
+2. Review `data/catalog/reports/<run_timestamp>/review.astronomy-eclipses.md`.
+3. If the facts are correct, accept or edit the generated eclipse title, summary, and
+   description in `data/catalog/accepted/astronomy/2026/eclipses.json`.
+4. If the facts are wrong, correct the accepted record content and mark the review outcome
+   accordingly.
+5. Rebuild the published calendar from accepted records with
+   `astrocal build --calendar astronomy-eclipses`.
 
 ## Maintainer Notes
 

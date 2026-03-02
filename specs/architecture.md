@@ -19,6 +19,8 @@ Responsibilities:
 - Persist raw responses for traceability.
 - Normalize raw data into candidate timed occurrence records defined in
   [`specs/normalized-event-schema.md`](../specs/normalized-event-schema.md).
+- For eclipses, extract a structured fact bundle from normalized source data and attach it
+  to candidate metadata for later description generation.
 - Include a `detail_url` for every normalized occurrence.
 - Emit both eclipse `full-duration` and `totality` occurrences when totality exists.
 - Mark the default publishable eclipse occurrence as `full-duration`.
@@ -48,6 +50,8 @@ Responsibilities:
 - Add new dates without modifying accepted existing dates.
 - Verify accepted dates against fresh candidate data.
 - Apply or stage corrections based on the configured correction mode.
+- For eclipses, generate human-review artifacts and leave accepted catalog records unchanged
+  until review is complete.
 - Produce reconciliation reports for human review or automation workflows.
 - Stop when source validation failed or unresolved conflicts remain.
 - Open a pull request in automation contexts when corrections are detected.
@@ -75,10 +79,14 @@ Responsibilities:
 1. A source skill validates its upstream sources.
 2. The source skill fetches upstream data and stores raw payloads.
 3. The source skill normalizes the raw payloads into candidate occurrence records.
-4. The reconciliation skill compares candidates with the accepted catalog and writes a
+4. For eclipses, a description-generation step produces candidate prose from the structured
+   fact bundle, then writes review-ready candidate metadata.
+5. The reconciliation skill compares candidates with the accepted catalog and writes a
    report plus any approved/staged catalog changes.
-5. The builder skill filters accepted records using a manifest.
-6. The builder skill writes one or more `.ics` files.
+6. For eclipse changes, a Markdown review report is written to
+   `data/catalog/reports/<run_timestamp>/review.<manifest>.md`.
+7. The builder skill filters accepted records using a manifest.
+8. The builder skill writes one or more `.ics` files from accepted records only.
 
 ## Shared Contracts
 
@@ -90,6 +98,8 @@ Responsibilities:
   [`specs/source-policy.md`](../specs/source-policy.md)
 - Accepted catalog schema:
   [`specs/event-catalog-schema.md`](../specs/event-catalog-schema.md)
+- Eclipse description fact bundle:
+  [`specs/eclipse-description-fact-bundle.md`](../specs/eclipse-description-fact-bundle.md)
 
 ## Default Calendar Set
 
