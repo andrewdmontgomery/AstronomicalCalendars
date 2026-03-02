@@ -82,10 +82,14 @@ def reconcile_command(args: argparse.Namespace) -> int:
         report_store=ReportStore(base_dir=args.report_dir) if args.report_dir else None,
     )
     report_dir = _report_dir_value(args.report_dir)
+    review_suffix = (
+        f" review_report={report.review_report_path}" if report.review_report_path else ""
+    )
     print(
         f"reconcile {manifest.name} year={args.year} report_dir={report_dir} "
         f"new={len(report.new_occurrences)} "
         f"changed={len(report.changed_occurrences)} removed={len(report.suspected_removals)}"
+        f"{review_suffix}"
     )
     return 1 if report.validation_failures else 0
 

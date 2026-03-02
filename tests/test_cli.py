@@ -182,3 +182,53 @@ def test_reconcile_command_returns_non_zero_on_validation_failure(capsys, mocker
 
     assert exit_code == 1
     assert "reconcile astronomy-all year=2026" in captured.out
+
+
+def test_reconcile_command_prints_review_report_path(capsys, mocker) -> None:
+    mocker.patch(
+        "astrocal.services.stub_service.reconcile_calendar",
+        return_value=(
+            ReconciliationReport(
+                calendar_name="astronomy-eclipses",
+                year=2026,
+                generated_at="2026-03-01T00:00:00Z",
+                review_report_path="data/catalog/reports/2026-03-01T00-00-00Z/review.astronomy-eclipses.md",
+            ),
+            [],
+        ),
+    )
+
+    exit_code = main(["reconcile", "--calendar", "astronomy-eclipses", "--year", "2026"])
+    captured = capsys.readouterr()
+
+    assert exit_code == 0
+    assert "review_report=data/catalog/reports/2026-03-01T00-00-00Z/review.astronomy-eclipses.md" in captured.out
+
+
+def test_run_command_stops_before_build_when_review_is_pending(capsys, mocker) -> None:
+    mocker.patch(
+        "astrocal.services.run_service.ASTRONOMY_ADAPTERS",
+        {"moon-phases": CliAdapter()},
+    )
+    mocker.patch(
+        "astrocal.services.run_service.reconcile_calendar",
+        return_value=(
+            ReconciliationReport(
+                calendar_name="astronomy-eclipses",
+                year=2026,
+                generated_at="2026-03-01T00:00:00Z",
+                review_report_path="data/catalog/reports/2026-03-01T00-00-00Z/review.astronomy-eclipses.md",
+            ),
+            [],
+        ),
+    )
+    build_mock = mocker.patch("astrocal.services.run_service.build_calendar")
+
+    exit_code = main(["run", "--calendar", "astronomy-eclipses", "--year", "2026"])
+    captured = capsys.readouterr()
+
+    assert exit_code == 0
+    assert "reconcile astronomy-eclipses year=2026" in captured.out
+    assert "review_report=data/catalog/reports/2026-03-01T00-00-00Z/review.astronomy-eclipses.md" in captured.out
+    assert "build astronomy-eclipses" not in captured.out
+    build_mock.assert_not_called()

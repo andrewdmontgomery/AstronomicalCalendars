@@ -60,12 +60,19 @@ def run_command(args: argparse.Namespace) -> int:
         report_store=report_store,
         run_timestamp=run_timestamp,
     )
+    review_suffix = (
+        f" review_report={reconcile_report.review_report_path}"
+        if reconcile_report.review_report_path
+        else ""
+    )
     print(
         f"reconcile {manifest.name} year={args.year} report_dir={report_dir} "
         f"new={len(reconcile_report.new_occurrences)} "
         f"changed={len(reconcile_report.changed_occurrences)} "
-        f"removed={len(reconcile_report.suspected_removals)}"
+        f"removed={len(reconcile_report.suspected_removals)}{review_suffix}"
     )
+    if reconcile_report.review_report_path:
+        return 0
 
     build_report, _ = build_calendar(
         manifest=manifest,
