@@ -142,6 +142,11 @@ def apply_generated_descriptions(
 def _candidate_content_hash(candidate: CandidateRecord) -> str:
     payload = candidate.to_dict()
     payload["content_hash"] = ""
+    metadata = payload.get("metadata", {})
+    if isinstance(metadata, dict):
+        provenance = metadata.get(DESCRIPTION_PROVENANCE_KEY)
+        if isinstance(provenance, dict):
+            provenance["generated_at"] = ""
     return sha256_text(json.dumps(payload, sort_keys=True))
 
 

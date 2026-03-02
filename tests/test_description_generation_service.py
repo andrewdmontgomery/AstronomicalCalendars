@@ -116,6 +116,28 @@ def test_apply_generated_descriptions_leaves_non_eclipse_candidates_unchanged() 
     assert "description_provenance" not in updated[0].metadata
 
 
+def test_apply_generated_descriptions_keeps_hash_stable_across_generated_timestamps() -> None:
+    first = build_eclipse_candidate()
+    second = build_eclipse_candidate()
+
+    updated_first = apply_generated_descriptions(
+        [first],
+        generator=FakeGenerator(),
+        generated_at="2026-03-01T12:00:00Z",
+    )[0]
+    updated_second = apply_generated_descriptions(
+        [second],
+        generator=FakeGenerator(),
+        generated_at="2026-03-02T12:00:00Z",
+    )[0]
+
+    assert updated_first.description == updated_second.description
+    assert updated_first.metadata["description_provenance"]["generated_at"] != (
+        updated_second.metadata["description_provenance"]["generated_at"]
+    )
+    assert updated_first.content_hash == updated_second.content_hash
+
+
 def build_candidate() -> CandidateRecord:
     return CandidateRecord(
         group_id="astronomy/moon-phase/2026-01-01/new-moon",
