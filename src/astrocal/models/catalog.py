@@ -5,6 +5,9 @@ from __future__ import annotations
 from dataclasses import asdict, dataclass
 from typing import Any
 
+DESCRIPTION_PROVENANCE_KEY = "description_provenance"
+DESCRIPTION_REVIEW_KEY = "description_review"
+
 
 @dataclass(slots=True)
 class AcceptedRecord:

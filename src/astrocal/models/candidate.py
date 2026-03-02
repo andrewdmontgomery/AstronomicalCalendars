@@ -5,6 +5,9 @@ from __future__ import annotations
 from dataclasses import asdict, dataclass, field
 from typing import Any
 
+DESCRIPTION_GENERATION_KEY = "description_generation"
+ECLIPSE_FACTS_SCHEMA_VERSION = "eclipse-facts-v1"
+
 
 @dataclass(slots=True)
 class ValidationResult:
