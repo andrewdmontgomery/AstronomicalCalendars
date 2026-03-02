@@ -78,7 +78,7 @@ def test_fetch_and_normalize_timeanddate_eclipses_fixture(tmp_path: Path) -> Non
     assert "March 2" not in {candidate.title for candidate in candidates}
     assert "Blood Moon" not in {candidate.title for candidate in candidates}
     assert any(
-        candidate.description.startswith("This entry covers the full duration")
+        candidate.description.startswith("This total")
         for candidate in candidates
         if candidate.variant == "full-duration"
     )

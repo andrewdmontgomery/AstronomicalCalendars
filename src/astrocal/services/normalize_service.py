@@ -9,6 +9,7 @@ from pathlib import Path
 from ..models import CandidateRecord, RawFetchResult
 from ..paths import PROJECT_ROOT
 from ..repositories import CandidateStore, DiagnosticStore
+from .description_generation_service import apply_generated_descriptions
 
 
 def normalize_source_family(
@@ -31,6 +32,10 @@ def normalize_source_family(
         raw_result = raw_results_by_name[name]
         try:
             candidates = adapter.normalize(year, raw_result)
+            candidates = apply_generated_descriptions(
+                candidates,
+                generated_at=raw_result.fetched_at,
+            )
             summary = _normalize_summary(
                 source_type=source_family,
                 year=year,
