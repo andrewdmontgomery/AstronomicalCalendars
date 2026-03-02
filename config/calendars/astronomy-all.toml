@@ -3,4 +3,5 @@ output = "calendars/astronomical-events.ics"
 calendar_name = "Astronomical Events"
 calendar_description = "Moon phases, equinoxes and solstices, and eclipses"
 source_types = ["astronomy"]
+source_names = ["moon-phases", "seasons", "eclipses"]
 variant_policy = "default"

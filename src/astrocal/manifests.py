@@ -28,6 +28,7 @@ def load_manifest(name: str) -> CalendarManifest:
         calendar_description=data["calendar_description"],
         variant_policy=data["variant_policy"],
         source_types=list(data.get("source_types", [])),
+        source_names=list(data.get("source_names", [])),
         event_types=list(data.get("event_types", [])),
         bodies=list(data.get("bodies", [])),
         tags=list(data.get("tags", [])),

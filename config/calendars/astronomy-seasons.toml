@@ -3,5 +3,6 @@ output = "calendars/equinoxes-and-solstices.ics"
 calendar_name = "Equinoxes and Solstices"
 calendar_description = "Exact astronomical timings for equinoxes and solstices"
 source_types = ["astronomy"]
+source_names = ["seasons"]
 event_types = ["season-marker"]
 variant_policy = "default"

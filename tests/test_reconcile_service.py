@@ -16,6 +16,7 @@ def build_manifest() -> CalendarManifest:
         calendar_description="Moon phases, equinoxes and solstices, and eclipses",
         variant_policy="default",
         source_types=["astronomy"],
+        source_names=["moon-phases", "seasons", "eclipses"],
         event_types=[],
         bodies=[],
         tags=[],
@@ -30,6 +31,7 @@ def build_eclipse_manifest() -> CalendarManifest:
         calendar_description="Solar and lunar eclipses with exact astronomical timing",
         variant_policy="default",
         source_types=["astronomy"],
+        source_names=["eclipses"],
         event_types=["eclipse"],
         bodies=[],
         tags=[],
@@ -231,6 +233,52 @@ def test_reconcile_eclipse_changes_write_review_report_without_updating_catalog(
     review_text = review_path.read_text(encoding="utf-8")
     assert "Generated eclipse description." in review_text
     assert "Greenland, Iceland, Spain" in review_text
+
+
+def test_reconcile_eclipse_manifest_does_not_touch_unrelated_sources(tmp_path: Path) -> None:
+    candidate_store = CandidateStore(base_dir=tmp_path / "normalized")
+    catalog_store = CatalogStore(base_dir=tmp_path / "accepted")
+    report_store = ReportStore(base_dir=tmp_path / "reports")
+    eclipse = build_candidate()
+    eclipse.group_id = "astronomy/eclipse/2026-08-12/total-sun"
+    eclipse.occurrence_id = "astronomy/eclipse/2026-08-12/total-sun/full-duration"
+    eclipse.body = "sun"
+    eclipse.event_type = "eclipse"
+    eclipse.variant = "full-duration"
+    eclipse.title = "Total Solar Eclipse"
+    eclipse.summary = "Total Solar Eclipse"
+    eclipse.description = "Generated eclipse description."
+    eclipse.content_hash = "sha256:eclipse"
+    candidate_store.save("astronomy", 2026, "eclipses", [eclipse])
+
+    moon_phase = build_candidate()
+    catalog_store.save(
+        "astronomy",
+        2026,
+        "moon-phases",
+        [
+            _accepted_from_candidate(
+                moon_phase,
+                revision=1,
+                status="active",
+                accepted_at="2026-03-01T12:00:00Z",
+                change_reason="Initial acceptance",
+            )
+        ],
+    )
+
+    reconcile_calendar(
+        manifest=build_eclipse_manifest(),
+        year=2026,
+        candidate_store=candidate_store,
+        catalog_store=catalog_store,
+        report_store=report_store,
+        run_timestamp="2026-03-02T12-00-00Z",
+    )
+
+    saved = catalog_store.load("astronomy", 2026, "moon-phases")
+    assert len(saved) == 1
+    assert saved[0].status == "active"
 
 
 def test_reconcile_writes_catalog_and_reports_without_staging(tmp_path: Path) -> None:

@@ -8,6 +8,7 @@ from datetime import datetime, timezone
 from ..adapters import ASTRONOMY_ADAPTERS
 from ..manifests import load_manifest
 from ..repositories import ReportStore
+from ..source_scope import select_manifest_adapters
 from .build_ics_service import build_calendar
 from .fetch_service import fetch_source_family
 from .normalize_service import normalize_source_family
@@ -19,6 +20,7 @@ from .validation_service import validate_source_family
 def run_command(args: argparse.Namespace) -> int:
     source_family = "astronomy"
     manifest = load_manifest(args.calendar)
+    selected_adapters = select_manifest_adapters(manifest, ASTRONOMY_ADAPTERS)
     run_timestamp = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H-%M-%SZ")
     report_dir = _report_dir_value(args.report_dir)
     report_store = ReportStore(base_dir=args.report_dir) if args.report_dir else ReportStore()
@@ -27,7 +29,7 @@ def run_command(args: argparse.Namespace) -> int:
     validate_exit, reports = validate_source_family(
         source_family,
         args.year,
-        adapters=ASTRONOMY_ADAPTERS,
+        adapters=selected_adapters,
         report_store=report_store,
         run_timestamp=run_timestamp,
         progress_callback=lambda source_name: print(f"validate {source_name} start year={args.year}"),
@@ -39,7 +41,7 @@ def run_command(args: argparse.Namespace) -> int:
     print(f"fetch {source_family} year={args.year}")
     raw_results = fetch_source_family(
         args.year,
-        adapters=ASTRONOMY_ADAPTERS,
+        adapters=selected_adapters,
         validation_reports=reports,
     )
     for result in raw_results:
@@ -49,7 +51,7 @@ def run_command(args: argparse.Namespace) -> int:
     normalized_results = normalize_source_family(
         source_family,
         args.year,
-        adapters=ASTRONOMY_ADAPTERS,
+        adapters=selected_adapters,
         raw_results=raw_results,
     )
     for source_name, candidates in normalized_results:

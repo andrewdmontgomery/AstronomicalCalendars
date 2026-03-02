@@ -10,6 +10,7 @@ from pathlib import Path
 from ..adapters import ASTRONOMY_ADAPTERS
 from ..models import AcceptedRecord, CalendarManifest, CandidateRecord, ReconciliationReport
 from ..repositories import CandidateStore, CatalogStore, ReportStore
+from ..source_scope import manifest_source_names
 from .review_report_service import render_review_report
 
 
@@ -132,7 +133,7 @@ def _load_relevant_candidates(
 ) -> dict[str, list[CandidateRecord]]:
     result: dict[str, list[CandidateRecord]] = {}
     if "astronomy" in manifest.source_types or not manifest.source_types:
-        for source_name in ASTRONOMY_ADAPTERS:
+        for source_name in manifest_source_names(manifest, list(ASTRONOMY_ADAPTERS)):
             result[source_name] = candidate_store.load("astronomy", year, source_name)
     return result
 
