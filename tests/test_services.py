@@ -119,6 +119,24 @@ def test_validate_source_family_returns_non_zero_for_failed_validation(tmp_path)
     assert '"reason": "required timing fields missing"' in diagnostic_summary.read_text(encoding="utf-8")
 
 
+def test_validate_source_family_calls_progress_callback_before_each_adapter() -> None:
+    seen: list[str] = []
+
+    exit_code, reports = validate_source_family(
+        "astronomy",
+        2026,
+        adapters={
+            "moon-phases": PassingAdapter(),
+            "eclipses": FailingAdapter(),
+        },
+        progress_callback=seen.append,
+    )
+
+    assert exit_code == 1
+    assert [report.source_name for report in reports] == ["moon-phases", "eclipses"]
+    assert seen == ["moon-phases", "eclipses"]
+
+
 def test_fetch_source_family_stops_after_validation_failure() -> None:
     with pytest.raises(RuntimeError, match="Refusing to fetch after validation failure"):
         fetch_source_family(

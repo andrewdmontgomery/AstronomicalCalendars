@@ -4,6 +4,7 @@ from __future__ import annotations
 
 from collections.abc import Mapping
 from datetime import datetime, timezone
+from typing import Callable
 
 from ..models import ValidationReport
 from ..repositories import DiagnosticStore, ReportStore
@@ -16,12 +17,15 @@ def validate_source_family(
     report_store: ReportStore | None = None,
     diagnostic_store: DiagnosticStore | None = None,
     run_timestamp: str | None = None,
+    progress_callback: Callable[[str], None] | None = None,
 ) -> tuple[int, list[ValidationReport]]:
     if source_family != "astronomy":
         raise ValueError(f"Unsupported source family: {source_family}")
 
     reports: list[ValidationReport] = []
     for adapter in adapters.values():
+        if progress_callback is not None:
+            progress_callback(adapter.source_name)
         report = adapter.validate(year)
         reports.append(report)
 

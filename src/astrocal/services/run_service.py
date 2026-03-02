@@ -30,6 +30,7 @@ def run_command(args: argparse.Namespace) -> int:
         adapters=ASTRONOMY_ADAPTERS,
         report_store=report_store,
         run_timestamp=run_timestamp,
+        progress_callback=lambda source_name: print(f"validate {source_name} start year={args.year}"),
     )
     _print_validation_reports(reports, args.year)
     if validate_exit:

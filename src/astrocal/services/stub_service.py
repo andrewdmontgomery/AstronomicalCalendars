@@ -25,6 +25,9 @@ def validate_command(args: argparse.Namespace) -> int:
             args.year,
             adapters=ASTRONOMY_ADAPTERS,
             report_store=report_store,
+            progress_callback=lambda source_name: print(
+                f"validate {source_name} start year={args.year}"
+            ),
         )
     _print_validation_reports(reports, args.year)
     return exit_code
@@ -38,6 +41,9 @@ def fetch_command(args: argparse.Namespace) -> int:
             args.year,
             adapters=ASTRONOMY_ADAPTERS,
             report_store=report_store,
+            progress_callback=lambda source_name: print(
+                f"validate {source_name} start year={args.year}"
+            ),
         )
     _print_validation_reports(reports, args.year)
     if exit_code:
@@ -57,6 +63,9 @@ def normalize_command(args: argparse.Namespace) -> int:
             args.year,
             adapters=ASTRONOMY_ADAPTERS,
             report_store=report_store,
+            progress_callback=lambda source_name: print(
+                f"validate {source_name} start year={args.year}"
+            ),
         )
     _print_validation_reports(reports, args.year)
     if exit_code:

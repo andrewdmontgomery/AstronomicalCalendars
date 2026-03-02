@@ -67,6 +67,7 @@ def test_run_command_executes_pipeline(capsys, mocker) -> None:
 
     assert exit_code == 0
     assert "validate astronomy year=2026" in captured.out
+    assert "validate moon-phases start year=2026" in captured.out
     assert "fetch astronomy year=2026" in captured.out
     assert "normalize astronomy year=2026" in captured.out
     assert "reconcile astronomy-all year=2026" in captured.out
