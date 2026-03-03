@@ -488,3 +488,43 @@ def test_approve_review_command_writes_accepted_revision(capsys, tmp_path) -> No
     assert "approved count=1" in captured.out
     saved_path = tmp_path / "accepted" / "astronomy" / "2026" / "eclipses.json"
     assert saved_path.exists()
+
+
+def test_approve_review_command_reports_expected_errors_without_traceback(capsys, tmp_path) -> None:
+    bundle = ReviewBundle(
+        calendar_name="astronomy-eclipses",
+        year=2026,
+        generated_at="2026-03-03T00-00-00Z",
+        entries=[
+            ReviewBundleEntry(
+                occurrence_id="astronomy/eclipse/2026-03-03/total-moon/full-duration",
+                group_id="astronomy/eclipse/2026-03-03/total-moon",
+                status="suspected-removed",
+                source_name="eclipses",
+                candidate_content_hash=None,
+                generated_content_hash="sha256:accepted",
+                allowed_actions=["review-removal"],
+                candidate=None,
+                accepted={"revision": 1, "content_hash": "sha256:accepted"},
+            )
+        ],
+    )
+    report_path = tmp_path / "review.astronomy-eclipses.json"
+    report_path.write_text(json.dumps(bundle.to_dict(), indent=2, sort_keys=True), encoding="utf-8")
+
+    exit_code = main(
+        [
+            "approve-review",
+            "--report",
+            str(report_path),
+            "--reviewer",
+            "tester",
+            "--occurrence-id",
+            "astronomy/eclipse/2026-03-03/total-moon/full-duration",
+        ]
+    )
+    captured = capsys.readouterr()
+
+    assert exit_code == 1
+    assert "suspected removal" in captured.err
+    assert "Traceback" not in captured.err
