@@ -70,6 +70,45 @@ make install
 5. Rebuild the published calendar from accepted records with
    `.venv/bin/python -m astrocal build --calendar astronomy-eclipses`.
 
+## Local MCP Server
+
+The repository includes a local stdio MCP server for the eclipse review workflow.
+It is repo-scoped, exposes tools only in v1, and resolves relative paths against
+the repository root.
+
+Install dependencies first:
+
+```bash
+make install
+```
+
+Start the server:
+
+```bash
+PYTHONPATH=src .venv/bin/python -m astrocal.mcp
+```
+
+Available tools:
+
+- `astrocal_list_pending_reviews`: list persisted review bundles that still need action
+- `astrocal_get_review_bundle`: load a persisted review bundle as structured JSON
+- `astrocal_get_review_markdown`: render a persisted review bundle in markdown form
+- `astrocal_reconcile_calendar`: reconcile a calendar and emit review artifacts when needed
+- `astrocal_build_calendar`: build the published `.ics` output from accepted records
+- `astrocal_run_calendar_pipeline`: run validate, fetch, normalize, reconcile, and build
+- `astrocal_approve_review`: promote reviewed content into the accepted catalog
+
+Expected eclipse review loop:
+
+1. Call `astrocal_reconcile_calendar` or `astrocal_run_calendar_pipeline`.
+2. Use `astrocal_list_pending_reviews` to discover persisted review bundles.
+3. Inspect the bundle with `astrocal_get_review_bundle` or `astrocal_get_review_markdown`.
+4. Approve reviewed content with `astrocal_approve_review`.
+5. Publish from accepted records with `astrocal_build_calendar`.
+
+Approval still flows only through the approval service; the MCP server does not
+permit direct accepted-catalog edits.
+
 ## Maintainer Notes
 
 Expected operator mistakes in `astrocal` should return a short `error: ...` message and
