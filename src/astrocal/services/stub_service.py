@@ -13,6 +13,7 @@ from ..repositories import ReportStore
 from ..services.build_ics_service import build_calendar
 from ..services.fetch_service import fetch_source_family
 from ..services.normalize_service import normalize_source_family
+from ..services.review_query_service import list_pending_reviews, load_review_bundle, render_review_bundle
 from ..services.reconcile_service import reconcile_calendar
 from ..services.validation_service import validate_source_family
 
@@ -101,6 +102,22 @@ def reconcile_command(args: argparse.Namespace) -> int:
         f"{review_suffix}"
     )
     return 1 if report.validation_failures else 0
+
+
+def list_pending_reviews_command(args: argparse.Namespace) -> int:
+    pending = list_pending_reviews(args.report_dir)
+    for review in pending:
+        print(
+            f"report={review.report_path} calendar={review.bundle.calendar_name} "
+            f"year={review.bundle.year} entries={len(review.bundle.entries)}"
+        )
+    return 0
+
+
+def show_review_command(args: argparse.Namespace) -> int:
+    bundle = load_review_bundle(args.report)
+    print(render_review_bundle(bundle, output_format=args.format))
+    return 0
 
 
 def build_command(args: argparse.Namespace) -> int:

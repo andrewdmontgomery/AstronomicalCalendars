@@ -9,8 +9,10 @@ from .services.run_service import run_command
 from .services.stub_service import (
     build_command,
     fetch_command,
+    list_pending_reviews_command,
     normalize_command,
     reconcile_command,
+    show_review_command,
     validate_command,
 )
 
@@ -35,6 +37,15 @@ def build_parser() -> argparse.ArgumentParser:
     reconcile_parser.add_argument("--year", type=int, required=True)
     reconcile_parser.add_argument("--report-dir", type=Path)
     reconcile_parser.set_defaults(handler=reconcile_command)
+
+    list_pending_reviews_parser = subparsers.add_parser("list-pending-reviews")
+    list_pending_reviews_parser.add_argument("--report-dir", type=Path)
+    list_pending_reviews_parser.set_defaults(handler=list_pending_reviews_command)
+
+    show_review_parser = subparsers.add_parser("show-review")
+    show_review_parser.add_argument("--report", type=Path, required=True)
+    show_review_parser.add_argument("--format", choices=["markdown", "json"], default="markdown")
+    show_review_parser.set_defaults(handler=show_review_command)
 
     build_parser = subparsers.add_parser("build")
     build_parser.add_argument("--calendar", required=True)

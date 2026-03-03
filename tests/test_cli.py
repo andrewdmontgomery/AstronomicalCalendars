@@ -1,7 +1,16 @@
 from __future__ import annotations
 
+import json
+
 from astrocal.cli import main
-from astrocal.models import BuildReport, RawFetchResult, ReconciliationReport, ValidationReport
+from astrocal.models import (
+    BuildReport,
+    RawFetchResult,
+    ReconciliationReport,
+    ReviewBundle,
+    ReviewBundleEntry,
+    ValidationReport,
+)
 
 
 def build_adapter(source_name: str) -> CliAdapter:
@@ -293,3 +302,95 @@ def test_run_command_for_eclipse_manifest_ignores_unrelated_source_validation(ca
     assert "validate moon-phases start year=2026" not in captured.out
     assert "validate moon-phases status=failed" not in captured.out
     build_mock.assert_not_called()
+
+
+def test_list_pending_reviews_command_prints_persisted_review_bundles(capsys, tmp_path) -> None:
+    bundle = ReviewBundle(
+        calendar_name="astronomy-eclipses",
+        year=2026,
+        generated_at="2026-03-03T00-00-00Z",
+        entries=[
+            ReviewBundleEntry(
+                occurrence_id="astronomy/eclipse/2026-08-12/total-sun/full-duration",
+                group_id="astronomy/eclipse/2026-08-12/total-sun",
+                status="new",
+                source_name="eclipses",
+                candidate_content_hash="sha256:candidate",
+                generated_content_hash="sha256:candidate",
+                allowed_actions=["approve-as-is"],
+                candidate={"title": "Total Solar Eclipse"},
+                accepted=None,
+            )
+        ],
+    )
+    report_path = tmp_path / "2026-03-03T00-00-00Z" / "review.astronomy-eclipses.json"
+    report_path.parent.mkdir(parents=True, exist_ok=True)
+    report_path.write_text(json.dumps(bundle.to_dict(), indent=2, sort_keys=True), encoding="utf-8")
+
+    exit_code = main(["list-pending-reviews", "--report-dir", str(tmp_path)])
+    captured = capsys.readouterr()
+
+    assert exit_code == 0
+    assert f"report={report_path}" in captured.out
+    assert "calendar=astronomy-eclipses year=2026 entries=1" in captured.out
+
+
+def test_show_review_command_supports_json_output(capsys, tmp_path) -> None:
+    bundle = ReviewBundle(
+        calendar_name="astronomy-eclipses",
+        year=2026,
+        generated_at="2026-03-03T00-00-00Z",
+        entries=[
+            ReviewBundleEntry(
+                occurrence_id="astronomy/eclipse/2026-08-12/total-sun/full-duration",
+                group_id="astronomy/eclipse/2026-08-12/total-sun",
+                status="new",
+                source_name="eclipses",
+                candidate_content_hash="sha256:candidate",
+                generated_content_hash="sha256:candidate",
+                allowed_actions=["approve-as-is", "approve-with-prose-edits"],
+                candidate={"title": "Total Solar Eclipse"},
+                accepted=None,
+            )
+        ],
+    )
+    report_path = tmp_path / "review.astronomy-eclipses.json"
+    report_path.write_text(json.dumps(bundle.to_dict(), indent=2, sort_keys=True), encoding="utf-8")
+
+    exit_code = main(["show-review", "--report", str(report_path), "--format", "json"])
+    captured = capsys.readouterr()
+
+    assert exit_code == 0
+    assert '"calendar_name": "astronomy-eclipses"' in captured.out
+    assert '"occurrence_id": "astronomy/eclipse/2026-08-12/total-sun/full-duration"' in captured.out
+
+
+def test_show_review_command_supports_markdown_output(capsys, tmp_path) -> None:
+    bundle = ReviewBundle(
+        calendar_name="astronomy-eclipses",
+        year=2026,
+        generated_at="2026-03-03T00-00-00Z",
+        entries=[
+            ReviewBundleEntry(
+                occurrence_id="astronomy/eclipse/2026-08-12/total-sun/full-duration",
+                group_id="astronomy/eclipse/2026-08-12/total-sun",
+                status="changed",
+                source_name="eclipses",
+                candidate_content_hash="sha256:candidate",
+                generated_content_hash="sha256:candidate",
+                allowed_actions=["approve-as-is", "approve-with-prose-edits"],
+                candidate={"title": "Total Solar Eclipse"},
+                accepted={"record": {"title": "Previous Eclipse Title"}},
+            )
+        ],
+    )
+    report_path = tmp_path / "review.astronomy-eclipses.json"
+    report_path.write_text(json.dumps(bundle.to_dict(), indent=2, sort_keys=True), encoding="utf-8")
+
+    exit_code = main(["show-review", "--report", str(report_path)])
+    captured = capsys.readouterr()
+
+    assert exit_code == 0
+    assert "Review bundle: astronomy-eclipses" in captured.out
+    assert "status=changed group_id=astronomy/eclipse/2026-08-12/total-sun" in captured.out
+    assert "title=Total Solar Eclipse" in captured.out
