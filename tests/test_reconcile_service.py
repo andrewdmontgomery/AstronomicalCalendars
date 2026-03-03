@@ -1,8 +1,9 @@
 from __future__ import annotations
 
+import json
 from pathlib import Path
 
-from astrocal.models import CalendarManifest
+from astrocal.models import CalendarManifest, ReviewBundle
 from astrocal.repositories import CandidateStore, CatalogStore, ReportStore
 from astrocal.services.reconcile_service import reconcile_calendar
 from tests.test_repositories import build_candidate
@@ -226,9 +227,22 @@ def test_reconcile_eclipse_changes_write_review_report_without_updating_catalog(
 
     assert report.new_occurrences == [eclipse.occurrence_id]
     assert report.review_report_path is not None
+    assert report.review_bundle_path is not None
     assert catalog_store.load("astronomy", 2026, "eclipses") == []
+    assert any(path.name == "review.astronomy-eclipses.json" for path in written_paths)
     assert any(path.name == "review.astronomy-eclipses.md" for path in written_paths)
     assert any(path.name == "reconcile.astronomy-eclipses.json" for path in written_paths)
+    review_bundle_path = next(path for path in written_paths if path.name == "review.astronomy-eclipses.json")
+    review_bundle = ReviewBundle.from_dict(json.loads(review_bundle_path.read_text(encoding="utf-8")))
+    assert review_bundle.calendar_name == "astronomy-eclipses"
+    assert review_bundle.entries[0].status == "new"
+    assert review_bundle.entries[0].allowed_actions == [
+        "approve-as-is",
+        "approve-with-prose-edits",
+        "approve-with-fact-corrections",
+    ]
+    assert review_bundle.entries[0].candidate is not None
+    assert review_bundle.entries[0].candidate["title"] == "Total Solar Eclipse"
     review_path = next(path for path in written_paths if path.name == "review.astronomy-eclipses.md")
     review_text = review_path.read_text(encoding="utf-8")
     assert "Generated eclipse description." in review_text

@@ -8,7 +8,14 @@ from datetime import datetime, timezone
 from pathlib import Path
 
 from ..adapters import ASTRONOMY_ADAPTERS
-from ..models import AcceptedRecord, CalendarManifest, CandidateRecord, ReconciliationReport
+from ..models import (
+    AcceptedRecord,
+    CalendarManifest,
+    CandidateRecord,
+    ReconciliationReport,
+    ReviewBundle,
+    ReviewBundleEntry,
+)
 from ..repositories import CandidateStore, CatalogStore, ReportStore
 from ..source_scope import manifest_source_names
 from .review_report_service import render_review_report
@@ -103,6 +110,19 @@ def reconcile_calendar(
 
     written_paths = list(catalog_paths)
     if eclipse_new_candidates or eclipse_changed_pairs or eclipse_suspected_removals:
+        review_bundle = _build_review_bundle(
+            manifest=manifest,
+            year=year,
+            new_candidates=eclipse_new_candidates,
+            changed_pairs=eclipse_changed_pairs,
+            suspected_removals=eclipse_suspected_removals,
+            generated_at=run_timestamp,
+        )
+        review_bundle_path = report_store.write_json_report(
+            run_timestamp,
+            f"review.{manifest.name}",
+            review_bundle.to_dict(),
+        )
         review_report = render_review_report(
             manifest=manifest,
             year=year,
@@ -116,6 +136,8 @@ def reconcile_calendar(
             review_report,
         )
         report.review_report_path = str(review_path)
+        report.review_bundle_path = str(review_bundle_path)
+        written_paths.append(review_bundle_path)
         written_paths.append(review_path)
 
     report_name = f"reconcile.{manifest.name}"
@@ -252,6 +274,81 @@ def _change_reason(current: AcceptedRecord, candidate: CandidateRecord) -> str:
     if not changed_fields:
         return "Content hash changed"
     return f"Updated {', '.join(changed_fields)}"
+
+
+def _build_review_bundle(
+    *,
+    manifest: CalendarManifest,
+    year: int,
+    new_candidates: list[CandidateRecord],
+    changed_pairs: list[tuple[AcceptedRecord, CandidateRecord]],
+    suspected_removals: list[AcceptedRecord],
+    generated_at: str,
+) -> ReviewBundle:
+    entries: list[ReviewBundleEntry] = []
+    for candidate in new_candidates:
+        entries.append(_review_entry_for_candidate(candidate, status="new"))
+    for accepted, candidate in changed_pairs:
+        entries.append(_review_entry_for_candidate(candidate, status="changed", accepted=accepted))
+    for accepted in suspected_removals:
+        entries.append(_review_entry_for_suspected_removal(accepted))
+    return ReviewBundle(
+        calendar_name=manifest.name,
+        year=year,
+        generated_at=generated_at,
+        entries=entries,
+    )
+
+
+def _review_entry_for_candidate(
+    candidate: CandidateRecord,
+    *,
+    status: str,
+    accepted: AcceptedRecord | None = None,
+) -> ReviewBundleEntry:
+    return ReviewBundleEntry(
+        occurrence_id=candidate.occurrence_id,
+        group_id=candidate.group_id,
+        status=status,
+        source_name="eclipses",
+        candidate_content_hash=candidate.content_hash,
+        generated_content_hash=candidate.content_hash,
+        allowed_actions=[
+            "approve-as-is",
+            "approve-with-prose-edits",
+            "approve-with-fact-corrections",
+        ],
+        candidate=candidate.to_dict(),
+        accepted=accepted.to_dict() if accepted is not None else None,
+    )
+
+
+def _review_entry_for_suspected_removal(accepted: AcceptedRecord) -> ReviewBundleEntry:
+    group_id = str(accepted.record.get("group_id", accepted.occurrence_id.rsplit("/", 1)[0]))
+    return ReviewBundleEntry(
+        occurrence_id=accepted.occurrence_id,
+        group_id=group_id,
+        status="suspected-removed",
+        source_name="eclipses",
+        candidate_content_hash=None,
+        generated_content_hash=_accepted_generated_content_hash(accepted),
+        allowed_actions=["review-removal"],
+        candidate=None,
+        accepted=accepted.to_dict(),
+    )
+
+
+def _accepted_generated_content_hash(accepted: AcceptedRecord) -> str | None:
+    metadata = accepted.record.get("metadata", {})
+    if not isinstance(metadata, dict):
+        return accepted.content_hash
+    provenance = metadata.get("description_provenance", {})
+    if not isinstance(provenance, dict):
+        return accepted.content_hash
+    generated_content_hash = provenance.get("generated_content_hash")
+    if isinstance(generated_content_hash, str) and generated_content_hash:
+        return generated_content_hash
+    return accepted.content_hash
 
 def _run_timestamp() -> str:
     return datetime.now(timezone.utc).strftime("%Y-%m-%dT%H-%M-%SZ")
