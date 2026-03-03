@@ -3,14 +3,18 @@
 from __future__ import annotations
 
 import argparse
+import sys
 from pathlib import Path
 
 from .services.run_service import run_command
 from .services.stub_service import (
+    approve_review_command,
     build_command,
     fetch_command,
+    list_pending_reviews_command,
     normalize_command,
     reconcile_command,
+    show_review_command,
     validate_command,
 )
 
@@ -35,6 +39,33 @@ def build_parser() -> argparse.ArgumentParser:
     reconcile_parser.add_argument("--year", type=int, required=True)
     reconcile_parser.add_argument("--report-dir", type=Path)
     reconcile_parser.set_defaults(handler=reconcile_command)
+
+    list_pending_reviews_parser = subparsers.add_parser("list-pending-reviews")
+    list_pending_reviews_parser.add_argument("--report-dir", type=Path)
+    list_pending_reviews_parser.add_argument("--catalog-dir", type=Path)
+    list_pending_reviews_parser.set_defaults(handler=list_pending_reviews_command)
+
+    show_review_parser = subparsers.add_parser("show-review")
+    show_review_parser.add_argument("--report", type=Path, required=True)
+    show_review_parser.add_argument("--format", choices=["markdown", "json"], default="markdown")
+    show_review_parser.set_defaults(handler=show_review_command)
+
+    approve_review_parser = subparsers.add_parser("approve-review")
+    approve_review_parser.add_argument("--report", type=Path, required=True)
+    approve_review_parser.add_argument("--reviewer", required=True)
+    approve_review_parser.add_argument("--occurrence-id", action="append", default=[])
+    approve_review_parser.add_argument("--group-id", action="append", default=[])
+    approve_review_parser.add_argument(
+        "--resolution",
+        choices=["accepted", "prose-edited", "facts-corrected"],
+        default="accepted",
+    )
+    approve_review_parser.add_argument("--note")
+    approve_review_parser.add_argument("--title")
+    approve_review_parser.add_argument("--summary")
+    approve_review_parser.add_argument("--description-file", type=Path)
+    approve_review_parser.add_argument("--catalog-dir", type=Path)
+    approve_review_parser.set_defaults(handler=approve_review_command)
 
     build_parser = subparsers.add_parser("build")
     build_parser.add_argument("--calendar", required=True)
@@ -61,4 +92,8 @@ def build_parser() -> argparse.ArgumentParser:
 def main(argv: list[str] | None = None) -> int:
     parser = build_parser()
     args = parser.parse_args(argv)
-    return int(args.handler(args))
+    try:
+        return int(args.handler(args))
+    except ValueError as exc:
+        print(f"error: {exc}", file=sys.stderr)
+        return 1

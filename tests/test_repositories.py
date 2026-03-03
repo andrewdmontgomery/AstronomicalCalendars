@@ -4,6 +4,8 @@ from astrocal.models import (
     AcceptedRecord,
     CandidateRecord,
     ReconciliationReport,
+    ReviewBundle,
+    ReviewBundleEntry,
     SourceReference,
     ValidationResult,
 )
@@ -132,11 +134,51 @@ def test_reconciliation_report_supports_review_artifacts() -> None:
         year=2026,
         generated_at="2026-03-01T00-00-00Z",
         review_report_path="data/catalog/reports/2026-03-01T00-00-00Z/review.astronomy-eclipses.md",
+        review_bundle_path="data/catalog/reports/2026-03-01T00-00-00Z/review.astronomy-eclipses.json",
     )
 
     payload = report.to_dict()
 
     assert payload["review_report_path"].endswith("review.astronomy-eclipses.md")
+    assert payload["review_bundle_path"].endswith("review.astronomy-eclipses.json")
+
+
+def test_review_bundle_round_trip() -> None:
+    bundle = ReviewBundle(
+        calendar_name="astronomy-eclipses",
+        year=2026,
+        generated_at="2026-03-01T00-00-00Z",
+        entries=[
+            ReviewBundleEntry(
+                occurrence_id="astronomy/eclipse/2026-08-12/total-sun/full-duration",
+                group_id="astronomy/eclipse/2026-08-12/total-sun",
+                status="new",
+                source_name="eclipses",
+                candidate_content_hash="sha256:candidate",
+                generated_content_hash="sha256:candidate",
+                allowed_actions=[
+                    "approve-as-is",
+                    "approve-with-prose-edits",
+                    "approve-with-fact-corrections",
+                ],
+                candidate={"title": "Total Solar Eclipse"},
+                accepted=None,
+            )
+        ],
+    )
+
+    payload = bundle.to_dict()
+    loaded = ReviewBundle.from_dict(payload)
+
+    assert loaded.calendar_name == "astronomy-eclipses"
+    assert len(loaded.entries) == 1
+    assert loaded.entries[0].allowed_actions == [
+        "approve-as-is",
+        "approve-with-prose-edits",
+        "approve-with-fact-corrections",
+    ]
+    assert loaded.entries[0].candidate is not None
+    assert loaded.entries[0].candidate["title"] == "Total Solar Eclipse"
 
 
 def test_sequence_store_round_trip(tmp_path) -> None:

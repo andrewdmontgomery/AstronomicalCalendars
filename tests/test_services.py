@@ -5,8 +5,9 @@ from pathlib import Path
 import pytest
 from icalendar import Calendar
 
-from astrocal.models import AcceptedRecord, CalendarManifest, RawFetchResult, ValidationReport
+from astrocal.models import CalendarManifest, RawFetchResult, ValidationReport
 from astrocal.repositories import CandidateStore, CatalogStore, DiagnosticStore, ReportStore, SequenceStore
+from astrocal.services.review_approval_service import approve_review
 from astrocal.services.build_ics_service import build_calendar
 from astrocal.services.fetch_service import fetch_source_family
 from astrocal.services.normalize_service import normalize_source_family
@@ -318,35 +319,18 @@ def test_eclipse_review_flow_requires_manual_acceptance_before_build(tmp_path) -
     )
 
     assert reconcile_report.review_report_path is not None
+    assert reconcile_report.review_bundle_path is not None
+    assert any(path.name == "review.astronomy-eclipses.json" for path in written_paths)
     assert any(path.name == "review.astronomy-eclipses.md" for path in written_paths)
     assert catalog_store.load("astronomy", 2026, "eclipses") == []
 
-    accepted_records = []
-    for candidate in candidates:
-        accepted_candidate = candidate.to_dict()
-        accepted_candidate["metadata"]["description_review"] = {
-            "status": "accepted",
-            "reviewed_at": "2026-03-02T13:00:00Z",
-            "reviewer": "tester",
-            "edited": False,
-            "resolution": "accepted",
-            "note": "Accepted generated copy.",
-        }
-        accepted_records.append(
-            AcceptedRecord(
-                occurrence_id=candidate.occurrence_id,
-                revision=1,
-                status="active",
-                accepted_at="2026-03-02T13:00:00Z",
-                superseded_at=None,
-                change_reason="Accepted after review",
-                content_hash=candidate.content_hash,
-                source_adapter=candidate.source_adapter,
-                detail_url=candidate.detail_url,
-                record=accepted_candidate,
-            )
-        )
-    catalog_store.save("astronomy", 2026, "eclipses", accepted_records)
+    approve_review(
+        report_path=Path(reconcile_report.review_bundle_path),
+        reviewer="tester",
+        group_ids=sorted({candidate.group_id for candidate in candidates}),
+        catalog_store=catalog_store,
+        reviewed_at="2026-03-02T13:00:00Z",
+    )
 
     build_report, _ = build_calendar(
         manifest=manifest,
