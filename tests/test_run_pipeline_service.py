@@ -64,6 +64,13 @@ class EclipsesAdapter:
         return [build_eclipse_candidate()]
 
 
+def mcp_test_adapters() -> dict[str, object]:
+    return {
+        "moon-phases": MoonPhasesAdapter(),
+        "eclipses": EclipsesAdapter(),
+    }
+
+
 def build_manifest(name: str, output_path: Path, source_name: str, event_type: str) -> CalendarManifest:
     return CalendarManifest(
         name=name,

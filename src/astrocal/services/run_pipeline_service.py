@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+import importlib
+import os
 from collections.abc import Mapping
 from datetime import datetime, timezone
 from pathlib import Path
@@ -32,7 +34,7 @@ def run_calendar_pipeline(
     run_timestamp: str | None = None,
 ) -> RunPipelineResult:
     source_family = "astronomy"
-    selected_adapters = select_manifest_adapters(manifest, adapters or ASTRONOMY_ADAPTERS)
+    selected_adapters = select_manifest_adapters(manifest, adapters or _default_adapters())
     run_timestamp = run_timestamp or _run_timestamp()
     report_store = report_store or ReportStore()
     diagnostic_store = diagnostic_store or DiagnosticStore()
@@ -168,3 +170,14 @@ def _unique_paths(values: list[str]) -> list[str]:
 
 def _run_timestamp() -> str:
     return datetime.now(timezone.utc).strftime("%Y-%m-%dT%H-%M-%SZ")
+
+
+def _default_adapters() -> Mapping[str, object]:
+    factory_spec = os.environ.get("ASTROCAL_ADAPTERS_FACTORY")
+    if not factory_spec:
+        return ASTRONOMY_ADAPTERS
+
+    module_name, function_name = factory_spec.split(":", 1)
+    module = importlib.import_module(module_name)
+    factory = getattr(module, function_name)
+    return factory()
