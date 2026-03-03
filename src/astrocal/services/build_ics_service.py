@@ -11,6 +11,7 @@ from ..adapters import ASTRONOMY_ADAPTERS
 from ..models import AcceptedRecord, BuildReport, CalendarManifest
 from ..paths import PROJECT_ROOT
 from ..repositories import CatalogStore, ReportStore, SequenceStore
+from ..source_scope import manifest_source_names
 
 
 def build_calendar(
@@ -98,7 +99,7 @@ def _load_relevant_records(
     if "astronomy" not in manifest.source_types and manifest.source_types:
         return records
 
-    for source_name in ASTRONOMY_ADAPTERS:
+    for source_name in manifest_source_names(manifest, list(ASTRONOMY_ADAPTERS)):
         for year in catalog_store.available_years("astronomy", source_name):
             records.extend(catalog_store.load("astronomy", year, source_name))
     return records

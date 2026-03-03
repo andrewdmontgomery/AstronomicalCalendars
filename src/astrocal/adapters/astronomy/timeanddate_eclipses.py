@@ -13,6 +13,8 @@ from bs4 import BeautifulSoup
 
 from ...hashing import sha256_text
 from ...models import (
+    DESCRIPTION_GENERATION_KEY,
+    ECLIPSE_FACTS_SCHEMA_VERSION,
     CandidateRecord,
     RawFetchResult,
     SourceReference,
@@ -248,6 +250,7 @@ def _parse_eclipse_html(html: str, url: str) -> dict:
 
     full_duration = _full_duration_for_heading(heading, stages)
     totality = _totality_for_heading(heading, stages)
+    visibility = _visibility_from_soup(soup, body)
     tags = ["eclipse", body, degree]
     return {
         "title": _base_title(degree, body),
@@ -258,6 +261,7 @@ def _parse_eclipse_html(html: str, url: str) -> dict:
         "detail_url": url,
         "full_duration": full_duration,
         "totality": totality,
+        "visibility": visibility,
     }
 
 
@@ -334,6 +338,7 @@ def _candidate_from_parsed(
 ) -> CandidateRecord:
     occurrence_id = f"{parsed['group_id']}/{variant}"
     title = _variant_title(parsed["title"], parsed["degree"], variant)
+    facts = _description_facts(parsed=parsed, raw_ref=raw_ref)
     candidate = CandidateRecord(
         group_id=parsed["group_id"],
         occurrence_id=occurrence_id,
@@ -361,11 +366,119 @@ def _candidate_from_parsed(
         accepted_revision=None,
         timing_source=SourceReference(name="timeanddate", url=parsed["detail_url"]),
         validation_sources=[],
-        metadata={},
+        metadata={
+            DESCRIPTION_GENERATION_KEY: {
+                "facts": facts,
+                "facts_hash": facts["generation_inputs"]["facts_hash"],
+            }
+        },
         raw_ref=raw_ref,
     )
     candidate.content_hash = _candidate_content_hash(candidate)
     return candidate
+
+
+def _description_facts(*, parsed: dict, raw_ref: str) -> dict:
+    facts = {
+        "schema_version": ECLIPSE_FACTS_SCHEMA_VERSION,
+        "source_type": "astronomy",
+        "event_type": "eclipse",
+        "occurrence_scope": "group",
+        "group_id": parsed["group_id"],
+        "detail_url": parsed["detail_url"],
+        "raw_ref": raw_ref,
+        "identity": {
+            "body": parsed["body"],
+            "degree": parsed["degree"],
+            "canonical_title": parsed["title"],
+        },
+        "timing": {
+            "full_duration": parsed["full_duration"],
+            "special_phase": _special_phase_from_parsed(parsed),
+        },
+        "visibility": parsed["visibility"],
+        "generation_inputs": {
+            "prompt_version": "eclipse-description-v1",
+        },
+    }
+    facts_hash = sha256_text(json.dumps(facts, sort_keys=True))
+    facts["generation_inputs"]["facts_hash"] = facts_hash
+    return facts
+
+
+def _special_phase_from_parsed(parsed: dict) -> dict | None:
+    if parsed["totality"] is None:
+        return None
+    kind = "annularity" if parsed["degree"] == "annular" else "totality"
+    return {
+        "kind": kind,
+        "start": parsed["totality"]["start"],
+        "end": parsed["totality"]["end"],
+    }
+
+
+def _visibility_from_soup(soup: BeautifulSoup, body: str) -> dict:
+    section = soup.find("section", id="eclipseloc")
+    if section is None:
+        return {
+            "partial_regions": [],
+            "path_countries": [],
+            "visibility_note": None,
+        }
+
+    partial_regions = _extract_partial_regions(section)
+    path_countries = _extract_path_countries(section, body)
+    visibility_note = _extract_visibility_note(section)
+    return {
+        "partial_regions": partial_regions,
+        "path_countries": path_countries,
+        "visibility_note": visibility_note,
+    }
+
+
+def _extract_partial_regions(section: BeautifulSoup) -> list[str]:
+    for paragraph in section.find_all("p"):
+        strong = paragraph.find("strong")
+        if strong is None:
+            continue
+        label = strong.get_text(" ", strip=True)
+        if "Regions seeing" not in label:
+            continue
+        text = paragraph.get_text(" ", strip=True)
+        if ":" not in text:
+            continue
+        _, regions_text = text.split(":", 1)
+        return [part.strip().rstrip(".") for part in regions_text.split(",") if part.strip()]
+    return []
+
+
+def _extract_path_countries(section: BeautifulSoup, body: str) -> list[str]:
+    if body != "sun":
+        return []
+    fieldset = section.find("fieldset", id="grp-entire")
+    if fieldset is None:
+        return []
+
+    countries: list[str] = []
+    seen: set[str] = set()
+    for item in fieldset.select("li a"):
+        parts = [part.strip() for part in item.get_text(" ", strip=True).split(",")]
+        if not parts:
+            continue
+        country = parts[-1]
+        if country in seen:
+            continue
+        seen.add(country)
+        countries.append(country)
+    return countries
+
+
+def _extract_visibility_note(section: BeautifulSoup) -> str | None:
+    for paragraph in section.find_all("p"):
+        text = paragraph.get_text(" ", strip=True)
+        if text.startswith("This eclipse is visible in "):
+            return "Local visibility varies by location."
+    return None
 
 
 def _candidate_content_hash(candidate: CandidateRecord) -> str:

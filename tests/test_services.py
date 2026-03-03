@@ -3,12 +3,16 @@ from __future__ import annotations
 from pathlib import Path
 
 import pytest
+from icalendar import Calendar
 
-from astrocal.models import RawFetchResult, ValidationReport
-from astrocal.repositories import CandidateStore, DiagnosticStore, ReportStore
+from astrocal.models import AcceptedRecord, CalendarManifest, RawFetchResult, ValidationReport
+from astrocal.repositories import CandidateStore, CatalogStore, DiagnosticStore, ReportStore, SequenceStore
+from astrocal.services.build_ics_service import build_calendar
 from astrocal.services.fetch_service import fetch_source_family
 from astrocal.services.normalize_service import normalize_source_family
+from astrocal.services.reconcile_service import reconcile_calendar
 from astrocal.services.validation_service import validate_source_family
+from tests.test_timeanddate_eclipses import build_adapter
 
 
 class PassingAdapter:
@@ -113,6 +117,24 @@ def test_validate_source_family_returns_non_zero_for_failed_validation(tmp_path)
     assert reports[0].canary_ok is False
     assert diagnostic_summary.exists()
     assert '"reason": "required timing fields missing"' in diagnostic_summary.read_text(encoding="utf-8")
+
+
+def test_validate_source_family_calls_progress_callback_before_each_adapter() -> None:
+    seen: list[str] = []
+
+    exit_code, reports = validate_source_family(
+        "astronomy",
+        2026,
+        adapters={
+            "moon-phases": PassingAdapter(),
+            "eclipses": FailingAdapter(),
+        },
+        progress_callback=seen.append,
+    )
+
+    assert exit_code == 1
+    assert [report.source_name for report in reports] == ["moon-phases", "eclipses"]
+    assert seen == ["moon-phases", "eclipses"]
 
 
 def test_fetch_source_family_stops_after_validation_failure() -> None:
@@ -257,6 +279,89 @@ def test_normalize_source_family_writes_failure_diagnostics(tmp_path) -> None:
     failure_text = failure_path.read_text(encoding="utf-8")
     assert '"failure_stage": "normalize"' in failure_text
     assert '"reason": "unexpected payload shape"' in failure_text
+
+
+def test_eclipse_review_flow_requires_manual_acceptance_before_build(tmp_path) -> None:
+    adapter = build_adapter(tmp_path)
+    candidate_store = CandidateStore(base_dir=tmp_path / "normalized")
+    catalog_store = CatalogStore(base_dir=tmp_path / "accepted")
+    report_store = ReportStore(base_dir=tmp_path / "reports")
+    sequence_store = SequenceStore(base_dir=tmp_path / "sequences")
+    manifest = CalendarManifest(
+        name="astronomy-eclipses",
+        output=str(tmp_path / "eclipses.ics"),
+        calendar_name="Eclipses",
+        calendar_description="Solar and lunar eclipses with exact astronomical timing",
+        variant_policy="default",
+        source_types=["astronomy"],
+        event_types=["eclipse"],
+    )
+
+    raw_result = adapter.fetch(2026)
+    normalized_results = normalize_source_family(
+        "astronomy",
+        2026,
+        adapters={"eclipses": adapter},
+        raw_results=[raw_result],
+        candidate_store=candidate_store,
+        diagnostic_store=DiagnosticStore(base_dir=tmp_path / "diagnostics"),
+    )
+    candidates = normalized_results[0][1]
+
+    reconcile_report, written_paths = reconcile_calendar(
+        manifest=manifest,
+        year=2026,
+        candidate_store=candidate_store,
+        catalog_store=catalog_store,
+        report_store=report_store,
+        run_timestamp="2026-03-02T12-00-00Z",
+    )
+
+    assert reconcile_report.review_report_path is not None
+    assert any(path.name == "review.astronomy-eclipses.md" for path in written_paths)
+    assert catalog_store.load("astronomy", 2026, "eclipses") == []
+
+    accepted_records = []
+    for candidate in candidates:
+        accepted_candidate = candidate.to_dict()
+        accepted_candidate["metadata"]["description_review"] = {
+            "status": "accepted",
+            "reviewed_at": "2026-03-02T13:00:00Z",
+            "reviewer": "tester",
+            "edited": False,
+            "resolution": "accepted",
+            "note": "Accepted generated copy.",
+        }
+        accepted_records.append(
+            AcceptedRecord(
+                occurrence_id=candidate.occurrence_id,
+                revision=1,
+                status="active",
+                accepted_at="2026-03-02T13:00:00Z",
+                superseded_at=None,
+                change_reason="Accepted after review",
+                content_hash=candidate.content_hash,
+                source_adapter=candidate.source_adapter,
+                detail_url=candidate.detail_url,
+                record=accepted_candidate,
+            )
+        )
+    catalog_store.save("astronomy", 2026, "eclipses", accepted_records)
+
+    build_report, _ = build_calendar(
+        manifest=manifest,
+        catalog_store=catalog_store,
+        sequence_store=sequence_store,
+        report_store=report_store,
+        run_timestamp="2026-03-02T13-30-00Z",
+    )
+
+    calendar = Calendar.from_ical(Path(build_report.output_path).read_bytes())
+    events = [component for component in calendar.walk() if component.name == "VEVENT"]
+
+    assert build_report.event_count == 3
+    assert len(events) == 3
+    assert any("At least part of the eclipse is visible across" in str(event["DESCRIPTION"]) for event in events)
 
 
 def test_normalize_source_family_writes_failure_diagnostics_when_candidate_save_fails(

@@ -154,6 +154,56 @@ def test_build_calendar_respects_variant_policy_and_sequence_changes(tmp_path) -
     assert int(second_events[0]["SEQUENCE"]) == 1
 
 
+def test_build_eclipse_manifest_ignores_unrelated_accepted_sources(tmp_path) -> None:
+    catalog_store = CatalogStore(base_dir=tmp_path / "accepted")
+    sequence_store = SequenceStore(base_dir=tmp_path / "sequences")
+    report_store = ReportStore(base_dir=tmp_path / "reports")
+    manifest = CalendarManifest(
+        name="astronomy-eclipses",
+        output=str(tmp_path / "eclipses.ics"),
+        calendar_name="Eclipses",
+        calendar_description="Solar and lunar eclipses with exact astronomical timing",
+        variant_policy="default",
+        source_types=["astronomy"],
+        source_names=["eclipses"],
+        event_types=["eclipse"],
+    )
+    catalog_store.save(
+        "astronomy",
+        2026,
+        "moon-phases",
+        [_accepted_record("moon-default", event_type="moon-phase", end=None, is_default=True)],
+    )
+    catalog_store.save(
+        "astronomy",
+        2026,
+        "eclipses",
+        [
+            _accepted_record(
+                "eclipse-default",
+                event_type="eclipse",
+                start="2026-03-03T09:33:00Z",
+                end="2026-03-03T13:54:00Z",
+                variant="default",
+                is_default=True,
+            ),
+        ],
+    )
+
+    report, _ = build_calendar(
+        manifest=manifest,
+        catalog_store=catalog_store,
+        sequence_store=sequence_store,
+        report_store=report_store,
+        run_timestamp="2026-03-01T12-00-00Z",
+    )
+
+    calendar = Calendar.from_ical(Path(report.output_path).read_bytes())
+    events = [component for component in calendar.walk() if component.name == "VEVENT"]
+
+    assert [str(event["UID"]) for event in events] == ["eclipse-default"]
+
+
 def test_build_calendar_resolves_relative_output_against_project_root(tmp_path, monkeypatch) -> None:
     catalog_store = CatalogStore(base_dir=tmp_path / "accepted")
     sequence_store = SequenceStore(base_dir=tmp_path / "sequences")

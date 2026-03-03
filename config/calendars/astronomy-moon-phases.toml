@@ -3,5 +3,6 @@ output = "calendars/moon-phases.ics"
 calendar_name = "Moon Phases"
 calendar_description = "Exact astronomical timings for the major moon phases"
 source_types = ["astronomy"]
+source_names = ["moon-phases"]
 event_types = ["moon-phase"]
 variant_policy = "default"

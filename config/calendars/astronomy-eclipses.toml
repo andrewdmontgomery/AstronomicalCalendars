@@ -3,5 +3,6 @@ output = "calendars/eclipses.ics"
 calendar_name = "Eclipses"
 calendar_description = "Solar and lunar eclipses with exact astronomical timing"
 source_types = ["astronomy"]
+source_names = ["eclipses"]
 event_types = ["eclipse"]
 variant_policy = "default"

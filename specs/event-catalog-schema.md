@@ -4,6 +4,10 @@ The accepted catalog is the source of truth for published calendar content. Sour
 emit candidates. Reconciliation decides whether those candidates become accepted active
 records.
 
+For eclipse descriptions, agent-generated candidate prose is review-stage material only.
+Published `.ics` output must continue to come from accepted catalog records after human
+review.
+
 ## Accepted Record
 
 ```json
@@ -52,6 +56,29 @@ records.
 
 - `record`
   - The accepted normalized event record.
+  - For reviewed eclipse records, store description generation provenance and review state
+    under `record.metadata`.
+
+## Eclipse Description Metadata
+
+Reviewed eclipse records may include:
+
+- `record.metadata.description_provenance`
+  - `facts_hash`
+  - `facts_schema_version`
+  - `generator`
+  - `generated_at`
+  - `prompt_version`
+- `record.metadata.description_review`
+  - `status`
+  - `reviewed_at`
+  - `reviewer`
+  - `edited`
+  - `resolution`
+  - `note`
+
+If accepted eclipse copy changes after review, write a new accepted revision rather than
+editing the active revision in place.
 
 ## Reconciliation Report
 
@@ -61,15 +88,23 @@ Each reconciliation run should emit a report describing:
 - new occurrences added
 - unchanged occurrences verified
 - changed occurrences staged for review
-- changed occurrences auto-applied
+- changed occurrences written directly for non-eclipse sources
 - suspected removals
 - unresolved conflicts
+
+Eclipse reconciliation should also emit a human-readable Markdown review report at
+`data/catalog/reports/<run_timestamp>/review.<manifest>.md` showing the generated
+description, key facts, source URL, raw snapshot reference, and accepted-vs-candidate
+comparison for changed events.
 
 ## Default Policy
 
 - Add new occurrences automatically.
 - Do not silently modify accepted existing occurrences.
-- For manual runs in a git repository, stage approved corrections in the working tree.
+- For eclipse changes, generate review artifacts first and require an explicit accepted
+  catalog update before publishing.
+- For manual runs in a git repository, write approved non-eclipse corrections into the
+  working tree.
 - For automation runs, open a pull request when corrections are detected.
 - For source validation failures in automation runs, open an issue and stop.
 - Never auto-delete a missing event by default. Mark it as `suspected-removed` until it is

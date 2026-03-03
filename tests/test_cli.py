@@ -4,6 +4,10 @@ from astrocal.cli import main
 from astrocal.models import BuildReport, RawFetchResult, ReconciliationReport, ValidationReport
 
 
+def build_adapter(source_name: str) -> CliAdapter:
+    return type(f"{source_name.title()}CliAdapter", (CliAdapter,), {"source_name": source_name})()
+
+
 class CliAdapter:
     source_name = "moon-phases"
     source_type = "astronomy"
@@ -32,10 +36,30 @@ class CliAdapter:
         return []
 
 
+class FailingCliAdapter(CliAdapter):
+    source_name = "moon-phases"
+
+    def validate(self, year: int) -> ValidationReport:
+        return ValidationReport(
+            source_name=self.source_name,
+            year=year,
+            status="failed",
+            validated_at="2026-03-01T00:00:00Z",
+            checks=["reachable"],
+            reason="upstream timeout",
+            canary_ok=False,
+            source_url="https://example.com/moon-phases",
+        )
+
+
 def test_run_command_executes_pipeline(capsys, mocker) -> None:
     mocker.patch(
         "astrocal.services.run_service.ASTRONOMY_ADAPTERS",
-        {"moon-phases": CliAdapter()},
+        {
+            "moon-phases": build_adapter("moon-phases"),
+            "seasons": build_adapter("seasons"),
+            "eclipses": build_adapter("eclipses"),
+        },
     )
     mocker.patch(
         "astrocal.services.run_service.reconcile_calendar",
@@ -67,6 +91,7 @@ def test_run_command_executes_pipeline(capsys, mocker) -> None:
 
     assert exit_code == 0
     assert "validate astronomy year=2026" in captured.out
+    assert "validate moon-phases start year=2026" in captured.out
     assert "fetch astronomy year=2026" in captured.out
     assert "normalize astronomy year=2026" in captured.out
     assert "reconcile astronomy-all year=2026" in captured.out
@@ -128,7 +153,11 @@ def test_validate_command_writes_reports_only_when_report_dir_is_requested(
 def test_run_command_uses_repo_report_store_by_default(capsys, mocker) -> None:
     mocker.patch(
         "astrocal.services.run_service.ASTRONOMY_ADAPTERS",
-        {"moon-phases": CliAdapter()},
+        {
+            "moon-phases": build_adapter("moon-phases"),
+            "seasons": build_adapter("seasons"),
+            "eclipses": build_adapter("eclipses"),
+        },
     )
     reconcile_mock = mocker.patch(
         "astrocal.services.run_service.reconcile_calendar",
@@ -182,3 +211,85 @@ def test_reconcile_command_returns_non_zero_on_validation_failure(capsys, mocker
 
     assert exit_code == 1
     assert "reconcile astronomy-all year=2026" in captured.out
+
+
+def test_reconcile_command_prints_review_report_path(capsys, mocker) -> None:
+    mocker.patch(
+        "astrocal.services.stub_service.reconcile_calendar",
+        return_value=(
+            ReconciliationReport(
+                calendar_name="astronomy-eclipses",
+                year=2026,
+                generated_at="2026-03-01T00:00:00Z",
+                review_report_path="data/catalog/reports/2026-03-01T00-00-00Z/review.astronomy-eclipses.md",
+            ),
+            [],
+        ),
+    )
+
+    exit_code = main(["reconcile", "--calendar", "astronomy-eclipses", "--year", "2026"])
+    captured = capsys.readouterr()
+
+    assert exit_code == 0
+    assert "review_report=data/catalog/reports/2026-03-01T00-00-00Z/review.astronomy-eclipses.md" in captured.out
+
+
+def test_run_command_stops_before_build_when_review_is_pending(capsys, mocker) -> None:
+    mocker.patch(
+        "astrocal.services.run_service.ASTRONOMY_ADAPTERS",
+        {"eclipses": build_adapter("eclipses")},
+    )
+    mocker.patch(
+        "astrocal.services.run_service.reconcile_calendar",
+        return_value=(
+            ReconciliationReport(
+                calendar_name="astronomy-eclipses",
+                year=2026,
+                generated_at="2026-03-01T00:00:00Z",
+                review_report_path="data/catalog/reports/2026-03-01T00-00-00Z/review.astronomy-eclipses.md",
+            ),
+            [],
+        ),
+    )
+    build_mock = mocker.patch("astrocal.services.run_service.build_calendar")
+
+    exit_code = main(["run", "--calendar", "astronomy-eclipses", "--year", "2026"])
+    captured = capsys.readouterr()
+
+    assert exit_code == 0
+    assert "reconcile astronomy-eclipses year=2026" in captured.out
+    assert "review_report=data/catalog/reports/2026-03-01T00-00-00Z/review.astronomy-eclipses.md" in captured.out
+    assert "build astronomy-eclipses" not in captured.out
+    build_mock.assert_not_called()
+
+
+def test_run_command_for_eclipse_manifest_ignores_unrelated_source_validation(capsys, mocker) -> None:
+    mocker.patch(
+        "astrocal.services.run_service.ASTRONOMY_ADAPTERS",
+        {
+            "moon-phases": FailingCliAdapter(),
+            "eclipses": build_adapter("eclipses"),
+        },
+    )
+    mocker.patch(
+        "astrocal.services.run_service.reconcile_calendar",
+        return_value=(
+            ReconciliationReport(
+                calendar_name="astronomy-eclipses",
+                year=2026,
+                generated_at="2026-03-01T00:00:00Z",
+                review_report_path="data/catalog/reports/2026-03-01T00-00-00Z/review.astronomy-eclipses.md",
+            ),
+            [],
+        ),
+    )
+    build_mock = mocker.patch("astrocal.services.run_service.build_calendar")
+
+    exit_code = main(["run", "--calendar", "astronomy-eclipses", "--year", "2026"])
+    captured = capsys.readouterr()
+
+    assert exit_code == 0
+    assert "validate eclipses start year=2026" in captured.out
+    assert "validate moon-phases start year=2026" not in captured.out
+    assert "validate moon-phases status=failed" not in captured.out
+    build_mock.assert_not_called()

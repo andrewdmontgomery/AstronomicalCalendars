@@ -78,7 +78,7 @@ def test_fetch_and_normalize_timeanddate_eclipses_fixture(tmp_path: Path) -> Non
     assert "March 2" not in {candidate.title for candidate in candidates}
     assert "Blood Moon" not in {candidate.title for candidate in candidates}
     assert any(
-        candidate.description.startswith("This entry covers the full duration")
+        candidate.description.startswith("This total")
         for candidate in candidates
         if candidate.variant == "full-duration"
     )
@@ -164,6 +164,69 @@ def test_normalize_diagnostics_include_eclipse_extraction_summary(tmp_path: Path
             "https://www.timeanddate.com/eclipse/lunar/2026-august-28",
         ],
     }
+
+
+def test_normalize_includes_structured_fact_bundle_for_eclipse_descriptions(tmp_path: Path) -> None:
+    adapter = build_adapter(tmp_path)
+
+    candidates = adapter.normalize(2026, adapter.fetch(2026))
+    by_occurrence = {candidate.occurrence_id: candidate for candidate in candidates}
+
+    solar_full = by_occurrence["astronomy/eclipse/2026-08-12/total-sun/full-duration"]
+    solar_totality = by_occurrence["astronomy/eclipse/2026-08-12/total-sun/totality"]
+    partial_lunar = by_occurrence["astronomy/eclipse/2026-08-28/partial-moon/full-duration"]
+
+    solar_facts = solar_full.metadata["description_generation"]["facts"]
+    assert solar_facts["schema_version"] == "eclipse-facts-v1"
+    assert solar_facts["identity"] == {
+        "body": "sun",
+        "degree": "total",
+        "canonical_title": "Total Solar Eclipse",
+    }
+    assert solar_facts["timing"]["full_duration"] == {
+        "start": "2026-08-12T15:34:15Z",
+        "end": "2026-08-12T19:57:57Z",
+    }
+    assert solar_facts["timing"]["special_phase"] == {
+        "kind": "totality",
+        "start": "2026-08-12T16:58:09Z",
+        "end": "2026-08-12T18:34:07Z",
+    }
+    assert solar_facts["visibility"]["partial_regions"] == [
+        "Europe",
+        "North in Asia",
+        "North/West Africa",
+        "Much of North America",
+        "Pacific",
+        "Atlantic",
+        "Arctic",
+    ]
+    assert solar_facts["visibility"]["path_countries"] == ["Greenland", "Iceland", "Spain"]
+    assert solar_facts["generation_inputs"]["facts_hash"].startswith("sha256:")
+
+    assert (
+        solar_totality.metadata["description_generation"]["facts"]["generation_inputs"]["facts_hash"]
+        == solar_facts["generation_inputs"]["facts_hash"]
+    )
+
+    lunar_facts = partial_lunar.metadata["description_generation"]["facts"]
+    assert lunar_facts["timing"]["full_duration"] == {
+        "start": "2026-08-28T01:23:58Z",
+        "end": "2026-08-28T07:01:47Z",
+    }
+    assert lunar_facts["timing"]["special_phase"] is None
+    assert lunar_facts["visibility"]["path_countries"] == []
+    assert lunar_facts["visibility"]["partial_regions"] == [
+        "Europe",
+        "West in Asia",
+        "Africa",
+        "North America",
+        "South America",
+        "Pacific",
+        "Atlantic",
+        "Indian Ocean",
+        "Antarctica",
+    ]
 
 
 def test_validate_timeanddate_eclipses_fails_canary_when_timeline_is_missing(tmp_path: Path) -> None:
