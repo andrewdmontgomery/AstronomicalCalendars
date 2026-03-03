@@ -14,7 +14,14 @@ from .catalog import (
     GENERATED_CONTENT_HASH_KEY,
 )
 from .manifest import CalendarManifest
-from .reports import BuildReport, RawFetchResult, ReconciliationReport, ValidationReport
+from .reports import (
+    BuildReport,
+    RawFetchResult,
+    ReconciliationReport,
+    RunPipelineResult,
+    SourceNormalizationSummary,
+    ValidationReport,
+)
 from .review import ReviewBundle, ReviewBundleEntry
 
 __all__ = [
@@ -29,9 +36,11 @@ __all__ = [
     "GENERATED_CONTENT_HASH_KEY",
     "RawFetchResult",
     "ReconciliationReport",
+    "RunPipelineResult",
     "ReviewBundle",
     "ReviewBundleEntry",
     "SourceReference",
+    "SourceNormalizationSummary",
     "ValidationReport",
     "ValidationResult",
 ]

@@ -62,3 +62,30 @@ class BuildReport:
 
     def to_dict(self) -> dict[str, Any]:
         return asdict(self)
+
+
+@dataclass(slots=True)
+class SourceNormalizationSummary:
+    source_name: str
+    candidate_count: int
+
+    def to_dict(self) -> dict[str, Any]:
+        return asdict(self)
+
+
+@dataclass(slots=True)
+class RunPipelineResult:
+    calendar_name: str
+    year: int
+    generated_at: str
+    report_dir: str
+    validation_reports: list[ValidationReport] = field(default_factory=list)
+    raw_results: list[RawFetchResult] = field(default_factory=list)
+    normalized_results: list[SourceNormalizationSummary] = field(default_factory=list)
+    reconciliation_report: ReconciliationReport | None = None
+    build_report: BuildReport | None = None
+    stopped_for_review: bool = False
+    written_paths: list[str] = field(default_factory=list)
+
+    def to_dict(self) -> dict[str, Any]:
+        return asdict(self)

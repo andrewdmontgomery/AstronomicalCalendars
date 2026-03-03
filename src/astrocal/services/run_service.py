@@ -1,68 +1,45 @@
-"""Top-level orchestration for the `run` command."""
+"""CLI presentation for the `run` command."""
 
 from __future__ import annotations
 
 import argparse
-from datetime import datetime, timezone
 
-from ..adapters import ASTRONOMY_ADAPTERS
 from ..manifests import load_manifest
 from ..repositories import ReportStore
-from ..source_scope import select_manifest_adapters
-from .build_ics_service import build_calendar
-from .fetch_service import fetch_source_family
-from .normalize_service import normalize_source_family
-from .reconcile_service import reconcile_calendar
+from .run_pipeline_service import run_calendar_pipeline
 from .stub_service import _print_validation_reports, _report_dir_value
-from .validation_service import validate_source_family
 
 
 def run_command(args: argparse.Namespace) -> int:
-    source_family = "astronomy"
     manifest = load_manifest(args.calendar)
-    selected_adapters = select_manifest_adapters(manifest, ASTRONOMY_ADAPTERS)
-    run_timestamp = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H-%M-%SZ")
-    report_dir = _report_dir_value(args.report_dir)
     report_store = ReportStore(base_dir=args.report_dir) if args.report_dir else ReportStore()
-
-    print(f"validate {source_family} year={args.year}")
-    validate_exit, reports = validate_source_family(
-        source_family,
-        args.year,
-        adapters=selected_adapters,
-        report_store=report_store,
-        run_timestamp=run_timestamp,
-        progress_callback=lambda source_name: print(f"validate {source_name} start year={args.year}"),
-    )
-    _print_validation_reports(reports, args.year)
-    if validate_exit:
-        return validate_exit
-
-    print(f"fetch {source_family} year={args.year}")
-    raw_results = fetch_source_family(
-        args.year,
-        adapters=selected_adapters,
-        validation_reports=reports,
-    )
-    for result in raw_results:
-        print(f"fetch {result.source_name} raw_ref={result.raw_ref} year={args.year}")
-
-    print(f"normalize {source_family} year={args.year}")
-    normalized_results = normalize_source_family(
-        source_family,
-        args.year,
-        adapters=selected_adapters,
-        raw_results=raw_results,
-    )
-    for source_name, candidates in normalized_results:
-        print(f"normalize {source_name} candidates={len(candidates)} year={args.year}")
-
-    reconcile_report, _ = reconcile_calendar(
+    result = run_calendar_pipeline(
         manifest=manifest,
         year=args.year,
         report_store=report_store,
-        run_timestamp=run_timestamp,
+        variant_policy=args.variant_policy or manifest.variant_policy,
     )
+    report_dir = _report_dir_value(args.report_dir)
+
+    print(f"validate astronomy year={args.year}")
+    for report in result.validation_reports:
+        print(f"validate {report.source_name} start year={args.year}")
+    _print_validation_reports(result.validation_reports, args.year)
+    if result.reconciliation_report is None:
+        return 1
+
+    print(f"fetch astronomy year={args.year}")
+    for raw_result in result.raw_results:
+        print(f"fetch {raw_result.source_name} raw_ref={raw_result.raw_ref} year={args.year}")
+
+    print(f"normalize astronomy year={args.year}")
+    for normalized_result in result.normalized_results:
+        print(
+            f"normalize {normalized_result.source_name} "
+            f"candidates={normalized_result.candidate_count} year={args.year}"
+        )
+
+    reconcile_report = result.reconciliation_report
     review_suffix = ""
     if reconcile_report.review_report_path:
         review_suffix += f" review_report={reconcile_report.review_report_path}"
@@ -74,15 +51,10 @@ def run_command(args: argparse.Namespace) -> int:
         f"changed={len(reconcile_report.changed_occurrences)} "
         f"removed={len(reconcile_report.suspected_removals)}{review_suffix}"
     )
-    if reconcile_report.review_report_path:
+    if result.stopped_for_review or result.build_report is None:
         return 0
 
-    build_report, _ = build_calendar(
-        manifest=manifest,
-        report_store=report_store,
-        variant_policy=args.variant_policy or manifest.variant_policy,
-        run_timestamp=run_timestamp,
-    )
+    build_report = result.build_report
     print(
         f"build {manifest.name} variant_policy={args.variant_policy or manifest.variant_policy} "
         f"report_dir={report_dir} events={build_report.event_count}"
