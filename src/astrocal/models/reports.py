@@ -41,6 +41,7 @@ class ReconciliationReport:
     year: int
     generated_at: str
     review_report_path: str | None = None
+    review_bundle_path: str | None = None
     new_occurrences: list[str] = field(default_factory=list)
     unchanged_occurrences: list[str] = field(default_factory=list)
     changed_occurrences: list[str] = field(default_factory=list)

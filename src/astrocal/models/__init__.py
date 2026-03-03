@@ -10,6 +10,7 @@ from .candidate import (
 from .catalog import AcceptedRecord, DESCRIPTION_PROVENANCE_KEY, DESCRIPTION_REVIEW_KEY
 from .manifest import CalendarManifest
 from .reports import BuildReport, RawFetchResult, ReconciliationReport, ValidationReport
+from .review import ReviewBundle, ReviewBundleEntry
 
 __all__ = [
     "AcceptedRecord",
@@ -22,6 +23,8 @@ __all__ = [
     "ECLIPSE_FACTS_SCHEMA_VERSION",
     "RawFetchResult",
     "ReconciliationReport",
+    "ReviewBundle",
+    "ReviewBundleEntry",
     "SourceReference",
     "ValidationReport",
     "ValidationResult",
