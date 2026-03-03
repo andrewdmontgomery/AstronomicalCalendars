@@ -9,10 +9,11 @@ from pathlib import Path
 
 from ..adapters import ASTRONOMY_ADAPTERS
 from ..manifests import load_manifest
-from ..repositories import ReportStore
+from ..repositories import CatalogStore, ReportStore
 from ..services.build_ics_service import build_calendar
 from ..services.fetch_service import fetch_source_family
 from ..services.normalize_service import normalize_source_family
+from ..services.review_approval_service import approve_review
 from ..services.review_query_service import list_pending_reviews, load_review_bundle, render_review_bundle
 from ..services.reconcile_service import reconcile_calendar
 from ..services.validation_service import validate_source_family
@@ -117,6 +118,29 @@ def list_pending_reviews_command(args: argparse.Namespace) -> int:
 def show_review_command(args: argparse.Namespace) -> int:
     bundle = load_review_bundle(args.report)
     print(render_review_bundle(bundle, output_format=args.format))
+    return 0
+
+
+def approve_review_command(args: argparse.Namespace) -> int:
+    description = None
+    if args.description_file is not None:
+        description = args.description_file.read_text(encoding="utf-8")
+    result = approve_review(
+        report_path=args.report,
+        reviewer=args.reviewer,
+        occurrence_ids=args.occurrence_id,
+        group_ids=args.group_id,
+        resolution=args.resolution,
+        note=args.note,
+        title=args.title,
+        summary=args.summary,
+        description=description,
+        catalog_store=CatalogStore(base_dir=args.catalog_dir) if args.catalog_dir else None,
+    )
+    print(
+        f"approved count={len(result.approved_records)} "
+        f"catalog_path={result.catalog_path}"
+    )
     return 0
 
 

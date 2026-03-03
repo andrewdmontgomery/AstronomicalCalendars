@@ -7,6 +7,7 @@ from typing import Any
 
 DESCRIPTION_PROVENANCE_KEY = "description_provenance"
 DESCRIPTION_REVIEW_KEY = "description_review"
+GENERATED_CONTENT_HASH_KEY = "generated_content_hash"
 
 
 @dataclass(slots=True)
