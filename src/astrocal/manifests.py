@@ -6,6 +6,7 @@ from pathlib import Path
 
 import tomllib
 
+from .errors import CliUserError
 from .models import CalendarManifest
 
 
@@ -16,7 +17,7 @@ MANIFEST_DIR = PROJECT_ROOT / "config" / "calendars"
 def load_manifest(name: str) -> CalendarManifest:
     manifest_path = MANIFEST_DIR / f"{name}.toml"
     if not manifest_path.exists():
-        raise FileNotFoundError(f"Unknown calendar manifest: {name}")
+        raise CliUserError(f"Unknown calendar manifest: {name}")
 
     with manifest_path.open("rb") as handle:
         data = tomllib.load(handle)

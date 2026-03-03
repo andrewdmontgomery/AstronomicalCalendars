@@ -6,6 +6,7 @@ import argparse
 import sys
 from pathlib import Path
 
+from .errors import CliUserError
 from .services.run_service import run_command
 from .services.stub_service import (
     approve_review_command,
@@ -94,6 +95,6 @@ def main(argv: list[str] | None = None) -> int:
     args = parser.parse_args(argv)
     try:
         return int(args.handler(args))
-    except ValueError as exc:
+    except CliUserError as exc:
         print(f"error: {exc}", file=sys.stderr)
         return 1

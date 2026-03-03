@@ -7,6 +7,7 @@ from dataclasses import dataclass
 from datetime import datetime, timezone
 from pathlib import Path
 
+from ..errors import CliUserError
 from ..hashing import sha256_text
 from ..models import (
     AcceptedRecord,
@@ -42,12 +43,12 @@ def approve_review(
     reviewed_at: str | None = None,
 ) -> ApprovalResult:
     if resolution not in REVIEW_RESOLUTIONS:
-        raise ValueError(f"Unsupported review resolution: {resolution}")
+        raise CliUserError(f"Unsupported review resolution: {resolution}")
 
     occurrence_ids = occurrence_ids or []
     group_ids = group_ids or []
     if not occurrence_ids and not group_ids:
-        raise ValueError("Specify at least one occurrence ID or group ID to approve")
+        raise CliUserError("Specify at least one occurrence ID or group ID to approve")
 
     bundle = load_review_bundle(report_path)
     selected_entries = [
@@ -56,12 +57,12 @@ def approve_review(
         if entry.occurrence_id in occurrence_ids or entry.group_id in group_ids
     ]
     if not selected_entries:
-        raise ValueError("No matching review entries found")
+        raise CliUserError("No matching review entries found")
 
     if any([title, summary, description]) and len(selected_entries) != 1:
-        raise ValueError("Prose overrides require exactly one selected review entry")
+        raise CliUserError("Prose overrides require exactly one selected review entry")
     if any([title, summary, description]) and group_ids:
-        raise ValueError("Group approval does not support per-entry prose overrides")
+        raise CliUserError("Group approval does not support per-entry prose overrides")
 
     reviewed_at = reviewed_at or _reviewed_at()
     catalog_store = catalog_store or CatalogStore()
@@ -72,16 +73,16 @@ def approve_review(
     for entry in selected_entries:
         if entry.candidate is None:
             if entry.status == "suspected-removed":
-                raise ValueError(
+                raise CliUserError(
                     f"Review entry {entry.occurrence_id} is a suspected removal and "
                     "cannot be approved with approve-review"
                 )
-            raise ValueError(
+            raise CliUserError(
                 f"Review entry {entry.occurrence_id} has no candidate payload and "
                 "cannot be approved with approve-review"
             )
         if entry.source_name != source_name:
-            raise ValueError("Approving multiple source files in one command is not supported")
+            raise CliUserError("Approving multiple source files in one command is not supported")
 
         current = _current_active_record(accepted_records, entry.occurrence_id)
         _validate_review_entry_is_current(entry, current)
@@ -164,15 +165,15 @@ def _validate_review_entry_is_current(
 ) -> None:
     if entry.accepted is None:
         if current is not None:
-            raise ValueError(f"Review entry {entry.occurrence_id} is stale")
+            raise CliUserError(f"Review entry {entry.occurrence_id} is stale")
         return
 
     if current is None:
-        raise ValueError(f"Review entry {entry.occurrence_id} is stale")
+        raise CliUserError(f"Review entry {entry.occurrence_id} is stale")
     accepted_revision = entry.accepted.get("revision")
     accepted_hash = entry.accepted.get("content_hash")
     if current.revision != accepted_revision or current.content_hash != accepted_hash:
-        raise ValueError(f"Review entry {entry.occurrence_id} is stale")
+        raise CliUserError(f"Review entry {entry.occurrence_id} is stale")
 
 
 def _accepted_content_hash(payload: dict[str, object]) -> str:

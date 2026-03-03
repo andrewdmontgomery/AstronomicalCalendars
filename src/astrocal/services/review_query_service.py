@@ -6,6 +6,7 @@ import json
 from dataclasses import dataclass
 from pathlib import Path
 
+from ..errors import CliUserError
 from ..jsonio import read_json
 from ..models import (
     AcceptedRecord,
@@ -63,8 +64,28 @@ def list_pending_reviews(
 
 def load_review_bundle(report_path: Path) -> ReviewBundle:
     resolved_path = _resolve_path(report_path)
-    payload = read_json(resolved_path)
-    return ReviewBundle.from_dict(payload)
+    try:
+        payload = read_json(resolved_path)
+    except FileNotFoundError as exc:
+        raise CliUserError(f"Review bundle not found: {resolved_path}") from exc
+    except json.JSONDecodeError as exc:
+        raise CliUserError(f"Review bundle is not valid JSON: {resolved_path}") from exc
+    except (IsADirectoryError, PermissionError) as exc:
+        raise CliUserError(f"Review bundle is not readable: {resolved_path}") from exc
+
+    try:
+        if not isinstance(payload, dict):
+            raise TypeError("top-level JSON value must be an object")
+        return ReviewBundle.from_dict(payload)
+    except KeyError as exc:
+        missing_field = exc.args[0]
+        raise CliUserError(
+            f"Review bundle is malformed: missing {missing_field!r} in {resolved_path}"
+        ) from exc
+    except (TypeError, ValueError) as exc:
+        raise CliUserError(
+            f"Review bundle is malformed: {exc} in {resolved_path}"
+        ) from exc
 
 
 def render_review_bundle(bundle: ReviewBundle, *, output_format: str) -> str:
