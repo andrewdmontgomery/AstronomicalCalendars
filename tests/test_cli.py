@@ -4,6 +4,7 @@ import json
 
 from astrocal.cli import main
 from astrocal.models import (
+    AcceptedRecord,
     BuildReport,
     RawFetchResult,
     ReconciliationReport,
@@ -11,6 +12,7 @@ from astrocal.models import (
     ReviewBundleEntry,
     ValidationReport,
 )
+from astrocal.repositories import CatalogStore
 
 
 def build_adapter(source_name: str) -> CliAdapter:
@@ -338,6 +340,122 @@ def test_list_pending_reviews_command_prints_persisted_review_bundles(capsys, tm
     assert exit_code == 0
     assert f"report={report_path}" in captured.out
     assert "calendar=astronomy-eclipses year=2026 entries=1" in captured.out
+
+
+def test_list_pending_reviews_command_omits_already_approved_bundle(capsys, tmp_path) -> None:
+    candidate = {
+        "accepted_revision": None,
+        "all_day": False,
+        "body": "sun",
+        "candidate_status": "new",
+        "categories": ["Astronomy", "Eclipse"],
+        "content_hash": "sha256:candidate",
+        "description": "Generated eclipse description.",
+        "detail_url": "https://www.timeanddate.com/eclipse/solar/2026-august-12",
+        "end": "2026-08-12T19:57:57Z",
+        "event_type": "eclipse",
+        "first_seen_at": "2026-03-03T00:00:00Z",
+        "group_id": "astronomy/eclipse/2026-08-12/total-sun",
+        "is_default": True,
+        "last_seen_at": "2026-03-03T00:00:00Z",
+        "metadata": {
+            "description_provenance": {
+                "facts_hash": "sha256:facts",
+                "facts_schema_version": "eclipse-facts-v1",
+                "generator": "test-generator",
+                "generated_at": "2026-03-03T00:00:00Z",
+                "prompt_version": "eclipse-description-v1",
+                "generated_content_hash": "sha256:candidate",
+            },
+            "description_review": {
+                "status": "accepted",
+                "reviewed_at": "2026-03-03T01:00:00Z",
+                "reviewer": "tester",
+                "edited": False,
+                "resolution": "accepted",
+                "note": None,
+            },
+        },
+        "occurrence_id": "astronomy/eclipse/2026-08-12/total-sun/full-duration",
+        "raw_ref": "data/raw/astronomy/2026/timeanddate-eclipses/eclipse-2.html",
+        "source_adapter": "timeanddate-eclipse-v1",
+        "source_type": "astronomy",
+        "source_validation": {
+            "checks": ["reachable"],
+            "detail_url_ok": True,
+            "reason": None,
+            "status": "passed",
+            "validated_at": "2026-03-03T00:00:00Z",
+        },
+        "start": "2026-08-12T15:34:15Z",
+        "summary": "Total Solar Eclipse",
+        "tags": ["eclipse", "sun", "total"],
+        "timezone": "UTC",
+        "timing_source": {
+            "name": "timeanddate",
+            "url": "https://www.timeanddate.com/eclipse/solar/2026-august-12",
+        },
+        "title": "Total Solar Eclipse",
+        "validation_sources": [],
+        "variant": "full-duration",
+    }
+    bundle = ReviewBundle(
+        calendar_name="astronomy-eclipses",
+        year=2026,
+        generated_at="2026-03-03T00-00-00Z",
+        entries=[
+            ReviewBundleEntry(
+                occurrence_id="astronomy/eclipse/2026-08-12/total-sun/full-duration",
+                group_id="astronomy/eclipse/2026-08-12/total-sun",
+                status="new",
+                source_name="eclipses",
+                candidate_content_hash="sha256:candidate",
+                generated_content_hash="sha256:candidate",
+                allowed_actions=["approve-as-is"],
+                candidate=candidate,
+                accepted=None,
+            )
+        ],
+    )
+    report_path = tmp_path / "2026-03-03T00-00-00Z" / "review.astronomy-eclipses.json"
+    report_path.parent.mkdir(parents=True, exist_ok=True)
+    report_path.write_text(json.dumps(bundle.to_dict(), indent=2, sort_keys=True), encoding="utf-8")
+
+    accepted_dir = tmp_path / "accepted"
+    accepted_store = CatalogStore(base_dir=accepted_dir)
+    accepted_store.save(
+        "astronomy",
+        2026,
+        "eclipses",
+        [
+            AcceptedRecord(
+                occurrence_id="astronomy/eclipse/2026-08-12/total-sun/full-duration",
+                revision=1,
+                status="active",
+                accepted_at="2026-03-03T01:00:00Z",
+                superseded_at=None,
+                change_reason="Accepted after review",
+                content_hash="sha256:approved",
+                source_adapter="timeanddate-eclipse-v1",
+                detail_url="https://www.timeanddate.com/eclipse/solar/2026-august-12",
+                record=candidate | {"accepted_revision": 1, "candidate_status": "accepted", "content_hash": "sha256:approved"},
+            )
+        ],
+    )
+
+    exit_code = main(
+        [
+            "list-pending-reviews",
+            "--report-dir",
+            str(tmp_path),
+            "--catalog-dir",
+            str(accepted_dir),
+        ]
+    )
+    captured = capsys.readouterr()
+
+    assert exit_code == 0
+    assert captured.out == ""
 
 
 def test_show_review_command_supports_json_output(capsys, tmp_path) -> None:

@@ -108,7 +108,10 @@ def reconcile_command(args: argparse.Namespace) -> int:
 
 
 def list_pending_reviews_command(args: argparse.Namespace) -> int:
-    pending = list_pending_reviews(args.report_dir)
+    pending = list_pending_reviews(
+        args.report_dir,
+        catalog_store=CatalogStore(base_dir=args.catalog_dir) if args.catalog_dir else None,
+    )
     for review in pending:
         print(
             f"report={review.report_path} calendar={review.bundle.calendar_name} "

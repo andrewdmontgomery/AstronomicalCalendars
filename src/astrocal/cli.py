@@ -42,6 +42,7 @@ def build_parser() -> argparse.ArgumentParser:
 
     list_pending_reviews_parser = subparsers.add_parser("list-pending-reviews")
     list_pending_reviews_parser.add_argument("--report-dir", type=Path)
+    list_pending_reviews_parser.add_argument("--catalog-dir", type=Path)
     list_pending_reviews_parser.set_defaults(handler=list_pending_reviews_command)
 
     show_review_parser = subparsers.add_parser("show-review")
