@@ -1,8 +1,4 @@
-PyYAML==6.0.2
-requests==2.32.4
-icalendar==6.1.1
-python-dateutil==2.9.0.post0
+-r requirements.txt
+
 pytest==8.3.5
 pytest-mock==3.14.0
-beautifulsoup4==4.13.3
-lxml==5.3.1

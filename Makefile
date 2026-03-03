@@ -21,7 +21,7 @@ $(VENV)/bin/activate:
 
 venv: $(VENV)/bin/activate
 
-install: $(VENV)/bin/activate requirements-dev.txt
+install: $(VENV)/bin/activate requirements.txt requirements-dev.txt
 	$(VENV_PIP) install -r requirements-dev.txt
 	printf "%s\n" "$(CURDIR)/src" > "$(PTH_FILE)"
 
