@@ -231,6 +231,7 @@ def test_reconcile_command_prints_review_report_path(capsys, mocker) -> None:
                 year=2026,
                 generated_at="2026-03-01T00:00:00Z",
                 review_report_path="data/catalog/reports/2026-03-01T00-00-00Z/review.astronomy-eclipses.md",
+                review_bundle_path="data/catalog/reports/2026-03-01T00-00-00Z/review.astronomy-eclipses.json",
             ),
             [],
         ),
@@ -241,6 +242,7 @@ def test_reconcile_command_prints_review_report_path(capsys, mocker) -> None:
 
     assert exit_code == 0
     assert "review_report=data/catalog/reports/2026-03-01T00-00-00Z/review.astronomy-eclipses.md" in captured.out
+    assert "review_bundle=data/catalog/reports/2026-03-01T00-00-00Z/review.astronomy-eclipses.json" in captured.out
 
 
 def test_run_command_stops_before_build_when_review_is_pending(capsys, mocker) -> None:
@@ -256,6 +258,7 @@ def test_run_command_stops_before_build_when_review_is_pending(capsys, mocker) -
                 year=2026,
                 generated_at="2026-03-01T00:00:00Z",
                 review_report_path="data/catalog/reports/2026-03-01T00-00-00Z/review.astronomy-eclipses.md",
+                review_bundle_path="data/catalog/reports/2026-03-01T00-00-00Z/review.astronomy-eclipses.json",
             ),
             [],
         ),
@@ -268,6 +271,7 @@ def test_run_command_stops_before_build_when_review_is_pending(capsys, mocker) -
     assert exit_code == 0
     assert "reconcile astronomy-eclipses year=2026" in captured.out
     assert "review_report=data/catalog/reports/2026-03-01T00-00-00Z/review.astronomy-eclipses.md" in captured.out
+    assert "review_bundle=data/catalog/reports/2026-03-01T00-00-00Z/review.astronomy-eclipses.json" in captured.out
     assert "build astronomy-eclipses" not in captured.out
     build_mock.assert_not_called()
 
@@ -288,6 +292,7 @@ def test_run_command_for_eclipse_manifest_ignores_unrelated_source_validation(ca
                 year=2026,
                 generated_at="2026-03-01T00:00:00Z",
                 review_report_path="data/catalog/reports/2026-03-01T00-00-00Z/review.astronomy-eclipses.md",
+                review_bundle_path="data/catalog/reports/2026-03-01T00-00-00Z/review.astronomy-eclipses.json",
             ),
             [],
         ),

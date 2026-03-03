@@ -295,6 +295,84 @@ def test_reconcile_eclipse_manifest_does_not_touch_unrelated_sources(tmp_path: P
     assert saved[0].status == "active"
 
 
+def test_reconcile_treats_approved_prose_edit_as_unchanged(tmp_path: Path) -> None:
+    candidate_store = CandidateStore(base_dir=tmp_path / "normalized")
+    catalog_store = CatalogStore(base_dir=tmp_path / "accepted")
+    report_store = ReportStore(base_dir=tmp_path / "reports")
+    eclipse = build_candidate()
+    eclipse.group_id = "astronomy/eclipse/2026-08-12/total-sun"
+    eclipse.occurrence_id = "astronomy/eclipse/2026-08-12/total-sun/full-duration"
+    eclipse.body = "sun"
+    eclipse.event_type = "eclipse"
+    eclipse.variant = "full-duration"
+    eclipse.title = "Total Solar Eclipse"
+    eclipse.summary = "Total Solar Eclipse"
+    eclipse.description = "Generated eclipse description."
+    eclipse.start = "2026-08-12T15:34:15Z"
+    eclipse.end = "2026-08-12T19:57:57Z"
+    eclipse.detail_url = "https://www.timeanddate.com/eclipse/solar/2026-august-12"
+    eclipse.content_hash = "sha256:generated"
+    eclipse.metadata = {
+        "description_provenance": {
+            "facts_hash": "sha256:facts",
+            "facts_schema_version": "eclipse-facts-v1",
+            "generator": "test-generator",
+            "generated_at": "2026-03-02T00:00:00Z",
+            "prompt_version": "eclipse-description-v1",
+        }
+    }
+    candidate_store.save("astronomy", 2026, "eclipses", [eclipse])
+
+    accepted = _accepted_from_candidate(
+        eclipse,
+        revision=1,
+        status="active",
+        accepted_at="2026-03-02T12:00:00Z",
+        change_reason="Accepted after review",
+    )
+    accepted.record["title"] = "Edited Eclipse Title"
+    accepted.record["summary"] = "Edited Eclipse Summary"
+    accepted.record["description"] = "Edited eclipse description."
+    accepted.record["content_hash"] = "sha256:edited"
+    accepted.content_hash = "sha256:edited"
+    accepted.record["accepted_revision"] = 1
+    accepted.record["candidate_status"] = "accepted"
+    accepted.record["metadata"]["description_provenance"] = {
+        "facts_hash": "sha256:facts",
+        "facts_schema_version": "eclipse-facts-v1",
+        "generator": "test-generator",
+        "generated_at": "2026-03-02T00:00:00Z",
+        "prompt_version": "eclipse-description-v1",
+        "generated_content_hash": "sha256:generated",
+    }
+    accepted.record["metadata"]["description_review"] = {
+        "status": "accepted",
+        "reviewed_at": "2026-03-02T13:00:00Z",
+        "reviewer": "tester",
+        "edited": True,
+        "resolution": "prose-edited",
+        "note": "Tightened wording.",
+    }
+    catalog_store.save("astronomy", 2026, "eclipses", [accepted])
+
+    report, written_paths = reconcile_calendar(
+        manifest=build_eclipse_manifest(),
+        year=2026,
+        candidate_store=candidate_store,
+        catalog_store=catalog_store,
+        report_store=report_store,
+        run_timestamp="2026-03-03T12-00-00Z",
+    )
+
+    saved = catalog_store.load("astronomy", 2026, "eclipses")
+    assert report.unchanged_occurrences == [eclipse.occurrence_id]
+    assert report.review_report_path is None
+    assert report.review_bundle_path is None
+    assert len(saved) == 1
+    assert saved[0].record["title"] == "Edited Eclipse Title"
+    assert all("review.astronomy-eclipses" not in path.name for path in written_paths)
+
+
 def test_reconcile_writes_catalog_and_reports_without_staging(tmp_path: Path) -> None:
     candidate_store = CandidateStore(base_dir=tmp_path / "normalized")
     catalog_store = CatalogStore(base_dir=tmp_path / "accepted")

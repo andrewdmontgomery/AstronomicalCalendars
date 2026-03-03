@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import json
 from collections import defaultdict
 from dataclasses import dataclass, field
 from datetime import datetime, timezone
@@ -12,6 +13,9 @@ from ..models import (
     AcceptedRecord,
     CalendarManifest,
     CandidateRecord,
+    DESCRIPTION_PROVENANCE_KEY,
+    DESCRIPTION_REVIEW_KEY,
+    GENERATED_CONTENT_HASH_KEY,
     ReconciliationReport,
     ReviewBundle,
     ReviewBundleEntry,
@@ -227,6 +231,10 @@ def _reconcile_source_records(
             result.unchanged_occurrence_ids.append(candidate.occurrence_id)
             continue
 
+        if _matches_reviewed_eclipse_candidate(current, candidate):
+            result.unchanged_occurrence_ids.append(candidate.occurrence_id)
+            continue
+
         previous = AcceptedRecord.from_dict(current.to_dict())
         current.status = "superseded"
         current.superseded_at = accepted_at
@@ -349,6 +357,68 @@ def _accepted_generated_content_hash(accepted: AcceptedRecord) -> str | None:
     if isinstance(generated_content_hash, str) and generated_content_hash:
         return generated_content_hash
     return accepted.content_hash
+
+
+def _matches_reviewed_eclipse_candidate(
+    current: AcceptedRecord,
+    candidate: CandidateRecord,
+) -> bool:
+    if current.status != "active":
+        return False
+    if str(current.record.get("event_type")) != "eclipse":
+        return False
+
+    accepted_metadata = current.record.get("metadata", {})
+    candidate_metadata = candidate.metadata
+    if not isinstance(accepted_metadata, dict) or not isinstance(candidate_metadata, dict):
+        return False
+
+    review = accepted_metadata.get(DESCRIPTION_REVIEW_KEY, {})
+    if not isinstance(review, dict) or review.get("status") != "accepted":
+        return False
+
+    accepted_provenance = accepted_metadata.get(DESCRIPTION_PROVENANCE_KEY, {})
+    candidate_provenance = candidate_metadata.get(DESCRIPTION_PROVENANCE_KEY, {})
+    if not isinstance(accepted_provenance, dict) or not isinstance(candidate_provenance, dict):
+        return False
+
+    if accepted_provenance.get(GENERATED_CONTENT_HASH_KEY) != candidate.content_hash:
+        return False
+    if accepted_provenance.get("facts_hash") != candidate_provenance.get("facts_hash"):
+        return False
+
+    accepted_payload = _review_comparison_payload(current.record)
+    candidate_payload = _review_comparison_payload(candidate.to_dict())
+    return accepted_payload == candidate_payload
+
+
+def _review_comparison_payload(payload: dict[str, object]) -> dict[str, object]:
+    copy = json.loads(json.dumps(payload))
+    for field in (
+        "title",
+        "summary",
+        "description",
+        "content_hash",
+        "candidate_status",
+        "accepted_revision",
+        "first_seen_at",
+        "last_seen_at",
+    ):
+        if field in copy:
+            copy[field] = ""
+
+    source_validation = copy.get("source_validation")
+    if isinstance(source_validation, dict):
+        source_validation["validated_at"] = ""
+
+    metadata = copy.get("metadata", {})
+    if isinstance(metadata, dict):
+        metadata.pop(DESCRIPTION_REVIEW_KEY, None)
+        provenance = metadata.get(DESCRIPTION_PROVENANCE_KEY)
+        if isinstance(provenance, dict):
+            provenance["generated_at"] = ""
+            provenance.pop(GENERATED_CONTENT_HASH_KEY, None)
+    return copy
 
 def _run_timestamp() -> str:
     return datetime.now(timezone.utc).strftime("%Y-%m-%dT%H-%M-%SZ")

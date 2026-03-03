@@ -56,11 +56,17 @@ make install
 
 1. Run `.venv/bin/python -m astrocal reconcile --calendar astronomy-eclipses --year 2026`
    or the equivalent `run` flow.
-2. Review `data/catalog/reports/<run_timestamp>/review.astronomy-eclipses.md`.
-3. If the facts are correct, accept or edit the generated eclipse title, summary, and
-   description in `data/catalog/accepted/astronomy/2026/eclipses.json`.
-4. If the facts are wrong, correct the accepted record content and mark the review outcome
-   accordingly.
+2. Review the generated artifacts:
+   - `data/catalog/reports/<run_timestamp>/review.astronomy-eclipses.md`
+   - `data/catalog/reports/<run_timestamp>/review.astronomy-eclipses.json`
+   - or inspect the persisted bundle with
+     `.venv/bin/python -m astrocal show-review --report data/catalog/reports/<run_timestamp>/review.astronomy-eclipses.json`
+3. List pending persisted review bundles at any time with
+   `.venv/bin/python -m astrocal list-pending-reviews`.
+4. Approve reviewed content without editing accepted catalog JSON directly:
+   - accept as-is with
+     `.venv/bin/python -m astrocal approve-review --report data/catalog/reports/<run_timestamp>/review.astronomy-eclipses.json --reviewer <name> --occurrence-id <occurrence-id>`
+   - or approve edited prose by also passing `--title`, `--summary`, and `--description-file`
 5. Rebuild the published calendar from accepted records with
    `.venv/bin/python -m astrocal build --calendar astronomy-eclipses`.
 

@@ -63,11 +63,11 @@ def run_command(args: argparse.Namespace) -> int:
         report_store=report_store,
         run_timestamp=run_timestamp,
     )
-    review_suffix = (
-        f" review_report={reconcile_report.review_report_path}"
-        if reconcile_report.review_report_path
-        else ""
-    )
+    review_suffix = ""
+    if reconcile_report.review_report_path:
+        review_suffix += f" review_report={reconcile_report.review_report_path}"
+    if reconcile_report.review_bundle_path:
+        review_suffix += f" review_bundle={reconcile_report.review_bundle_path}"
     print(
         f"reconcile {manifest.name} year={args.year} report_dir={report_dir} "
         f"new={len(reconcile_report.new_occurrences)} "
