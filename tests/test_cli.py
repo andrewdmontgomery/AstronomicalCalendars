@@ -397,7 +397,8 @@ def test_show_review_command_supports_markdown_output(capsys, tmp_path) -> None:
 
     assert exit_code == 0
     assert "Review bundle: astronomy-eclipses" in captured.out
-    assert "status=changed group_id=astronomy/eclipse/2026-08-12/total-sun" in captured.out
+    assert "status=changed" in captured.out
+    assert "group_id=astronomy/eclipse/2026-08-12/total-sun" in captured.out
     assert "title=Total Solar Eclipse" in captured.out
 
 

@@ -57,7 +57,8 @@ def _render_entry(entry: ReviewBundleEntry) -> list[str]:
             title = str(accepted_record.get("title", ""))
     lines = [
         f"- {entry.occurrence_id}",
-        f"  status={entry.status} group_id={entry.group_id}",
+        f"  status={entry.status}",
+        f"  group_id={entry.group_id}",
     ]
     if title:
         lines.append(f"  title={title}")
