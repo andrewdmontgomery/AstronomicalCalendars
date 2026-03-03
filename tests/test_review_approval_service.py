@@ -159,3 +159,43 @@ def test_approve_review_rejects_stale_review_entry(tmp_path) -> None:
             catalog_store=store,
             reviewed_at="2026-03-03T01:00:00Z",
         )
+
+
+def test_approve_review_rejects_suspected_removal_entries(tmp_path) -> None:
+    candidate = build_eclipse_candidate()
+    accepted = _accepted_from_candidate(
+        candidate,
+        revision=1,
+        status="suspected-removed",
+        accepted_at="2026-03-01T00:00:00Z",
+        change_reason="Missing from current candidate set",
+    )
+    bundle = ReviewBundle(
+        calendar_name="astronomy-eclipses",
+        year=2026,
+        generated_at="2026-03-03T00-00-00Z",
+        entries=[
+            ReviewBundleEntry(
+                occurrence_id=candidate.occurrence_id,
+                group_id=candidate.group_id,
+                status="suspected-removed",
+                source_name="eclipses",
+                candidate_content_hash=None,
+                generated_content_hash=candidate.content_hash,
+                allowed_actions=["review-removal"],
+                candidate=None,
+                accepted=accepted.to_dict(),
+            )
+        ],
+    )
+    report_path = tmp_path / "review.astronomy-eclipses.json"
+    report_path.write_text(json.dumps(bundle.to_dict(), indent=2, sort_keys=True), encoding="utf-8")
+
+    with pytest.raises(ValueError, match="suspected removal"):
+        approve_review(
+            report_path=report_path,
+            reviewer="tester",
+            occurrence_ids=[candidate.occurrence_id],
+            catalog_store=CatalogStore(base_dir=tmp_path / "accepted"),
+            reviewed_at="2026-03-03T01:00:00Z",
+        )

@@ -71,7 +71,15 @@ def approve_review(
 
     for entry in selected_entries:
         if entry.candidate is None:
-            raise ValueError(f"Review entry {entry.occurrence_id} cannot be approved from candidate data")
+            if entry.status == "suspected-removed":
+                raise ValueError(
+                    f"Review entry {entry.occurrence_id} is a suspected removal and "
+                    "cannot be approved with approve-review"
+                )
+            raise ValueError(
+                f"Review entry {entry.occurrence_id} has no candidate payload and "
+                "cannot be approved with approve-review"
+            )
         if entry.source_name != source_name:
             raise ValueError("Approving multiple source files in one command is not supported")
 
