@@ -6,12 +6,14 @@ SITE_PACKAGES := $(shell $(VENV_PYTHON) -c 'import sysconfig; print(sysconfig.ge
 PTH_FILE := $(SITE_PACKAGES)/astrocal_local.pth
 SKILL_VALIDATOR := /Users/andrew/.codex/skills/.system/skill-creator/scripts/quick_validate.py
 
-.PHONY: help venv install test validate-skills run
+.PHONY: help venv install install-dev install-runtime test validate-skills run
 
 help:
 	@printf "Targets:\n"
 	@printf "  make venv             Create the local Python virtual environment\n"
-	@printf "  make install          Install pinned Python dependencies into .venv\n"
+	@printf "  make install          Install pinned development dependencies into .venv\n"
+	@printf "  make install-dev      Install pinned development dependencies into .venv\n"
+	@printf "  make install-runtime  Install pinned runtime dependencies into .venv\n"
 	@printf "  make test             Run the Python test suite\n"
 	@printf "  make validate-skills  Validate all local skills using the skill validator\n"
 	@printf "  make run YEAR=2026 CALENDAR=astronomy-all  Run the pipeline CLI\n"
@@ -21,8 +23,14 @@ $(VENV)/bin/activate:
 
 venv: $(VENV)/bin/activate
 
-install: $(VENV)/bin/activate requirements.txt requirements-dev.txt
+install: install-dev
+
+install-dev: $(VENV)/bin/activate requirements.txt requirements-dev.txt
 	$(VENV_PIP) install -r requirements-dev.txt
+	printf "%s\n" "$(CURDIR)/src" > "$(PTH_FILE)"
+
+install-runtime: $(VENV)/bin/activate requirements.txt
+	$(VENV_PIP) install -r requirements.txt
 	printf "%s\n" "$(CURDIR)/src" > "$(PTH_FILE)"
 
 test: $(VENV)/bin/activate
