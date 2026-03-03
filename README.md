@@ -72,6 +72,10 @@ make install
 
 ## Maintainer Notes
 
+Expected operator mistakes in `astrocal` should return a short `error: ...` message and
+exit non-zero. Unexpected programming failures should still raise visibly, and review
+bundle errors should name the artifact path that needs attention.
+
 For source-boundary failures, use
 [`skills/debug-source-adapters/SKILL.md`](skills/debug-source-adapters/SKILL.md) to inspect
 reports, diagnostics, raw snapshots, normalized candidates, and reconciliation artifacts in

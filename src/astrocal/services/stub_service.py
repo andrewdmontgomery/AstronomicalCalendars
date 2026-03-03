@@ -8,6 +8,7 @@ from contextlib import contextmanager, nullcontext
 from pathlib import Path
 
 from ..adapters import ASTRONOMY_ADAPTERS
+from ..errors import CliUserError
 from ..manifests import load_manifest
 from ..repositories import CatalogStore, ReportStore
 from ..services.build_ics_service import build_calendar
@@ -129,7 +130,7 @@ def show_review_command(args: argparse.Namespace) -> int:
 def approve_review_command(args: argparse.Namespace) -> int:
     description = None
     if args.description_file is not None:
-        description = args.description_file.read_text(encoding="utf-8")
+        description = _read_description_file(args.description_file)
     result = approve_review(
         report_path=args.report,
         reviewer=args.reviewer,
@@ -176,6 +177,19 @@ def _print_validation_reports(reports: list, year: int) -> None:
         print(
             f"validate {report.source_name} status={report.status} year={year}{reason_suffix}"
         )
+
+
+def _read_description_file(path: Path) -> str:
+    try:
+        return path.read_text(encoding="utf-8")
+    except FileNotFoundError as exc:
+        raise CliUserError(f"Description file not found: {path}") from exc
+    except IsADirectoryError as exc:
+        raise CliUserError(f"Description file is a directory: {path}") from exc
+    except PermissionError as exc:
+        raise CliUserError(f"Description file is not readable: {path}") from exc
+    except UnicodeDecodeError as exc:
+        raise CliUserError(f"Description file is not valid UTF-8: {path}") from exc
 
 
 @contextmanager
